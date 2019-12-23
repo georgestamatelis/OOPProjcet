@@ -9,7 +9,7 @@ private:
   int minimumHonor,effectBonus,effectCost;
   string cardtext;
 public:
-  greenCard(string name,int cost,int AB,int DB,int mh,int eb,int ec,string t,bool b=false)
+  greenCard(string name,int cost,int AB,int DB,int mh,int eb,int ec,string t,bool b=true)
   :Card(name,cost,b),AttackBonus(AB),defenseBonus(DB),minimumHonor(mh),effectBonus(eb),
   effectCost(ec),cardtext(t)
   {

@@ -13,4 +13,7 @@ public:
   Holding(string name,int cost,int Harvest)
   :blackCard(name,cost,false,false),harvestValue(Harvest),upperHolding(false),subHolding(false)
   {}
+  void print(){
+    cout<<"Holding : "<<this->getname()<<endl;
+  }
 };

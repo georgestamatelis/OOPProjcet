@@ -13,6 +13,8 @@ public:
   {
 
   }
-
+  void print(){
+    cout<<"StrongHold name"<<this->getname()<<endl;
+  }
   //StrongHold( int H,int M,int D,)
 };

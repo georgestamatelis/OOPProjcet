@@ -6,8 +6,28 @@ class Card{
 private:
 string name;
 int cost;
+bool isDead;
 bool isTapped;
 public:
   Card(string n,int c,bool is=false)
-  :name(n),cost(c),isTapped(is){}
+  :name(n),cost(c),isTapped(is),isDead(false){}
+  void Utap(){
+    isTapped=false;
+  }
+
+  bool canUse(){
+    return (!isTapped && !isDead);
+  }
+  void tap(){
+    isTapped=true;
+  }
+  void Kill()
+  {
+    isDead=true;
+  }
+  virtual void print()=0;
+  //getters
+  string getname(){
+    return name;
+  }
 };

@@ -11,4 +11,7 @@ public:
   {
 
   }
+  void print(){
+    cout<<"Follower :: name"<<endl;
+  }
 };
