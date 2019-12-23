@@ -7,6 +7,6 @@ private:
  bool isRevealed;
 
 public:
-  blackCard(string n,int c ,bool b1,bool b2=false)
+  blackCard(string n,int c ,bool b1=false,bool b2=false)
   :Card(n,c,b2),isRevealed(b1){}
 };

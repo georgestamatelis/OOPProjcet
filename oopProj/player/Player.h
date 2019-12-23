@@ -12,12 +12,14 @@ class Player
 {
 private:
 	stack <greenCard> fateDeck;
-	stack <blackCard> dynastyDeck;
+	stack <blackCard> dynastyDeck;//provinces
 	greenCard **hand;
-	vector<Holding> Holdings;
-	vector<follower> army;
+	vector<Holding> Holdings;//limits
+	vector<Personality> army;
 
-	unsigned int life_points;
+	StrongHold Honour;
+
+	unsigned int life_points,money,numberOfProvinces;
 
 	void untapEverything();
 	greenCard* drawFateCard();
