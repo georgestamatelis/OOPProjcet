@@ -16,6 +16,8 @@
 #include "../cards/item.h"
 #include "../cards/Personalities.h"
 #include "../cards/Properties.h"
+#include "../cards/Followers.h"
+#include "../cards/Items.h"
 
 #define DECKSIZE          40
 #define MAXDECKSIZE       60
@@ -61,8 +63,8 @@ class DeckBuilder
 		list<greenCard *>* createFateDeck();
 	 	list<blackCard *>* createDynastyDeck();
 
-	 	void /*DeckBuilder::*/deckShuffler(list<blackCard *> *black);
-		void /*DeckBuilder::*/deckShuffler(list<greenCard *> *green);
+	 	void deckShuffler(list<blackCard *> *black);
+		void deckShuffler(list<greenCard *> *green);
 };
 
 #endif
