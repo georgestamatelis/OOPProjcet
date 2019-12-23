@@ -32,7 +32,7 @@ DeckBuilder::~DeckBuilder()
 list<greenCard *> *DeckBuilder::createFateDeck()
 {
 	int i;
-	/*for (i = 0; i < NO_FOOTSOLDIER; i++)
+	for (i = 0; i < NO_FOOTSOLDIER; i++)
 		green->push_back(new Footsoldier("Peasants"));
 	for (i = 0; i < NO_ARCHER; i++)
 		green->push_back(new Archer("Elite Troops"));
@@ -55,7 +55,7 @@ list<greenCard *> *DeckBuilder::createFateDeck()
 		green->push_back(new Ninjato("Butterfly Dagger"));
 	for (i = 0; i < NO_WAKIZASHI; i++)
 		green->push_back(new Wakizashi("Kusanagi"));
-*/
+
 	return green;
 }
 
