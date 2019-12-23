@@ -6,4 +6,5 @@ class follower:public greenCard
 private:
 
 public:
+//  follower()
 };
