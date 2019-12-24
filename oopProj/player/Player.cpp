@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Player.h"
-#include "../external dependencies/Deckbuilder.hpp"
+#include "../external dependenciesDeckbuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honour("Perdikopanis"){
-	DeckBuilder db; 
+	static DeckBuilder db; 
 	fateDeck=db.createFateDeck();
 	dynastyDeck=db.createDynastyDeck();
 	int i;
@@ -26,21 +26,21 @@ bool Player::PlaceInHand(greenCard &Card){
 
 void Player::untapEverything(){
 	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
-		//(*it)->Utap();
+		(*it)->Utap();
 	}
 	for(list <blackCard*>::iterator it = dynastyDeck->begin(); it != dynastyDeck->end(); it++){
-		//s(*it)->Utap();
+		(*it)->Utap();
 	}
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL){
-			//hand[i]->Utap();
+			hand[i]->Utap();
 		}
 	}
 	for(list <Holding*> :: iterator it = Holdings.begin(); it != Holdings.end(); ++it){
-		//(*it)->Utap();
+		(*it)->Utap();
 	}
 	for(list <Personality*> :: iterator it = army.begin(); it != army.end(); ++it){
-		//(*it)->Utap();
+		(*it)->Utap();
 	}
 }
 
@@ -64,7 +64,13 @@ void Player::printProvinces(){
 
 Player::~Player(){
 	for(int i=0; i<6; i++){
-		//if(hand[i]!=NULL) delete hand[i];
+		if(hand[i]!=NULL) delete hand[i];
 	}
 	delete[] hand;
+	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
+		delete (*it);
+	}
+	for(list <blackCard*>::iterator it = dynastyDeck->begin(); it != dynastyDeck->end(); it++){
+		delete (*it);
+	}
 }
