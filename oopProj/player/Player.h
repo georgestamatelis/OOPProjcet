@@ -25,6 +25,8 @@ public:
 	Player();
 	bool PlaceInHand(greenCard &Card);
 	
+	unordered_map<string,Holding*>& GetProvinces(){return provinces;}
+
 	void untapEverything();
 	void drawFateCard();
 	void revealProvinces() {printProvinces();};
