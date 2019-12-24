@@ -11,7 +11,7 @@ bool isTapped;
 public:
   Card(string n,int c,bool is=false)
   :name(n),cost(c),isTapped(is),isDead(false){}
-  void Utap(){
+  void Untap(){
     isTapped=false;
   }
 
@@ -30,5 +30,4 @@ public:
   string getname(){
     return name;
   }
-  int GetCost(){return cost;}
 };

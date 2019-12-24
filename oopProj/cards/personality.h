@@ -12,6 +12,7 @@ private:
   vector <follower> guards;
   vector <Item> equipment;
 public:
+  int getHonour(){return honour;}
   Personality(string name,int c,bool b1,bool b2,int attack,int defense,int honour,bool isDead)
   :blackCard(name,c,b1,b2),attack(attack),defense(defense),honour(honour),isDead(false)
   {
@@ -42,5 +43,8 @@ public:
   {
     cout<<"Personality :"<<this->getname()<<endl;
   }
-  int GetHonor(){return honour;}
+  /*void Ugrade()
+  {
+    attack+=AttackBonus;
+  }*/
 };

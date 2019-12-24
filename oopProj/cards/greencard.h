@@ -15,5 +15,5 @@ public:
   {
 
   }
-
+ int get_minumumHonor(){return minimumHonor;}
 };

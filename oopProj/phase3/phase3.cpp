@@ -13,7 +13,7 @@ void phase3:: Attack_Choice(int plindex)
  int enemy; string enemyPr;
  cout<<"In which player do you want to attack?"<<endl;
  cin>>enemy;
- cout<<"In which provinces ?"<<endl
+ cout<<"In which provinces ?"<<endl;
  cin>>enemyPr;
 }
 void phase3:: defence_Choise(int plindex){
@@ -21,8 +21,10 @@ void phase3:: defence_Choise(int plindex){
       return;
   Player *temp=players[plindex];
   string prDef;
+  unordered_map<string,Holding*> provinces=temp->GetProvinces();
   cout<<"Which province do you wanna defend?"<<endl;
   cin>>prDef;
+  Holding * underAttack=provinces[prDef];
 }
 void phase3:: play(){
   for(int i=0;i<num_of_players;i++){
