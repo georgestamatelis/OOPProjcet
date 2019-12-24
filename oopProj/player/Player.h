@@ -1,6 +1,6 @@
 #pragma once
-#include <stack>
 #include <list>
+#include <unordered_map>
 #include "../cards/item.h"
 #include "../cards/Holding.h"
 #include "../cards/personality.h"
@@ -14,10 +14,11 @@ class Player
 {
 private:
 	list <greenCard*> *fateDeck;
-	list <blackCard*> *dynastyDeck;//provinces
+	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
 	list<Holding*> Holdings;//limits
 	list<Personality*> army;
+	unordered_map<string,Holding*> provinces;
 	unsigned int life_points,money,numberOfProvinces;
 	StrongHold Honour;	
 public:
@@ -33,5 +34,6 @@ public:
 
 	void AddPersonality(Personality *personality);
 	void printArmy();
+	bool GetMoney(unsigned int amount);
 	~Player();	
 };

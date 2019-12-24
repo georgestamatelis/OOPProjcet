@@ -12,6 +12,12 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honour("Perdikopan
 	for(i=0; i<6; i++){
 		hand[i]=NULL;
 	}
+
+	provinces["farm"]= new Farmland("farm");
+	provinces["mine"]=new Mine("mine");
+	provinces["gold"]= new GoldMine("gold");
+	provinces["crystal"]= new CrystalMine("crystal");
+
 }
 
 bool Player::PlaceInHand(greenCard &Card){
@@ -71,6 +77,13 @@ void Player::printArmy(){
     	(*CurentCard)->print();
 }
 
+bool Player::GetMoney(unsigned int amount){
+	if(amount<=money){
+		money=money-amount;
+		return true;
+	} else return false;
+}
+
 Player::~Player(){
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL) delete hand[i];
@@ -81,5 +94,8 @@ Player::~Player(){
 	}
 	for(list <blackCard*>::iterator it = dynastyDeck->begin(); it != dynastyDeck->end(); it++){
 		delete (*it);
+	}
+	for (auto node : provinces){
+      	delete node.second;
 	}
 }
