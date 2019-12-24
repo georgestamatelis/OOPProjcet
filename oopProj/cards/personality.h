@@ -42,4 +42,5 @@ public:
   {
     cout<<"Personality :"<<this->getname()<<endl;
   }
+  int GetHonor(){return honour;}
 };
