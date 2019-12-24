@@ -30,5 +30,8 @@ public:
 
 	void printHand();
 	void printProvinces();
+
+	void AddPersonality(Personality *personality);
+	void printArmy();
 	~Player();	
 };

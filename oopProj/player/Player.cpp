@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Player.h"
-#include "../external dependenciesDeckbuilder.hpp"
+#include "../external dependencies/Deckbuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honour("Perdikopanis"){
@@ -59,6 +59,15 @@ void Player::printHand(){
 
 void Player::printProvinces(){
 	for (list<blackCard*>::iterator CurentCard = dynastyDeck->begin() ; CurentCard != dynastyDeck->end(); ++CurentCard)
+    	(*CurentCard)->print();
+}
+
+void Player::AddPersonality(Personality *personality){
+	army.push_front(personality);
+}
+
+void Player::printArmy(){
+	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard)
     	(*CurentCard)->print();
 }
 
