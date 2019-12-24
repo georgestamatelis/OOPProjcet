@@ -30,4 +30,5 @@ public:
   string getname(){
     return name;
   }
+  int GetCost(){return cost;}
 };
