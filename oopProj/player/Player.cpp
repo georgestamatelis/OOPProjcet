@@ -3,7 +3,7 @@
 #include "../external dependencies/Deckbuilder.hpp"
 using namespace std;
 
-Player::Player():life_points(4),money(0),numberOfProvinces(4),Honour("Perdikopanis"){
+Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
 	static DeckBuilder db; 
 	fateDeck=db.createFateDeck();
 	dynastyDeck=db.createDynastyDeck();
@@ -68,8 +68,10 @@ void Player::printProvinces(){
     	(*CurentCard)->print();
 }
 
-void Player::AddPersonality(Personality *personality){
+bool Player::AddPersonality(Personality *personality){
+	if(army.size()>60) return false;
 	army.push_front(personality);
+	return true;
 }
 
 void Player::printArmy(){

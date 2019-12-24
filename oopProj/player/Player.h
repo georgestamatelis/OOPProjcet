@@ -19,8 +19,8 @@ private:
 	list<Holding*> Holdings;//limits
 	list<Personality*> army;
 	unordered_map<string,Holding*> provinces;
-	unsigned int life_points,money,numberOfProvinces;
-	StrongHold Honour;	
+	unsigned int life_points,money,numberOfProvinces,honor_points;
+	StrongHold Honor;	
 public:
 	Player();
 	bool PlaceInHand(greenCard &Card);
@@ -34,8 +34,9 @@ public:
 	void printHand();
 	void printProvinces();
 
-	void AddPersonality(Personality *personality);
+	bool AddPersonality(Personality *personality);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
+	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
 	~Player();	
 };
