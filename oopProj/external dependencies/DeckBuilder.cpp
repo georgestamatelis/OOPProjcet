@@ -11,9 +11,9 @@ DeckBuilder::DeckBuilder()
 
 DeckBuilder::~DeckBuilder()
 {
-	list<blackCard *>::iterator it;
+	/*list<blackCard *>::iterator it;
 	list<greenCard *>::iterator it2;
-/*	for (it = black->begin(); it != black->end(); it++)
+	for (it = black->begin(); it != black->end(); it++)
 	{
 		black->remove((*it));
 		delete *it;
@@ -24,9 +24,9 @@ DeckBuilder::~DeckBuilder()
 		green->remove((*it));
 		delete *it;
 		it = green->begin();
-	}*/
+	}
 	delete black;
-	delete green;
+	delete green;*/
 }
 
 list<greenCard *> *DeckBuilder::createFateDeck()
@@ -88,8 +88,8 @@ list<blackCard *> *DeckBuilder::createDynastyDeck()
 		black->push_back(new GoldMine("Konomai Gold Mine"));
 	for (i = 0; i < NO_CRYSTAL_MINE; i++)
 		black->push_back(new CrystalMine("Ichinokawa Crystal Mine"));
-	//for (i = 0; i < NO_SOLO; i++)
-	//	black->push_back(new GiftsandFavour("Gifts and Favors"));
+	for (i = 0; i < NO_SOLO; i++)
+		black->push_back(new GiftsandFavour("Gifts and Favors"));
 
 	return black;
 }

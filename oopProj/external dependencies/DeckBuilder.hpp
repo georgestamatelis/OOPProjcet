@@ -10,6 +10,7 @@
 #include <cstdlib>
 
 #include "../cards/card.h"
+#include "../cards/Stronghold.h"
 #include "../cards/personality.h"
 #include "../cards/Holding.h"
 #include "../cards/follower.h"
