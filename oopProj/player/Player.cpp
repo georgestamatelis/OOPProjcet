@@ -21,6 +21,35 @@ bool Player::PlaceInHand(greenCard &Card){
 	return false;
 }
 
+void Player::untapEverything(){
+	int i;
+	for(i=0; i<fateDeck.size(); i++){
+		fateDeck[i]->Utap();
+	}
+	for(i=0; i<dynastyDeck.size(); i++){
+		dynastyDeck[i]->Utap();
+	}
+	for(int i=0; i<6; i++){
+		if(hand[i]!=NULL){
+			hand[i]->Utap();
+		}
+	}
+	for(i=0; i<Holdings.size(); i++){
+		Holdings[i]->Utap();
+	}
+	for(i=0; i<army.size(); i++){
+		army[i]->Utap();
+	}
+}
+
+greenCard* Player::drawFateCard(){
+	greenCard *FateCard=fateDeck.front();
+	if(PlaceInHand(*FateCard)==true){
+		fateDeck.erase(fateDeck.begin());
+		return FateCard;
+	}else return NULL;
+}
+
 void Player::printHand(){
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL) hand[i]->print();

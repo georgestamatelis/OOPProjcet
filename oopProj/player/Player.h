@@ -13,11 +13,11 @@
 class Player
 {
 private:
-	stack <greenCard*> fateDeck;
+	vector <greenCard*> fateDeck;
 	vector <blackCard*> dynastyDeck;//provinces
 	greenCard **hand;
-	vector<Holding> Holdings;//limits
-	vector<Personality> army;
+	vector<Holding*> Holdings;//limits
+	vector<Personality*> army;
 	unsigned int life_points,money,numberOfProvinces;
 	StrongHold Honour;	
 public:
@@ -25,7 +25,7 @@ public:
 	bool PlaceInHand(greenCard &Card);
 	
 	void untapEverything();
-	greenCard* drawFateCard() {return fateDeck.top();}
+	greenCard* drawFateCard();
 	void revealProvinces() {printProvinces();};
 
 	void printHand();
