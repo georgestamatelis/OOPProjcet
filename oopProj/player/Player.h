@@ -1,6 +1,6 @@
 #pragma once
 #include <stack>
-#include <vector>
+#include <list>
 #include "../cards/item.h"
 #include "../cards/Holding.h"
 #include "../cards/personality.h"
@@ -13,11 +13,11 @@
 class Player
 {
 private:
-	vector <greenCard*> fateDeck;
-	vector <blackCard*> dynastyDeck;//provinces
+	list <greenCard*> *fateDeck;
+	list <blackCard*> *dynastyDeck;//provinces
 	greenCard **hand;
-	vector<Holding*> Holdings;//limits
-	vector<Personality*> army;
+	list<Holding*> Holdings;//limits
+	list<Personality*> army;
 	unsigned int life_points,money,numberOfProvinces;
 	StrongHold Honour;	
 public:
@@ -25,7 +25,7 @@ public:
 	bool PlaceInHand(greenCard &Card);
 	
 	void untapEverything();
-	greenCard* drawFateCard();
+	void drawFateCard();
 	void revealProvinces() {printProvinces();};
 
 	void printHand();

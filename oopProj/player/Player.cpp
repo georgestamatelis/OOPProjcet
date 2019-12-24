@@ -1,9 +1,12 @@
 #include <iostream>
 #include "Player.h"
-
+#include "../external dependencies/Deckbuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honour("Perdikopanis"){
+	DeckBuilder db; 
+	fateDeck=db.createFateDeck();
+	dynastyDeck=db.createDynastyDeck();
 	int i;
 	hand= new greenCard*[6];
 	for(i=0; i<6; i++){
@@ -22,32 +25,30 @@ bool Player::PlaceInHand(greenCard &Card){
 }
 
 void Player::untapEverything(){
-	int i;
-	for(i=0; i<fateDeck.size(); i++){
-		fateDeck[i]->Utap();
+	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
+		//(*it)->Utap();
 	}
-	for(i=0; i<dynastyDeck.size(); i++){
-		dynastyDeck[i]->Utap();
+	for(list <blackCard*>::iterator it = dynastyDeck->begin(); it != dynastyDeck->end(); it++){
+		//s(*it)->Utap();
 	}
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL){
-			hand[i]->Utap();
+			//hand[i]->Utap();
 		}
 	}
-	for(i=0; i<Holdings.size(); i++){
-		Holdings[i]->Utap();
+	for(list <Holding*> :: iterator it = Holdings.begin(); it != Holdings.end(); ++it){
+		//(*it)->Utap();
 	}
-	for(i=0; i<army.size(); i++){
-		army[i]->Utap();
+	for(list <Personality*> :: iterator it = army.begin(); it != army.end(); ++it){
+		//(*it)->Utap();
 	}
 }
 
-greenCard* Player::drawFateCard(){
-	greenCard *FateCard=fateDeck.front();
+void Player::drawFateCard(){
+	greenCard *FateCard=fateDeck->front();
 	if(PlaceInHand(*FateCard)==true){
-		fateDeck.erase(fateDeck.begin());
-		return FateCard;
-	}else return NULL;
+		fateDeck->erase(fateDeck->begin());
+	}else cout << "Hand full!!!" << endl;
 }
 
 void Player::printHand(){
@@ -57,7 +58,7 @@ void Player::printHand(){
 }
 
 void Player::printProvinces(){
-	for (vector<blackCard*>::iterator CurentCard = dynastyDeck.begin() ; CurentCard != dynastyDeck.end(); ++CurentCard)
+	for (list<blackCard*>::iterator CurentCard = dynastyDeck->begin() ; CurentCard != dynastyDeck->end(); ++CurentCard)
     	(*CurentCard)->print();
 }
 
