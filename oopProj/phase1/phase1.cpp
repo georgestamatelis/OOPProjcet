@@ -1,17 +1,16 @@
 #include "phase1.h"
-
-phase1 :: phase1()
+phase1:: phase1(Player **pl,int n)
+:players(pl),num_of_players(n)
 {
-  cout<<"How many players ? :";
-  cin>>num_of_players;
-  num_of_players-=1;
-  players =new Player[num_of_players];
+
+}
+void phase1:: play(){
   for(int i=0;i<num_of_players;i++){
-    players[i].untapEverything();
-    players[i].drawFateCard();
-    players[i].revealProvinces();
-    players[i].printHand();
-    players[i].printProvinces();
+    players[i]->untapEverything();
+    players[i]->drawFateCard();
+    players[i]->revealProvinces();
+    players[i]->printHand();
+    players[i]->printProvinces();
   }
 }
 phase1::~phase1()
