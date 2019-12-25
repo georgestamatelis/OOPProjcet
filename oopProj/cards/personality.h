@@ -12,7 +12,9 @@ private:
   vector <follower> guards;
   vector <Item> equipment;
 public:
+  int getDefence(){return defense;}
   int getHonour(){return honour;}
+  int getAttack(){return attack;}
   Personality(string name,int c,bool b1,bool b2,int attack,int defense,int honour,bool isDead)
   :blackCard(name,c,b1,b2),attack(attack),defense(defense),honour(honour),isDead(false)
   {

@@ -13,6 +13,9 @@ public:
   {
 
   }
+  int getInitialHonor(){return initialHonor;}
+  int getInitialMoney(){return initialMoney;}
+  int getInitialDefense(){return initialDefense;}
   void print(){
     cout<<"StrongHold name"<<this->getname()<<endl;
   }
