@@ -55,12 +55,11 @@ void phase3:: Attack_Choice(int plindex)
  int provincedefence=players[enemy]->getInitalDefense();
  if(totaldamage > personalitydefence+provincedefence)
  {
-     players[enemy]->looseDefencePersonalities(enemyPr)
+     players[enemy]->looseDefencePersonalities(enemyPr);
  }
  else if (totaldamage >personalitydefence && totaldamage< personalitydefence+provincedefence)
  {
-   players[enemy]->looseDefencePersonalities(enemyPr)
-
+   players[enemy]->looseDefencePersonalities(enemyPr);
  }
  else if(totaldamage ==personalitydefence)
  {
@@ -69,7 +68,6 @@ void phase3:: Attack_Choice(int plindex)
  else if(totaldamage < personalitydefence){
 
  }
-
 }
 void phase3:: defence_Choise(int plindex){
   if(plindex>=num_of_players)
