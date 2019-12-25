@@ -11,6 +11,11 @@ for(int i=0;i<num_of_players;i++)
   players[i]=new Player;
 P1=new phase1(players,num_of_players);
 P3=new phase3(players,num_of_players);
+std::vector<Player*> v;
+for(int i=0;i<num_of_players;i++)
+  v.push_back(players[i]);
+cout<<v.size();
+P2=new phase2(v);
 gamePlay();
 }
 bool isWinner(){
@@ -25,6 +30,7 @@ void gameboard:: gamePlay()
   do{
     cout<<"GamePlay Begins"<<endl;
     P1->play();
+    P2->play();
     P3->play();
   }while(!isWinner());
 

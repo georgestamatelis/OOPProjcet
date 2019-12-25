@@ -8,11 +8,13 @@
 #include "../player/Player.h"
 #include "../phase1/phase1.h"
 #include "../phase3/phase3.h"
+#include "../phase2/phase2.h"
 class gameboard
 {
 private:
  phase1 *P1;
  phase3 *P3;
+ phase2 *P2;
  int num_of_players;
  Player ** players;
  vector <Card *> deadcards;
