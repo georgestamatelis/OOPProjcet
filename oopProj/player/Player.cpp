@@ -87,6 +87,10 @@ bool Player::GetMoney(unsigned int amount){
 	} else return false;
 }
 
+void Player::looseDefencePersonalities(string provinceName){
+	provinces.erase(provinceName);
+}
+
 Player::~Player(){
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL) delete hand[i];
