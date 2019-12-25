@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Player.h"
-#include "../dependencies/DeckBuilder.hpp"
+#include "../external_dependencies/DeckBuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
@@ -88,7 +88,12 @@ bool Player::GetMoney(unsigned int amount){
 }
 
 void Player::looseDefencePersonalities(string provinceName){
-	provinces.erase(provinceName);
+	unordered_map<string,Holding*>::iterator province;
+	province=provinces.find(provinceName);
+	
+	if (province != provinces.end()){// Check if iterator points to end of map
+		province->second->Kill();
+	}else cout << "Error!! province: " << provinceName << " does not exist" << endl;
 }
 
 Player::~Player(){
