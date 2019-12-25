@@ -1,7 +1,7 @@
 cc = g++ #-std=c++11 -g3
-OBJECTS = main.cpp gameboard/gameboard.cpp
+OBJECTS = main.cpp ./external_dependencies/*.cpp gameboard/gameboard.cpp phase1/*.cpp phase2/*.cpp phase3/*.cpp player/*.cpp
 cflags=-o
-program=test
+program=prog
 
 test:$(OBJECTS)
 	$(cc) $(OBJECTS) $(cflags) $(program)
