@@ -8,7 +8,7 @@
 #include "../cards/Stronghold.h"
 #include "../cards/follower.h"
 #include "../cards/Followers.h"
-#include "../cards/greenCard.h"
+#include "../cards/greencard.h"
 
 class Player
 {
@@ -20,11 +20,11 @@ private:
 	list<Personality*> army;
 	unordered_map<string,Holding*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
-	StrongHold Honor;	
+	StrongHold Honor;
 public:
 	Player();
 	bool PlaceInHand(greenCard &Card);
-	
+
 	unordered_map<string,Holding*>& GetProvinces(){return provinces;}
 
 	void untapEverything();
@@ -38,5 +38,8 @@ public:
 	void printArmy();
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-	~Player();	
+  list<Personality*>& getArmy(){return army;}
+	int getInitalDefense(){return Honor.getInitialDefense();}
+	void looseDefencePersonalities(string provinceName){}
+	~Player();
 };
