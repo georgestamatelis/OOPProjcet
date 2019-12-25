@@ -1,12 +1,20 @@
 #ifndef _TYPECONVERTER_HPP_
 #define _TYPECONVERTER_HPP_
 
-#include "Card.hpp"
-#include "Personality.hpp"
-#include "Holding.hpp"
-#include "Follower.hpp"
-#include "Follower.hpp"
-#include "Item.hpp"
+#include "../cards/card.h"
+#include "../cards/blackcard.h"
+#include "../cards/follower.h"
+#include "../cards/Followers.h"
+#include "../cards/footsoldier.h"
+#include "../cards/greencard.h"
+#include "../cards/Holding.h"
+#include "../cards/item.h"
+#include "../cards/items.h"
+#include "../cards/personality.h"
+#include "../cards/Personalities.h"
+#include "../cards/Properties.h"
+#include "../cards/Stronghold.h"
+
 
 class TypeConverter
 {

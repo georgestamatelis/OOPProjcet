@@ -1,5 +1,5 @@
 #pragma once
-#include "../dependencies/DeckBuilder.hpp"
+#include "../external_dependencies/DeckBuilder.hpp"
 #include "../player/Player.h"
 
 class phase1
