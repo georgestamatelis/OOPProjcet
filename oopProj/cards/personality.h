@@ -23,9 +23,6 @@ public:
   bool check_dead(){
     return isDead;
   }
-  bool kill(){
-    isDead=true;
-  }
   void Attack(){
     if (!canUse())
       {

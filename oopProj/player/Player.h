@@ -37,7 +37,7 @@ public:
 	bool AddPersonality(Personality *personality);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
-	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+	bool CheckHonor(unsigned int amount){return (amount<=honor_points)? true : false;}
 	list<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
