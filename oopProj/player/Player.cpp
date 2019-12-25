@@ -65,8 +65,10 @@ void Player::printHand(){
 }
 
 void Player::printProvinces(){
-	for (list<blackCard*>::iterator CurentCard = dynastyDeck->begin() ; CurentCard != dynastyDeck->end(); ++CurentCard)
-    	(*CurentCard)->print();
+	//for (list<blackCard*>::iterator CurentCard = dynastyDeck->begin() ; CurentCard != dynastyDeck->end(); ++CurentCard)
+    //	(*CurentCard)->print(); οι Provinces ειπαμε δεν ειναι οι blackcard
+    for (auto province : provinces) 
+        cout << province.second->getname() << endl; 
 }
 
 bool Player::AddPersonality(Personality *personality){
