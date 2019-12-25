@@ -41,5 +41,6 @@ public:
   list<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName){}
+	//int get 
 	~Player();
 };

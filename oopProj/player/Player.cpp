@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Player.h"
-#include "../external_dependencies/DeckBuilder.hpp"
+#include "../dependencies/DeckBuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
