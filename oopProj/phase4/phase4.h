@@ -4,9 +4,12 @@ class Player;//forward declaretion
 
 class phase4{
 	private:
+		Player **players;
+		int num_of_players;
 		void BuyProvince(Player &player);
 		void BuyPersonality(Player &player);
 	public:
-		phase4(Player &player);
-		~phase4();	
+		phase4(Player **players,int num_of_players);
+		void play();
+		~phase4();
 };

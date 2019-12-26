@@ -8,26 +8,34 @@
 
 using namespace std;
 
-phase4::phase4(Player &player){
-	char answer;
-	cout<<"start of phase 2"<<endl;
+phase4::phase4(Player **player,int num_of_players)
+:players(player),num_of_players(num_of_players)
+{
 
-	cout<<"Economy phase\n"<<"Provinces:"<<endl;
-	player.printProvinces();
-	cout<<"would you like to buy any provinces? (y/n)" <<endl;
-	cin >> answer; 
-	while(answer!='y' && answer!='n'){
-		cout << "Please type 'y' for yes and 'n' for no:" << endl;
-		cin >> answer; 
-	}
-	if(answer=='y'){
-		BuyProvince(player);
-	}
-	cout<<"Army:"<<endl;
-	player.printArmy();
 
 }
-
+void phase4::play(){
+	char answer;
+	cout<<"start of phase 2"<<endl;
+ for(int i=0;i<num_of_players;i++)
+ {
+	cout<<"player "<<i+1<<"'s turn"<<endl;
+	Player *player=players[i];
+	cout<<"Economy phase\n"<<"Provinces:"<<endl;
+	player->printProvinces();
+	cout<<"would you like to buy any provinces? (y/n)" <<endl;
+	cin >> answer;
+	while(answer!='y' && answer!='n'){
+		cout << "Please type 'y' for yes and 'n' for no:" << endl;
+		cin >> answer;
+	}
+	if(answer=='y'){
+		BuyProvince(*player);
+	}
+	cout<<"Army:"<<endl;
+	player->printArmy();
+}
+}
 void phase4::BuyProvince(Player &player){
 	Farmland *far;	Mine *mine;	GoldMine *MineG;	CrystalMine *MineC;	GiftsandFavour *GaF;
 	//Plain
@@ -44,7 +52,7 @@ void phase4::BuyProvince(Player &player){
 		case 0:
 	    	return;
 	    case 1:
-	    	far = new Farmland("Farm"); 
+	    	far = new Farmland("Farm");
 	    	if( player.GetMoney(far->GetCost())==true /*&& player.CheckHonor(far->GetHonor())==true*/) {
 	    		if( player.AddProvince(far) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -56,7 +64,7 @@ void phase4::BuyProvince(Player &player){
 			}
 			break;
 		case 2:
-			mine = new Mine("mine"); 
+			mine = new Mine("mine");
 	    	if( player.GetMoney(mine->GetCost())==true /*&& player.CheckHonor(mine->GetHonor())==true*/) {
 	    		if( player.AddProvince(mine) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -68,7 +76,7 @@ void phase4::BuyProvince(Player &player){
 			}
 			break;
 		case 3:
-			MineG = new GoldMine("MineG"); 
+			MineG = new GoldMine("MineG");
 	    	if( player.GetMoney(MineG->GetCost())==true /*&& player.CheckHonor(MineG->GetHonor())==true*/) {
 	    		if( player.AddProvince(MineG) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -80,7 +88,7 @@ void phase4::BuyProvince(Player &player){
 			}
 			break;
 		case 4:
-			MineC = new CrystalMine("MineC"); 
+			MineC = new CrystalMine("MineC");
 	    	if( player.GetMoney(MineC->GetCost())==true /*&& player.CheckHonor(MineC->GetHonor())==true*/) {
 	    		if( player.AddProvince(MineC) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -92,7 +100,7 @@ void phase4::BuyProvince(Player &player){
 			}
 			break;
 		case 5:
-			GaF = new GiftsandFavour("GaF"); 
+			GaF = new GiftsandFavour("GaF");
 	    	if( player.GetMoney(GaF->GetCost())==true /*&& player.CheckHonor(GaF->GetHonor())==true*/) {
 	    		if( player.AddProvince(GaF) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -105,10 +113,10 @@ void phase4::BuyProvince(Player &player){
 			break;
 	}
 	cout << "Would you like to buy any other provinces? (y/n):" << endl;
-	cin >> answer; 
+	cin >> answer;
 	while(answer!='y' && answer!='n'){
 		cout << "Please type 'y' for yes and 'n' for no:" << endl;
-		cin >> answer; 
+		cin >> answer;
 	}
 	if(answer=='y') BuyProvince(player);
 }
@@ -128,7 +136,7 @@ void phase4::BuyPersonality(Player &player){
 		case 0:
 	    	return;
 	    case 1:
-	    	att = new Attacker("Name"); 
+	    	att = new Attacker("Name");
 	    	if( player.GetMoney(att->GetCost())==true && player.CheckHonor(att->getHonour())==true) {
 	    		if( player.AddPersonality(att) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
@@ -140,7 +148,7 @@ void phase4::BuyPersonality(Player &player){
 			}
 			break;
 		case 2:
-			defend = new Defender("Name"); 
+			defend = new Defender("Name");
 	    	if( player.GetMoney(defend->GetCost())==true && player.CheckHonor(defend->getHonour())==true ) {
 	    		if( player.AddPersonality(defend) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;;
@@ -152,7 +160,7 @@ void phase4::BuyPersonality(Player &player){
 			}
 			break;
 		case 3:
-			champ = new Champion("Name"); 
+			champ = new Champion("Name");
 	    	if( player.GetMoney(champ->GetCost())==true && player.CheckHonor(champ->getHonour())==true) {
 	    		if( player.AddPersonality(champ) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
@@ -164,7 +172,7 @@ void phase4::BuyPersonality(Player &player){
 			}
 			break;
 		case 4:
-			chancel = new Chancellor("Name"); 
+			chancel = new Chancellor("Name");
 	    	if( player.GetMoney(chancel->GetCost())==true && player.CheckHonor(chancel->getHonour())==true) {
 	    		if( player.AddPersonality(chancel) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
@@ -176,23 +184,23 @@ void phase4::BuyPersonality(Player &player){
 			}
 			break;
 		case 5:
-			shog = new Shogun("Name"); 
+			shog = new Shogun("Name");
 	    	if( player.GetMoney(shog->GetCost())==true && player.CheckHonor(shog->getHonour())==true) {
 	    		if( player.AddPersonality(shog) == false ){
-	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;	
+	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete shog;
 	    		}
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete shog;
 			}
-			break;		
+			break;
 	}
 	cout << "Would you like to buy any other personalities? (y/n):" << endl;
-	cin >> answer; 
+	cin >> answer;
 	while(answer!='y' && answer!='n'){
 		cout << "Please type 'y' for yes and 'n' for no:" << endl;
-		cin >> answer; 
+		cin >> answer;
 	}
 	if(answer=='y')	BuyPersonality(player);
 }
