@@ -34,7 +34,7 @@ void phase2::BuyPersonality(Player &player){
 	    	return;
 	    case 1:
 	    	att = new Attacker("Name"); 
-	    	if( player.GetMoney(att->GetCost())==true && player.CheckHonor(att->GetHonor())==true) {
+	    	if( player.GetMoney(att->GetCost())==true && player.CheckHonor(att->getHonour())==true) {
 	    		if( player.AddPersonality(att) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
 	    			delete att;
@@ -46,7 +46,7 @@ void phase2::BuyPersonality(Player &player){
 			break;
 		case 2:
 			defend = new Defender("Name"); 
-	    	if( player.GetMoney(defend->GetCost())==true && player.CheckHonor(defend->GetHonor())==true ) {
+	    	if( player.GetMoney(defend->GetCost())==true && player.CheckHonor(defend->getHonour())==true ) {
 	    		if( player.AddPersonality(defend) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;;
 	    			delete defend;
@@ -58,7 +58,7 @@ void phase2::BuyPersonality(Player &player){
 			break;
 		case 3:
 			champ = new Champion("Name"); 
-	    	if( player.GetMoney(champ->GetCost())==true && player.CheckHonor(champ->GetHonor())==true) {
+	    	if( player.GetMoney(champ->GetCost())==true && player.CheckHonor(champ->getHonour())==true) {
 	    		if( player.AddPersonality(champ) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete champ;
@@ -70,7 +70,7 @@ void phase2::BuyPersonality(Player &player){
 			break;
 		case 4:
 			chancel = new Chancellor("Name"); 
-	    	if( player.GetMoney(chancel->GetCost())==true && player.CheckHonor(chancel->GetHonor())==true) {
+	    	if( player.GetMoney(chancel->GetCost())==true && player.CheckHonor(chancel->getHonour())==true) {
 	    		if( player.AddPersonality(chancel) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete chancel;
@@ -82,7 +82,7 @@ void phase2::BuyPersonality(Player &player){
 			break;
 		case 5:
 			shog = new Shogun("Name"); 
-	    	if( player.GetMoney(shog->GetCost())==true && player.CheckHonor(shog->GetHonor())==true) {
+	    	if( player.GetMoney(shog->GetCost())==true && player.CheckHonor(shog->getHonour())==true) {
 	    		if( player.AddPersonality(shog) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;	
 	    			delete shog;
@@ -99,9 +99,7 @@ void phase2::BuyPersonality(Player &player){
 		cout << "Please type 'y' for yes and 'n' for no:" << endl;
 		cin >> answer; 
 	}
-	if(answer=='y'){
-		BuyPersonality(player);
-	}
+	if(answer=='y')	BuyPersonality(player);
 }
 
 void phase2::UpgradePersonality(Personality *personality){

@@ -9,7 +9,7 @@ class Personality:public blackCard
 private:
   int attack,defense,honour;
   bool isDead;
-  vector <follower> guards;
+  vector <follower> guards;//how avout pointers in follower and item?
   vector <Item> equipment;
 public:
   int getDefence(){return defense;}
@@ -41,6 +41,12 @@ public:
   void print()
   {
     cout<<"Personality :"<<this->getname()<<endl;
+  }
+  void AddItem(Item it){
+  	equipment.push_back(it);
+  }
+  void AddPersonality(follower pers){
+  	guards.push_back(pers);
   }
   /*void Ugrade()
   {

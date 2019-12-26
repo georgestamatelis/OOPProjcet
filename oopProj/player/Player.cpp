@@ -73,6 +73,20 @@ void Player::printProvinces(){
 
 bool Player::AddPersonality(Personality *personality){
 	if(army.size()>60) return false;
+	provinces[personality->getname()]= personality;
+	return true;
+}
+
+bool Player::EquipPersonality(std::string name){
+	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard){
+    	if(name.compare((*CurentCard)->getname())==0){
+
+    	}
+	} else return false;
+}
+
+bool Player::AddProvince(Holding *province){
+	if(provinces.size()>60) return false;
 	army.push_front(personality);
 	return true;
 }

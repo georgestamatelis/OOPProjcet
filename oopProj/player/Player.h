@@ -35,6 +35,8 @@ public:
 	void printProvinces();
 
 	bool AddPersonality(Personality *personality);
+	bool EquipPersonality(std::string name);
+	bool AddProvince(Holding *province);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){return (amount<=honor_points)? true : false;}
