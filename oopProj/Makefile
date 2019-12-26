@@ -3,7 +3,7 @@ OBJECTS = main.cpp gameboard/gameboard.cpp phase1/*.cpp phase2/*.cpp phase3/*.cp
 cflags=-o
 program=prog
 
-prog$(OBJECTS)
+prog:$(OBJECTS)
 	$(cc) $(OBJECTS) $(cflags) $(program)
 
 run:$(program)
