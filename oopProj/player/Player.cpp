@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Player.h"
-#include "../external_dependencies/DeckBuilder.hpp"
+#include "../dependencies/DeckBuilder.hpp"
 using namespace std;
 
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
@@ -20,7 +20,23 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	provinces["crystal"]= new CrystalMine("crystal");
 
 }
+void Player::loosePersonalty(string name){
 
+std::list<Personality* >::const_iterator iterator;
+for (iterator = army.begin(); iterator != army.end(); ++iterator)
+{ cout<<"Killing Personality with name: "<<name<<endl;
+	if((*iterator)->getname()==name)
+		(*iterator)->Kill();
+}
+}
+int Player::getPersonalityDamage(string name){
+	std::list<Personality* >::const_iterator iterator;
+	for (iterator = army.begin(); iterator != army.end(); ++iterator)
+	{
+		if((*iterator)->getname()==name)
+			return (*iterator)->getAttack();
+	}
+}
 bool Player::PlaceInHand(greenCard &Card){
 	for(int i=0; i<6; i++){
 		if(hand[i]==NULL){
@@ -43,9 +59,8 @@ void Player::untapEverything(){
 			hand[i]->Untap();
 		}
 	}
-	for(list <Holding*> :: iterator it = Holdings.begin(); it != Holdings.end(); ++it){
-		(*it)->Untap();
-	}
+  for(auto x: provinces)
+	  x.second->Untap();
 	for(list <Personality*> :: iterator it = army.begin(); it != army.end(); ++it){
 		(*it)->Untap();
 	}
@@ -65,32 +80,30 @@ void Player::printHand(){
 }
 
 void Player::printProvinces(){
-	//for (list<blackCard*>::iterator CurentCard = dynastyDeck->begin() ; CurentCard != dynastyDeck->end(); ++CurentCard)
-    //	(*CurentCard)->print(); οι Provinces ειπαμε δεν ειναι οι blackcard
-    for (auto province : provinces) 
-        cout << province.second->getname() << endl; 
+	for(auto x:provinces)
+		x.second->print();
 }
 
 bool Player::AddPersonality(Personality *personality){
 	if(army.size()>60) return false;
-	provinces[personality->getname()]= personality;
+	army.push_front(personality);
 	return true;
 }
-
 bool Player::EquipPersonality(std::string name){
 	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard){
     	if(name.compare((*CurentCard)->getname())==0){
 
+				 return true;
     	}
-	} else return false;
+	}
+	return false;
 }
 
 bool Player::AddProvince(Holding *province){
 	if(provinces.size()>60) return false;
-	army.push_front(personality);
+	provinces[province->getname()]=province;
 	return true;
 }
-
 void Player::printArmy(){
 	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard)
     	(*CurentCard)->print();
@@ -101,15 +114,6 @@ bool Player::GetMoney(unsigned int amount){
 		money=money-amount;
 		return true;
 	} else return false;
-}
-
-void Player::looseDefencePersonalities(string provinceName){
-	unordered_map<string,Holding*>::iterator province;
-	province=provinces.find(provinceName);
-	
-	if (province != provinces.end()){// Check if iterator points to end of map
-		province->second->Kill();
-	}else cout << "Error!! province: " << provinceName << " does not exist" << endl;
 }
 
 Player::~Player(){
@@ -125,5 +129,23 @@ Player::~Player(){
 	}
 	for (auto node : provinces){
       	delete node.second;
+	}
+}
+void Player::looseDefencePersonalities(string provinceName){
+	unordered_map<string,Holding*>::iterator province;
+	province=provinces.find(provinceName);
+	if (province != provinces.end()){// Check if iterator points to end of map
+		province->second->Kill();
+	}else cout << "Error!! province: " << provinceName << " does not exist" << endl;
+}
+void Player:: performSeppuku(){
+	cout<<"Player(name) got Fucked in the ass "<<endl;
+}
+void Player::looseProvince(string name)
+{
+	provinces[name]->Kill();
+	provinces.erase(name);
+	if (honor_points<=0){
+		performSeppuku();
 	}
 }

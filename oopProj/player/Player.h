@@ -16,7 +16,6 @@ private:
 	list <greenCard*> *fateDeck;
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
-	list<Holding*> Holdings;//limits
 	list<Personality*> army;
 	unordered_map<string,Holding*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
@@ -30,7 +29,7 @@ public:
 	void untapEverything();
 	void drawFateCard();
 	void revealProvinces() {printProvinces();};
-
+  void performSeppuku();
 	void printHand();
 	void printProvinces();
 
@@ -39,10 +38,13 @@ public:
 	bool AddProvince(Holding *province);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
-	bool CheckHonor(unsigned int amount){return (amount<=honor_points)? true : false;}
-	list<Personality*>& getArmy(){return army;}
+	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+  list<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
-	//int get 
+	void loosePersonalty(string name);
+	void looseProvince(string name);
+	int getPersonalityDamage(string name);
+	//int get
 	~Player();
 };
