@@ -10,17 +10,21 @@
 #include "../phase3/phase3.h"
 #include "../phase2/phase2.h"
 #include "../phase4/phase4.h"
+#include "../phase5/phase5.h"
 class gameboard
 {
 private:
+ int rounds;
  phase1 *P1;
  phase3 *P3;
  phase2 *P2;
  phase4 *P4;
+ phase5 *P5;
  int num_of_players;
  Player ** players;
  vector <Card *> deadcards;
 public:
+  bool isWinner();
   gameboard();
   void printGameStatistics();
   void gamePlay();

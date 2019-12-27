@@ -16,4 +16,14 @@ public:
 
   }
  int get_minumumHonor(){return minimumHonor;}
+ int get_bonus_cost(){
+   return effectCost;
+ }
+ int get_attack_bonus(){
+   //we assume the user has checked if he can update
+   return AttackBonus;
+ }
+ int get_defence_bonus(){
+   return defenseBonus;
+ }
 };

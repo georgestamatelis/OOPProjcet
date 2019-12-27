@@ -16,7 +16,7 @@ phase4::phase4(Player **player,int num_of_players)
 }
 void phase4::play(){
 	char answer;
-	cout<<"start of phase 2"<<endl;
+	cout<<"START OF PHASE 4"<<endl;
  for(int i=0;i<num_of_players;i++)
  {
 	cout<<"player "<<i+1<<"'s turn"<<endl;

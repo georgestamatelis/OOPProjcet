@@ -50,11 +50,11 @@ void phase3:: Attack_Choice(int plindex)
         totaldamage+=(*it)->getAttack();
       ++it;
  }
- //cout<<"total fuckin damage ="<<totaldamage;
  int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
  int provincedefence=players[enemy]->getInitalDefense();
  bool loss=false;
- if(totaldamage > personalitydefence+provincedefence)
+ cout<<"totaldamage ="<<totaldamage<<" provincedefence = "<<provincedefence<<" personality="<<personalitydefence<<endl;
+ if(totaldamage >= personalitydefence+provincedefence)
  {
     //attacker wins
       players[enemy]->looseDefencePersonalities(enemyPr);
@@ -91,6 +91,9 @@ void phase3:: Attack_Choice(int plindex)
    int totalLoss=personalitydefence-totaldamage;
    underAttack->loosePersonalties(totalLoss);
  }
+ if(loss){
+   temp->looseHonor();
+ }
 }
 void phase3:: defence_Choise(int plindex){
   if(plindex>=num_of_players)
@@ -100,6 +103,10 @@ void phase3:: defence_Choise(int plindex){
   unordered_map<string,Holding*> provinces=temp->GetProvinces();
   cout<<"Which province do you wanna defend?"<<endl;
   cin>>prDef;
+  if(provinces.find(prDef)==provinces.end()){
+    cout<<"Sorry there is no such province"<<endl;
+    return;
+  }
   Holding * underAttack=provinces[prDef];
   bool endinput=false;
   vector<string>defencePers;
@@ -110,7 +117,7 @@ void phase3:: defence_Choise(int plindex){
     cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
     cin>>answer;
     defencePers.push_back(defendant);
-    if(answer=="n" or answer=="N" or answer=="No")
+    if(answer=="n" || answer=="N" || answer=="No")
        break;
   }
   //done with input now time to add defendants to province

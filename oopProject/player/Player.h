@@ -47,6 +47,7 @@ public:
 	void loosePersonalty(string name);
 	void looseProvince(string name);
 	int getPersonalityDamage(string name);
+	void looseHonor(){honor_points-=1;}
 	inline int isAlive(){ return !lost;}
 	//int get
 	~Player();

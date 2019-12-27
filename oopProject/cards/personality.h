@@ -9,8 +9,8 @@ class Personality:public blackCard
 private:
   int attack,defense,honour;
   bool isDead;
-  vector <follower> guards;
-  vector <Item> equipment;
+  vector <follower*> guards;
+  vector <Item*> equipment;
 public:
   int getDefence(){return defense;}
   int getHonour(){return honour;}
@@ -43,8 +43,8 @@ public:
   {
     cout<<"Personality :"<<this->getname()<<endl;
   }
-  /*void Ugrade()
-  {
-    attack+=AttackBonus;
-  }*/
+  void addFollower(follower *guard){ guards.push_back(guard);}
+  void addEquipment(Item *it){
+    equipment.push_back(it);
+  }
 };

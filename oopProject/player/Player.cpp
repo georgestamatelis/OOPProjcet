@@ -15,6 +15,7 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	}
   money=Honor.getInitialMoney();
 	honor_points=Honor.getInitialMoney();
+	provinces["tester"]=new Plain("tester");
 	provinces["farm"]= new Farmland("farm");
 	provinces["mine"]=new Mine("mine");
 	provinces["gold"]= new GoldMine("gold");
@@ -82,6 +83,7 @@ void Player::printHand(){
 
 void Player::printProvinces(){
 	for(auto x:provinces)
+	 if(x.second->canUse())
 		x.second->print();
 }
 
@@ -144,7 +146,7 @@ void Player:: performSeppuku(){
 	cout<<"Player(name) got Fucked in the ass "<<endl;
 }
 void Player::looseProvince(string name)
-{
+{	cout <<"Kiling province "<<name;
 	provinces[name]->Kill();
 	provinces.erase(name);
 	if (honor_points<=0){
