@@ -16,6 +16,7 @@ private:
 	list <greenCard*> *fateDeck;
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
+	bool lost;
 	list<Personality*> army;
 	unordered_map<string,Holding*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
@@ -32,6 +33,7 @@ public:
   void performSeppuku();
 	void printHand();
 	void printProvinces();
+	void discardSurplusFateCards();
 
 	bool AddPersonality(Personality *personality);
 	bool EquipPersonality(std::string name);
@@ -45,6 +47,7 @@ public:
 	void loosePersonalty(string name);
 	void looseProvince(string name);
 	int getPersonalityDamage(string name);
+	inline int isAlive(){ return !lost;}
 	//int get
 	~Player();
 };

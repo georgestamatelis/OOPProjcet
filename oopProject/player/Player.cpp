@@ -6,6 +6,7 @@ using namespace std;
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
 	static DeckBuilder db;
 	fateDeck=db.createFateDeck();
+	lost=false;
 	dynastyDeck=db.createDynastyDeck();
 	int i;
 	hand= new greenCard*[6];
@@ -139,6 +140,7 @@ void Player::looseDefencePersonalities(string provinceName){
 	}else cout << "Error!! province: " << provinceName << " does not exist" << endl;
 }
 void Player:: performSeppuku(){
+	lost=true;
 	cout<<"Player(name) got Fucked in the ass "<<endl;
 }
 void Player::looseProvince(string name)
@@ -148,4 +150,7 @@ void Player::looseProvince(string name)
 	if (honor_points<=0){
 		performSeppuku();
 	}
+}
+void Player:: discardSurplusFateCards(){
+
 }
