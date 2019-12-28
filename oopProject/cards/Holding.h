@@ -9,6 +9,7 @@ private:
   int harvestValue;//returns per round
   bool upperHolding,subHolding;
   vector<Personality *>defendants;
+  bool full_chain;
 public:
   Holding(string name,int c,bool b1,bool b2,int hv,bool upH=false,bool subH=false)
   :blackCard(name,c,b1,b1),harvestValue(hv),upperHolding(upH),subHolding(subH)
@@ -20,7 +21,6 @@ public:
     cout<<"Holding : "<<this->getname()<<endl;
   }
   void addDefandant(Personality* name){
-    //cout<<"fack yes"<<endl;
     defendants.push_back(name);
   }
   int getDefenerPoints(){
@@ -38,4 +38,37 @@ public:
        defendants[i]->Kill();
     }
   }
+  int get_harvest_value(){
+    int total_money=harvestValue;
+    if(upperHolding){
+      if(return_type()==2)
+      {
+        if(!subHolding)
+          total_money+=5;
+        else
+          total_money+=harvestValue;
+      }
+      else if(return_type()==1)
+      {
+        total_money+=2;
+      }
+    }
+////////////////////////////////////
+    if(subHolding){
+      if(return_type()==3)
+      {
+        total_money+=harvestValue;
+      }
+      else if(return_type()==2){
+        total_money+=4;
+      }
+    }
+    return total_money;
+  }
+  virtual int return_type(){return 0;}
+  bool has_upperholding(){return upperHolding;}
+  bool has_subholding(){return subHolding;}
+  void setU(){upperHolding=true;}
+  void setS(){subHolding=true;}
+  void setFC(){full_chain=true;}
 };
