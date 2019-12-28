@@ -1,4 +1,4 @@
-
+#include <sstream>
 #include "phase3.h"
 phase3:: phase3(Player **pls,int n)
 :players(pls),num_of_players(n)
@@ -15,7 +15,7 @@ void phase3:: Attack_Choice(int plindex)
  cin>>enemy;
  if(enemy<=0 || enemy >num_of_players)
   {
-    cout<<"Fuck you"<<endl;
+    cout<<"Sorry there is no such player"<<endl;
     return ;
   }
  enemy-=1;
@@ -48,6 +48,7 @@ void phase3:: Attack_Choice(int plindex)
    if(find(attackersVector.begin(),attackersVector.end(),(*it)->getname())!=attackersVector.end())
       if((*it)->canUse())
         totaldamage+=(*it)->getAttack();
+      cout<<(*it)->getname()<<endl;;
       ++it;
  }
  int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
@@ -131,11 +132,26 @@ void phase3:: defence_Choise(int plindex){
   }
 }
 void phase3:: play(){
+  cout<<"PHASE 3  || BATTLE PHASE"<<endl;
+  cin.clear();
+  string line;int choice=0; //stringstream ss;
   for(int i=0;i<num_of_players;i++){
     cout<<"Player "<<i+1<<"turn:"<<endl;
-    cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn"<<endl;
-    int choice;
-    cin>>choice;
+    cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
+    cin>>line;
+    stringstream ss(line);
+    ss>>choice;
+    while(choice<1 || choice>3)
+    {
+      cout<<"Type a number between 1 and 3 ,Try again"<<endl;
+      cin.clear();
+      ss.str("");
+      ss.clear();
+      getline(cin,line);
+      ss<<line;
+      ss>>choice;
+    }
+
     switch (choice){
       case 1:
        Attack_Choice(i);
@@ -146,8 +162,8 @@ void phase3:: play(){
       case 3:
         break;
       default:
-        cout<<"Wrong Choice please play again: ";
-        cin>>choice;
+        cout<<"Something is wrong with my code"<<endl;
+        break;
     }
 
   }
