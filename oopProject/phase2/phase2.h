@@ -7,7 +7,9 @@ class phase2{
 	private:
 		vector <Player*> *players;
 		void BuyPersonality(Player &player);
+		void equipPhase(Player &player);
 		void UpgradePersonality(Personality *personality);
+		bool YesOrNo();
 	public:
 		phase2(vector <Player*> &players);
 		void play();

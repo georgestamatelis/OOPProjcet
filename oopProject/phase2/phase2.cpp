@@ -3,6 +3,16 @@
 
 using namespace std;
 
+bool phase2::YesOrNo(){
+	char answer;
+	cin >> answer;
+	while(answer!='y' && answer!='n'){
+		cout << "Please type 'y' for yes and 'n' for no:" << endl;
+		cin >> answer;
+	}
+	return (answer=='y')? true : false;
+}
+
 phase2::phase2(vector <Player*> &giver_players):players(&giver_players){
 	cout<<"Start of phase 2"<<endl;
 }
@@ -10,13 +20,36 @@ phase2::phase2(vector <Player*> &giver_players):players(&giver_players){
 void phase2::play(){
 	int i=1;
 	for(vector <Player*>::iterator CurentPlayer = players->begin(); CurentPlayer != players->end(); CurentPlayer++){
-		cout << "Player number " << i << "\n\nHand cards:" << endl;
-	 	(*CurentPlayer)->printHand();
-		cout << "Army: " << endl;
-		(*CurentPlayer)->printArmy();
-		BuyPersonality(**CurentPlayer);
+		cout << "Player number " << i << "\n\nWould you like to equip your army with cards from your army? (y/n)" << endl;
+		if(YesOrNo()==true)	equipPhase(**CurentPlayer);
+		cout << "Would you like to Buy A Personality? (y/n)" << endl;
+		if(YesOrNo()==true)	BuyPersonality(**CurentPlayer);
 		i++;
 	}
+}
+
+void phase2::equipPhase(Player &player){
+	string name;
+	int num;
+	cout << "Your hand cards:" << endl;
+	player.printHand();
+	cout << "Your army: " << endl;
+	player.printArmy();
+	cout << "Please type the name of the personality and the number of the item you want to equip him with" << endl;
+	cout << "Name of personality: "; 
+	cin >> name;
+	while(player.CheckName(name)==false){
+		cout << "The name you gave does not exist, please retype the name of the personality you want to equip" << endl;
+		cin >> name;
+	}
+	cout << "Number of card in hand: ";
+	Read::Int(num);
+	while(player.CheckInHand(num)==false){
+		cout << "The number of the card you typed does not exist please retype the number of the card you want from hand" << endl;
+		Read::Int(num);
+	}
+	greencard *equipment=DrawFromHand(num);
+	Player->EquipPersonality(name,equipment);
 }
 
 void phase2::BuyPersonality(Player &player){

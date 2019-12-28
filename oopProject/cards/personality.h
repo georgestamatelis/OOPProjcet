@@ -43,8 +43,8 @@ public:
   {
     cout<<"Personality :"<<this->getname()<<endl;
   }
+  void Equip(follower *guard){ guards.push_back(guard); }
+  void Equip(Item *it){ equipment.push_back(it); }
   void addFollower(follower *guard){ guards.push_back(guard);}
-  void addEquipment(Item *it){
-    equipment.push_back(it);
-  }
+  void addEquipment(Item *it){ equipment.push_back(it);  }
 };
