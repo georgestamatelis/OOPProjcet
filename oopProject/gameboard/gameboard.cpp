@@ -1,12 +1,27 @@
 #include "gameboard.h"
+#include <sstream>
 #include <iostream>
 
 gameboard::gameboard()
 {
   rounds=0;
+  string line;
   cout<<"Initializing GameBoard"<<endl;
   cout<<"How many players ? :";
-  cin>>num_of_players;
+  getline(cin,line);
+  stringstream ss(line);
+  ss>>num_of_players;
+  while(num_of_players<=1 || num_of_players>8)
+  {
+    cout<<"Sorry the rules say there must be 2-8 players  Try again"<<endl;
+    cin.clear();
+    ss.str("");
+    ss.clear();
+    getline(cin,line);
+    ss<<line;
+    ss>>num_of_players;
+    //cout<<num_of_players<<" "<<line<<endl;
+  }
   players =new Player *[num_of_players];
   for(int i=0;i<num_of_players;i++)
     players[i]=new Player;
