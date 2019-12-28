@@ -49,6 +49,7 @@ public:
 	int getPersonalityDamage(string name);
 	void looseHonor(){honor_points-=1;}
 	inline int isAlive(){ return !lost;}
+	void add_money();
 	//int get
 	~Player();
 };
