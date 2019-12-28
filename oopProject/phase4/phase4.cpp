@@ -5,6 +5,7 @@
 #include "../cards/item.h"
 #include "../cards/follower.h"
 #include "../cards/Properties.h"
+#include "../dependencies/Read.hpp"
 
 using namespace std;
 
@@ -17,24 +18,23 @@ phase4::phase4(Player **player,int num_of_players)
 void phase4::play(){
 	char answer;
 	cout<<"START OF PHASE 4"<<endl;
- for(int i=0;i<num_of_players;i++)
- {
-	cout<<"player "<<i+1<<"'s turn"<<endl;
-	Player *player=players[i];
-	cout<<"Economy phase\n"<<"Provinces:"<<endl;
-	player->printProvinces();
-	cout<<"would you like to buy any provinces? (y/n)" <<endl;
-	cin >> answer;
-	while(answer!='y' && answer!='n'){
-		cout << "Please type 'y' for yes and 'n' for no:" << endl;
+	 	for(int i=0;i<num_of_players;i++){
+		cout<<"player "<<i+1<<"'s turn"<<endl;
+		Player *player=players[i];
+		cout<<"Economy phase\n"<<"Provinces:"<<endl;
+		player->printProvinces();
+		cout<<"would you like to buy any provinces? (y/n)" <<endl;
 		cin >> answer;
+		while(answer!='y' && answer!='n'){
+			cout << "Please type 'y' for yes and 'n' for no:" << endl;
+			cin >> answer;
+		}
+		if(answer=='y'){
+			BuyProvince(*player);
+		}
+		cout<<"Army:"<<endl;
+		player->printArmy();
 	}
-	if(answer=='y'){
-		BuyProvince(*player);
-	}
-	cout<<"Army:"<<endl;
-	player->printArmy();
-}
 }
 void phase4::BuyProvince(Player &player){
 	Farmland *far;	Mine *mine;	GoldMine *MineG;	CrystalMine *MineC;	GiftsandFavour *GaF;
@@ -43,10 +43,10 @@ void phase4::BuyProvince(Player &player){
 	char answer;
 	cout << "\nAvailable provinces to buy:\n 	1. Farmland (price) | 2. Mine (price) | 3. GoldMine (price) | 4. CrystalMine (price) | 5. GiftsandFavour (price)" << endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	cin >> input;
+	Read::Int(input);
 	while(input <0 || input >5){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		cin >> input;
+		Read::Int(input);
 	}
 	switch(input) {
 		case 0:
@@ -127,10 +127,10 @@ void phase4::BuyPersonality(Player &player){
 	char answer;
 	cout << "\nAvailable personalities to buy:\n 	1. Attacker (price) | 2. Defender (price) | 3. Champion (price) | 4. Chancellor (price) | 5. Shogun (price)" << endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	cin >> input;
+	Read::Int(input);
 	while(input <0 || input >5){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		cin >> input;
+		Read::Int(input);
 	}
 	switch(input) {
 		case 0:

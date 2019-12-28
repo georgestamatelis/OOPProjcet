@@ -1,4 +1,5 @@
 #include "phase2.h"
+#include "../dependencies/Read.hpp"
 
 using namespace std;
 
@@ -24,10 +25,10 @@ void phase2::BuyPersonality(Player &player){
 	char answer;
 	cout << "\nAvailable personalities to buy:\n 	1. Attacker price::"<<5<<"| 2. Defender price: "<<5<<" | 3. Champion price: "<< 30 <<" | 4. Chancellor price: "<< 15<<" | 5. Shogun price: " << 15<< endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	cin >> input;
-	while(input !=0 & input!=1 && input!=2 && input !=3 && input !=4 && input !=5){
+	Read::Int(input);
+	while(input<0 || input>5){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		cin >> input;
+		Read::Int(input);
 	}
 	switch(input) {
 		case 0:
