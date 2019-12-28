@@ -50,6 +50,7 @@ public:
 	int getPersonalityDamage(string name);
 	void looseHonor(){honor_points-=1;}
 	inline int isAlive(){ return !lost;}
+	void add_money();
 	inline bool HasArmy(){army.empty();};
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL?) false : true;}
