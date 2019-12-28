@@ -37,11 +37,11 @@ public:
 	void discardSurplusFateCards();
 
 	bool AddPersonality(Personality *personality);
-	bool EquipPersonality(std::string name,greenCard *equipment=NULL);
+	bool EquipPersonality(const std::string &name,int CardIndex);
 	bool AddProvince(Holding *province);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
-	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+	inline bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
   	list<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
@@ -51,9 +51,9 @@ public:
 	void looseHonor(){honor_points-=1;}
 	inline int isAlive(){ return !lost;}
 	void add_money();
-	inline bool HasArmy(){army.empty();};
+	inline bool HasArmy(){ return !army.empty();};
 	bool CheckName(const std::string &name);
-	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL?) false : true;}
+	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 	//int get
 	~Player();
 };

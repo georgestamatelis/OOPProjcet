@@ -101,14 +101,14 @@ greenCard* Player::DrawFromHand(int index){
 	int i,y;
 	for(i=0; i<6; i++){
 		if(hand[i]!=NULL){
-			if( name.compare(hand[i]->getname())==0 ){
+			//if( name.compare(hand[i]->getname())==0 ){
 				tmp=hand[i];
 				for(y=i; y<5; y++){
 					hand[y]=hand[y+1];
 				}
 				hand[y]=NULL;
 				return tmp;
-			}
+			//}
 		}
 	}
 	return NULL;
@@ -131,8 +131,9 @@ bool Player::AddPersonality(Personality *personality){
 	army.push_front(personality);
 	return true;
 }
-bool Player::EquipPersonality(std::string name,greenCard *equipment=NULL){
-	if(equipment==NULL) return false;
+bool Player::EquipPersonality(const std::string &name,int CardIndex){//asuming that name and cad index are valiable 
+	greenCard* equipment=hand[CardIndex];
+
 	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard){
     	if(name.compare((*CurentCard)->getname())==0){
     		(*CurentCard)->Equip(equipment);

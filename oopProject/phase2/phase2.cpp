@@ -1,3 +1,5 @@
+#include <limits>
+#include <iostream>
 #include "phase2.h"
 #include "../dependencies/Read.hpp"
 
@@ -29,6 +31,7 @@ void phase2::play(){
 }
 
 void phase2::equipPhase(Player &player){
+	if(player.HasArmy()==false) {cout << "Sorry, you dont have an army to equip." << endl; return;}
 	string name;
 	int num;
 	cout << "Your hand cards:" << endl;
@@ -41,6 +44,8 @@ void phase2::equipPhase(Player &player){
 	while(player.CheckName(name)==false){
 		cout << "The name you gave does not exist, please retype the name of the personality you want to equip" << endl;
 		cin >> name;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 	cout << "Number of card in hand: ";
 	Read::Int(num);
@@ -48,14 +53,16 @@ void phase2::equipPhase(Player &player){
 		cout << "The number of the card you typed does not exist please retype the number of the card you want from hand" << endl;
 		Read::Int(num);
 	}
-	greencard *equipment=DrawFromHand(num);
-	Player->EquipPersonality(name,equipment);
+	player.EquipPersonality(name,num);
+	cout << "Would you like to Equip any other BuyPersonalities? (y/n): ";
+	if(YesOrNo()==true){
+		equipPhase(player);
+	}
 }
 
 void phase2::BuyPersonality(Player &player){
 	Attacker *att;	Defender *defend;	Champion *champ;	Chancellor *chancel;	Shogun *shog;
 	int input;
-	char answer;
 	cout << "\nAvailable personalities to buy:\n 	1. Attacker price::"<<5<<"| 2. Defender price: "<<5<<" | 3. Champion price: "<< 30 <<" | 4. Chancellor price: "<< 15<<" | 5. Shogun price: " << 15<< endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
 	Read::Int(input);
@@ -72,7 +79,7 @@ void phase2::BuyPersonality(Player &player){
 	    		if( player.AddPersonality(att) == false ) {
 	    			cout << "You have exceed the number of cards you can have in the deck!!" << endl;
 	    			delete att;
-	    		} else UpgradePersonality(att);
+	    		} else UpgradePersonality(player,att);
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete att;
@@ -84,7 +91,7 @@ void phase2::BuyPersonality(Player &player){
 	    		if( player.AddPersonality(defend) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;;
 	    			delete defend;
-	    		} else UpgradePersonality(defend);
+	    		} else UpgradePersonality(player,defend);
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete defend;
@@ -96,7 +103,7 @@ void phase2::BuyPersonality(Player &player){
 	    		if( player.AddPersonality(champ) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete champ;
-	    		} else UpgradePersonality(champ);
+	    		} else UpgradePersonality(player,champ);
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete champ;
@@ -108,7 +115,7 @@ void phase2::BuyPersonality(Player &player){
 	    		if( player.AddPersonality(chancel) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete chancel;
-	    		} else UpgradePersonality(chancel);
+	    		} else UpgradePersonality(player,chancel);
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete chancel;
@@ -120,7 +127,7 @@ void phase2::BuyPersonality(Player &player){
 	    		if( player.AddPersonality(shog) == false ){
 	    			cout << "You have exceeded the number of cards you can have in the deck!!" << endl;
 	    			delete shog;
-	    		} else UpgradePersonality(shog);
+	    		} else UpgradePersonality(player,shog);
 	    	}else{
 				cout << "Not enough money or/and honor!" << endl;
 				delete shog;
@@ -128,19 +135,12 @@ void phase2::BuyPersonality(Player &player){
 			break;
 	}
 	cout << "Would you like to buy any other personalities? (y/n):" << endl;
-	cin >> answer;
-	while(answer!='y' && answer!='n'){
-		cout << "Please type 'y' for yes and 'n' for no:" << endl;
-		cin >> answer;
-	}
-	if(answer=='y'){
-		BuyPersonality(player);
-	}
+	if(YesOrNo()==true) BuyPersonality(player);
 }
 
-void phase2::UpgradePersonality(Personality *personality){
+void phase2::UpgradePersonality(Player &player,Personality *personality){
 	char answer;
-	cout << "Would you like to upgrade this personality? (y/n)" << endl;
+	cout << "Would you like to upgrade this personality? [cost 69$] (y/n)" << endl;
 	cin >> answer;
 	while(answer!='y' && answer!='n'){
 		cout << "Please type 'y' for yes and 'n' for no:" << endl;
@@ -148,6 +148,11 @@ void phase2::UpgradePersonality(Personality *personality){
 	}
 	if(answer=='n') return;
 	//upgrade card here !!!! do not forget!!!!
+	if(player.CheckHonor(personality->getHonour())){
+		if(player.GetMoney(/*personality->getHonour()????*/69)==true){
+			/*personality->upgradeAtack or/and defense idk()*/
+		}
+	}
 }
 
 phase2::~phase2(){

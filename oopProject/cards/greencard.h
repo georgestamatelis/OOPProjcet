@@ -26,4 +26,5 @@ public:
  int get_defence_bonus(){
    return defenseBonus;
  }
+ virtual std::string GetType() =0;
 };
