@@ -3,6 +3,27 @@
 #include "../dependencies/DeckBuilder.hpp"
 using namespace std;
 
+void merge(Holding *up,Holding *sub){
+	sub->setU();
+	up->setS();
+	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
+		up->setFC();
+}
+bool Compatible(Holding *a,Holding *b){
+		if(a->return_type() == b->return_type())
+			return false;
+	if(a->return_type() > b->return_type()){
+		if(!a->has_subholding() && !b->has_upperholding())
+			return true;
+		return false;
+	}
+	if(a->return_type() < b->return_type()){
+		if(!a->has_upperholding() && !b->has_subholding())
+			return true;
+		return false;
+	}
+}
+///////////////////////////////////////////////
 Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
 	static DeckBuilder db;
 	fateDeck=db.createFateDeck();
@@ -123,6 +144,16 @@ bool Player::EquipPersonality(std::string name,greenCard *equipment=NULL){
 
 bool Player::AddProvince(Holding *province){
 	if(provinces.size()>60) return false;
+	for(auto x: provinces)
+	{
+		if(Compatible(x.second,province))
+		{
+			if(x.second->return_type() >province->return_type())
+				merge(x.second,province);
+			else
+				merge(province,x.second);
+		}
+	}
 	provinces[province->getname()]=province;
 	return true;
 }
@@ -184,4 +215,8 @@ bool Player::CheckName(const string &name){
 
 void Player::discardSurplusFateCards(){
 
+}
+void Player:: add_money(){
+	for(auto x: provinces)
+		money+=x.second->get_harvest_value();
 }
