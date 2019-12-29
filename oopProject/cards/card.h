@@ -9,6 +9,7 @@ int cost;
 bool isDead;
 bool isTapped;
 public:
+  
   Card(string n,int c,bool is=false)
   :name(n),cost(c),isTapped(is),isDead(false){}
   void Untap(){

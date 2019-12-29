@@ -39,7 +39,7 @@ void phase2::equipPhase(Player &player){
 	cout << "Your army: " << endl;
 	player.printArmy();
 	cout << "Please type the name of the personality and the number of the item you want to equip him with" << endl;
-	cout << "Name of personality: "; 
+	cout << "Name of personality: ";
 	cin >> name;
 	while(player.CheckName(name)==false){
 		cout << "The name you gave does not exist, please retype the name of the personality you want to equip" << endl;

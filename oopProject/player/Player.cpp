@@ -95,7 +95,6 @@ void Player::drawFateCard(){
 		fateDeck->erase(fateDeck->begin());
 	}else cout << "Hand full!!!" << endl;
 }
-
 greenCard* Player::DrawFromHand(int index){
 	greenCard* tmp;
 	int i,y;
@@ -116,7 +115,7 @@ greenCard* Player::DrawFromHand(int index){
 
 void Player::printHand(){
 	for(int i=0; i<6; i++){
-		if(hand[i]!=NULL) {cout << i+1 << ". "; hand[i]->print();}
+		if(hand[i]!=NULL) hand[i]->print();
 	}
 }
 
@@ -131,7 +130,8 @@ bool Player::AddPersonality(Personality *personality){
 	army.push_front(personality);
 	return true;
 }
-bool Player::EquipPersonality(const std::string &name,int CardIndex){//asuming that name and cad index are valiable 
+bool Player::EquipPersonality(const std::string &name,int CardIndex){
+	//asuming that name and cad index are valiable
 	greenCard* equipment=hand[CardIndex];
 
 	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard){
@@ -192,7 +192,7 @@ void Player::looseDefencePersonalities(string provinceName){
 		province->second->Kill();
 	}else cout << "Error!! province: " << provinceName << " does not exist" << endl;
 }
-void Player::performSeppuku(){
+void Player:: performSeppuku(){
 	lost=true;
 	cout<<"Player(name) got Fucked in the ass "<<endl;
 }
@@ -204,20 +204,16 @@ void Player::looseProvince(string name)
 		performSeppuku();
 	}
 }
-
-bool Player::CheckName(const string &name){
-	for(int i=0; i<6; i++){
-		if(hand[i]!=NULL){
-			if( name.compare(hand[i]->getname())==0 ) return true;
-		}
-	}
-	return false;
-}
-
-void Player::discardSurplusFateCards(){
+void Player:: discardSurplusFateCards(){
 
 }
 void Player:: add_money(){
 	for(auto x: provinces)
 		money+=x.second->get_harvest_value();
+}
+bool Player::CheckName(const string &name){
+	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard)
+			if((*CurentCard)->getname()==name)
+				return true;
+	return false;
 }

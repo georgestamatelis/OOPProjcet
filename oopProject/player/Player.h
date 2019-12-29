@@ -29,20 +29,19 @@ public:
 
 	void untapEverything();
 	void drawFateCard();
-	greenCard* DrawFromHand(int index);
 	void revealProvinces() {printProvinces();};
- 	void performSeppuku();
+  void performSeppuku();
 	void printHand();
 	void printProvinces();
 	void discardSurplusFateCards();
 
 	bool AddPersonality(Personality *personality);
-	bool EquipPersonality(const std::string &name,int CardIndex);
+	bool EquipPersonality(const std::string &name,int );
 	bool AddProvince(Holding *province);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
-	inline bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-  	list<Personality*>& getArmy(){return army;}
+	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+  list<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
 	void loosePersonalty(string name);
@@ -54,6 +53,7 @@ public:
 	inline bool HasArmy(){ return !army.empty();};
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
+	greenCard* DrawFromHand(int index);
 	//int get
 	~Player();
 };

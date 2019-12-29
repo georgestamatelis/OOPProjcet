@@ -26,5 +26,11 @@ public:
  int get_defence_bonus(){
    return defenseBonus;
  }
- virtual std::string GetType() =0;
+  virtual std::string GetType() =0;
+  void upgrade(){
+    //we assume check has allready been done and money removed
+    AttackBonus+=effectBonus;
+    defenseBonus+=effectBonus;
+    effectBonus=0;
+  }
 };
