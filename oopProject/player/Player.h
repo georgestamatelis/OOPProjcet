@@ -36,7 +36,8 @@ public:
 	void discardSurplusFateCards();
 
 	bool AddPersonality(Personality *personality);
-	bool EquipPersonality(const std::string &name,int );
+	greenCard *SeeHandCard(int CardIndex);
+	bool EquipPersonality(const std::string &name,greenCard * equipment);
 	bool AddProvince(Holding *province);
 	void printArmy();
 	bool GetMoney(unsigned int amount);

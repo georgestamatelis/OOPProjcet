@@ -11,9 +11,9 @@ namespace Read{
 			//if(input.size()!=ret/10+1) continue;
 			std::cin.clear();
 			std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			std::cout << "!!"<< ret << std::endl;
+			//std::cout << "!!"<< ret << std::endl;
     	}
-    	std::cout << "!!"<< ret << std::endl;
+    	//std::cout << "!!"<< ret << std::endl;
 	}
 	inline int Int(){
 		int ret;
