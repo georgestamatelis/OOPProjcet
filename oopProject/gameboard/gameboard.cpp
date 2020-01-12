@@ -1,6 +1,6 @@
-#include "gameboard.h"
+#include "gameboard.hpp"
 #include <sstream>
-#include "../dependencies/Read.hpp"
+#include "../dependencies/Functionalities.hpp"
 #include <iostream>
 
 gameboard::gameboard()
@@ -9,11 +9,11 @@ gameboard::gameboard()
   string line;
   cout<<"Initializing GameBoard"<<endl;
   cout<<"How many players ? :";
- num_of_players=Read::Int();
+ num_of_players=ReadInt();
  while(num_of_players<=1 || num_of_players>8)
  {
    cout<<"Sorry the rules say there must be 2-8 players  Try again"<<endl;
-   num_of_players=Read::Int();
+   num_of_players=ReadInt();
    //cout<<num_of_players<<" "<<line<<endl;
  }
   players =new Player *[num_of_players];
@@ -44,26 +44,18 @@ bool gameboard::isWinner(){
 void gameboard:: printGameStatistics()
 {
   rounds++;
-  cout<<"END OF ROUND: "<<rounds-1<<endl;
+  cout<<"Round: "<<rounds<<endl;
   int sum=0;
-  cout<<"Player:\t HP:\t Money:\n";
-  for(int i=0; i<num_of_players;i++){
+  for(int i=0;i<num_of_players;i++){
     if(players[i]->isAlive())
-      {
-        sum++;
-        cout<<i+1<<"\t "<<players[i]->getHP()<<"\t"<<players[i]->getMoney()<<endl;
-
-      }
-
+      sum++;
   }
   cout<<"Total alive Players: "<<sum<<"  Total dead players : "<<num_of_players-sum<<endl;
-  cout<<"START OF ROUND: "<<rounds<<endl;
-
 }
 void gameboard:: gamePlay()
 {
-  cout<<"GamePlay Begins"<<endl;
-  do{   
+  do{
+    cout<<"GamePlay Begins"<<endl;
     P1->play();
     P2->play();
     P3->play();

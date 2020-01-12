@@ -9,16 +9,16 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "../cards/card.h"
-#include "../cards/Stronghold.h"
-#include "../cards/personality.h"
-#include "../cards/Holding.h"
-#include "../cards/follower.h"
-#include "../cards/item.h"
-#include "../cards/Personalities.h"
-#include "../cards/Properties.h"
-#include "../cards/Followers.h"
-#include "../cards/Items.h"
+#include "../cards/card.hpp"
+#include "../cards/Stronghold.hpp"
+#include "../cards/personality.hpp"
+#include "../cards/Holding.hpp"
+#include "../cards/follower.hpp"
+#include "../cards/item.hpp"
+#include "../cards/Personalities.hpp"
+#include "../cards/Properties.hpp"
+#include "../cards/Followers.hpp"
+#include "../cards/Items.hpp"
 
 #define DECKSIZE          40
 #define MAXDECKSIZE       60
