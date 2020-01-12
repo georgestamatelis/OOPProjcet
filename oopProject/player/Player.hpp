@@ -9,7 +9,7 @@
 #include "../cards/follower.hpp"
 #include "../cards/Followers.hpp"
 #include "../cards/greencard.hpp"
-
+#include <vector>
 class Player
 {
 private:
@@ -17,15 +17,16 @@ private:
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
 	bool lost;
-	Personality* army[4];
-	unordered_map<string,Holding*> provinces;
+	std::vector<Personality *>army;
+	std::vector<Holding *> Holdings;
+	unordered_map<string,blackCard*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
 	StrongHold Honor;
 public:
 	Player();
 	bool PlaceInHand(greenCard &Card);
 
-	unordered_map<string,Holding*>& GetProvinces(){return provinces;}
+	unordered_map<string,blackCard*>& GetProvinces(){return provinces;}
 
 	void untapEverything();
 	void drawFateCard();
@@ -35,14 +36,14 @@ public:
 	void printProvinces();
 	void discardSurplusFateCards();
 
-	bool AddPersonality(Personality *personality);
+	void AddPersonality(Personality *personality);
 	greenCard *SeeHandCard(int CardIndex);
 	bool EquipPersonality(const std::string &name,greenCard * equipment);
-	bool AddProvince(Holding *province);
+	bool AddProvince(string name);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-	Personality** getArmy(){return army;}
+	vector<Personality* >getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
 	void loosePersonalty(string name);
@@ -55,6 +56,7 @@ public:
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 	greenCard* DrawFromHand(int index);
+	void AddHolding(Holding * province);
 	//int get
 	~Player();
 };

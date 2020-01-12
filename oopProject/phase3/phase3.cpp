@@ -19,7 +19,7 @@ void phase3:: Attack_Choice(int plindex)
     return ;
   }
  enemy-=1;
- unordered_map<string,Holding* >enemyProvinces=players[enemy]->GetProvinces();
+ unordered_map<string,blackCard* >enemyProvinces=players[enemy]->GetProvinces();
  cout<<"In which provinces ?"<<endl;
  cin>>enemyPr;
  if(enemyProvinces.find(enemyPr)==enemyProvinces.end())
@@ -27,7 +27,7 @@ void phase3:: Attack_Choice(int plindex)
       cout<<"There is no such province"<<endl;
       return;
     }
- Holding *underAttack=players[enemy]->GetProvinces()[enemyPr];
+ blackCard *underAttack=players[enemy]->GetProvinces()[enemyPr];
  bool input=false;
  vector <string>attackersVector;
  while(!input){
@@ -41,29 +41,20 @@ void phase3:: Attack_Choice(int plindex)
      input=true;
  }
  int totaldamage=0;
- /*list<Personality*>army=temp->getArmy();//get attack points from Army
- std::list<Personality *>::const_iterator it;
- it = army.begin();
- while (it != army.end()){
-   if(find(attackersVector.begin(),attackersVector.end(),(*it)->getname())!=attackersVector.end())
-      if((*it)->canUse())
-        totaldamage+=(*it)->getAttack();
-      cout<<(*it)->getname()<<endl;;
-      ++it;
- }*/
-	Personality **army=temp->getArmy();
-	for(int i=0; i<4; i++){
+
+	vector<Personality *>army=temp->getArmy();
+	for(int i=0; i<army.size(); i++){
 		if(find(attackersVector.begin(),attackersVector.end(),army[i]->getname())!=attackersVector.end())
      	if(army[i]->canUse())
         	totaldamage+=army[i]->getAttack();
-      		cout<<army[i]->getname()<<endl;;
+      	//	cout<<army[i]->getname()<<endl;;
 	}
- 
- int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
+
+ //int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
  int provincedefence=players[enemy]->getInitalDefense();
  bool loss=false;
- cout<<"totaldamage ="<<totaldamage<<" provincedefence = "<<provincedefence<<" personality="<<personalitydefence<<endl;
- if(totaldamage >= personalitydefence+provincedefence)
+ //cout<<"totaldamage ="<<totaldamage<<" provincedefence = "<<provincedefence<<" personality="<<personalitydefence<<endl;
+ /*if(totaldamage >= personalitydefence+provincedefence)
  {
     //attacker wins
       players[enemy]->looseDefencePersonalities(enemyPr);
@@ -98,18 +89,18 @@ void phase3:: Attack_Choice(int plindex)
      temp->loosePersonalty(attackersVector[i]);
    }
    int totalLoss=personalitydefence-totaldamage;
-   underAttack->loosePersonalties(totalLoss);
+   //underAttack->loosePersonalties(totalLoss);
  }
  if(loss){
    temp->looseHonor();
- }
+ }*/
 }
 void phase3:: defence_Choise(int plindex){
-  if(plindex>=num_of_players)
+/*  if(plindex>=num_of_players)
       return;
   Player *temp=players[plindex];
   string prDef;
-  unordered_map<string,Holding*> provinces=temp->GetProvinces();
+  unordered_map<string,blackCard*> provinces=temp->GetProvinces();
   cout<<"Which province do you wanna defend?"<<endl;
   cin>>prDef;
   if(provinces.find(prDef)==provinces.end()){
@@ -138,11 +129,11 @@ void phase3:: defence_Choise(int plindex){
         underAttack->addDefandant(*it);
        ++it;
   }*/
-  Personality **army=temp->getArmy();
+  /*Personality **army=temp->getArmy();
   for(int i=0; i<4; i++){
   	if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end())
         underAttack->addDefandant(army[i]);
-  }
+  }*/
 }
 void phase3:: play(){
   cout<<"PHASE 3  || BATTLE PHASE"<<endl;

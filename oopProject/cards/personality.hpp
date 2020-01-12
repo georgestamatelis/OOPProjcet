@@ -12,6 +12,7 @@ private:
   vector <follower*> guards;
   vector <Item*> equipment;
 public:
+  bool isPersonality(){return true;}
   int getHonour(){return honour;}
   int getDefence(){
     int sum=defense;
