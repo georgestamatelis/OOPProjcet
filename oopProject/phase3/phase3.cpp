@@ -41,7 +41,7 @@ void phase3:: Attack_Choice(int plindex)
      input=true;
  }
  int totaldamage=0;
- list<Personality*>army=temp->getArmy();//get attack points from Army
+ /*list<Personality*>army=temp->getArmy();//get attack points from Army
  std::list<Personality *>::const_iterator it;
  it = army.begin();
  while (it != army.end()){
@@ -50,7 +50,15 @@ void phase3:: Attack_Choice(int plindex)
         totaldamage+=(*it)->getAttack();
       cout<<(*it)->getname()<<endl;;
       ++it;
- }
+ }*/
+	Personality **army=temp->getArmy();
+	for(int i=0; i<4; i++){
+		if(find(attackersVector.begin(),attackersVector.end(),army[i]->getname())!=attackersVector.end())
+     	if(army[i]->canUse())
+        	totaldamage+=army[i]->getAttack();
+      		cout<<army[i]->getname()<<endl;;
+	}
+ 
  int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
  int provincedefence=players[enemy]->getInitalDefense();
  bool loss=false;
@@ -122,13 +130,18 @@ void phase3:: defence_Choise(int plindex){
        break;
   }
   //done with input now time to add defendants to province
-  list<Personality*>army=temp->getArmy();
+  /*list<Personality*>army=temp->getArmy();
   std::list<Personality *>::const_iterator it;
   it = army.begin();
   while (it != army.end()){
     if(find(defencePers.begin(),defencePers.end(),(*it)->getname())!=defencePers.end())
         underAttack->addDefandant(*it);
        ++it;
+  }*/
+  Personality **army=temp->getArmy();
+  for(int i=0; i<4; i++){
+  	if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end())
+        underAttack->addDefandant(army[i]);
   }
 }
 void phase3:: play(){

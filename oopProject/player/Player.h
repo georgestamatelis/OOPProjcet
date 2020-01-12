@@ -17,7 +17,7 @@ private:
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
 	bool lost;
-	list<Personality*> army;
+	Personality* army[4];
 	unordered_map<string,Holding*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
 	StrongHold Honor;
@@ -42,7 +42,7 @@ public:
 	void printArmy();
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-  list<Personality*>& getArmy(){return army;}
+	Personality** getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName);
 	void loosePersonalty(string name);
@@ -51,7 +51,7 @@ public:
 	void looseHonor(){honor_points-=1;}
 	inline int isAlive(){ return !lost;}
 	void add_money();
-	inline bool HasArmy(){ return !army.empty();};
+	inline bool HasArmy(){ (army[0]==NULL)? false : true;};
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 	greenCard* DrawFromHand(int index);

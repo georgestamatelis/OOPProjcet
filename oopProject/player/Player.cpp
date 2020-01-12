@@ -34,7 +34,10 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	for(i=0; i<6; i++){
 		hand[i]=NULL;
 	}
-  money=Honor.getInitialMoney();
+	for(i=0; i<4; i++){
+		army[i]=NULL;
+	}
+  	money=Honor.getInitialMoney();
 	honor_points=Honor.getInitialMoney();
 	provinces["tester"]=new Plain("tester");
 	provinces["farm"]= new Farmland("farm");
@@ -44,21 +47,28 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 
 }
 void Player::loosePersonalty(string name){
-
-std::list<Personality* >::const_iterator iterator;
-for (iterator = army.begin(); iterator != army.end(); ++iterator)
-{ cout<<"Killing Personality with name: "<<name<<endl;
-	if((*iterator)->getname()==name)
-		(*iterator)->Kill();
-}
+	int i=0,y;
+	while(army[i]!=NULL && i<4){
+		if( (army[i]->getname()).compare(name)==0 ){
+			army[i]->Kill();
+			army[i]=NULL;
+			for(y=i; y<3; y++){
+				if(army[y+1]!=NULL){
+					army[y]=army[y+1];
+					army[y+1]=NULL;
+				}
+			}
+		}
+		i++;	
+	}
 }
 int Player::getPersonalityDamage(string name){
-	std::list<Personality* >::const_iterator iterator;
-	for (iterator = army.begin(); iterator != army.end(); ++iterator)
-	{
-		if((*iterator)->getname()==name)
-			return (*iterator)->getAttack();
+	int i=0;
+	while(army[i]!=NULL && i<4){
+		if( (army[i]->getname()).compare(name)==0 )
+			return army[i]->getAttack();	
 	}
+	return -1;
 }
 bool Player::PlaceInHand(greenCard &Card){
 	for(int i=0; i<6; i++){
@@ -82,10 +92,13 @@ void Player::untapEverything(){
 			hand[i]->Untap();
 		}
 	}
-  for(auto x: provinces)
-	  x.second->Untap();
-	for(list <Personality*> :: iterator it = army.begin(); it != army.end(); ++it){
-		(*it)->Untap();
+  	for(auto x: provinces)
+		x.second->Untap();
+	
+	int i;
+	while(army[i]!=NULL && i<4){
+		army[i]->Untap();	
+		i++;
 	}
 }
 
@@ -129,9 +142,13 @@ void Player::printProvinces(){
 }
 
 bool Player::AddPersonality(Personality *personality){
-	if(army.size()>60) return false;
-	army.push_front(personality);
-	return true;
+	for(int i=0; i<4; i++){
+		if(army[i]==NULL){
+			army[i]=personality;
+			return true;
+		}
+	}
+	return false;
 }
 
 greenCard *Player::SeeHandCard(int CardIndex){
@@ -141,11 +158,13 @@ greenCard *Player::SeeHandCard(int CardIndex){
 
 bool Player::EquipPersonality(const std::string &name,greenCard * equipment){
 	//asuming that name and cad index are valiable
-	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard){
-    	if(name.compare((*CurentCard)->getname())==0){
-    		(*CurentCard)->Equip(equipment);
+	int i;
+	while(army[i]!=NULL && i<4){
+	    if(name.compare(army[i]->getname())==0){
+    		army[i]->Equip(equipment);
 			return true;
     	}
+		i++;
 	}
 	return false;
 }
@@ -166,8 +185,11 @@ bool Player::AddProvince(Holding *province){
 	return true;
 }
 void Player::printArmy(){
-	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard)
-    	(*CurentCard)->print();
+	int i=0;
+	while(army[i]!=NULL && i<4){
+    	army[i]->print();
+    	i++;
+	}
 }
 
 bool Player::GetMoney(unsigned int amount){
@@ -219,8 +241,12 @@ void Player:: add_money(){
 		money+=x.second->get_harvest_value();
 }
 bool Player::CheckName(const string &name){
-	for (list<Personality*>::iterator CurentCard = army.begin() ; CurentCard != army.end(); ++CurentCard)
-			if((*CurentCard)->getname()==name)
-				return true;
+	int i=0;
+	while(army[i]!=NULL && i<4){
+		if(name.compare(army[i]->getname())==0){
+			return true;
+		}
+		i++;
+	}
 	return false;
 }
