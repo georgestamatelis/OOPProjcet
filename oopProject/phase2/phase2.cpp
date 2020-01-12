@@ -1,10 +1,22 @@
-#include <iostream>
-#include <sstream>
 #include <limits>
-#include "phase2.hpp"
-#include "../cards/Items.hpp"
-#include "../dependencies/Functionalities.hpp"
+#include <iostream>
+#include "phase2.h"
+#include "../dependencies/Read.hpp"
+#include "../cards/Items.h"
+
 using namespace std;
+
+bool phase2::YesOrNo(char a, char b,string message){
+	char answer;
+	cin >> answer;
+	while(answer!=a && answer!=b){
+		cout << message << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> answer;
+	}
+	return (answer==a)? true : false;
+}
 
 string phase2::GetPersonalityName(Player &player){
 	string name;
@@ -19,7 +31,7 @@ string phase2::GetPersonalityName(Player &player){
 }
 
 phase2::phase2(vector <Player*> &giver_players):players(&giver_players){
-	cout<<"Start of phase 2"<<endl;
+	cout<<"START OF PHASE 2\t"<<endl;
 }
 
 void phase2::play(){
@@ -43,7 +55,7 @@ void phase2::equipPhase(Player &player){
 	do{
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		//if(player.hppasArmy()==false) {cout << "Sorry, you dont have an army to equip." << endl; return;}
+		//if(player.HasArmy()==false) {cout << "Sorry, you dont have an army to equip." << endl; return;}
 		cout << "Your hand cards:" << endl;
 		player.printHand();
 		cout << "Your army: " << endl;
@@ -52,10 +64,10 @@ void phase2::equipPhase(Player &player){
 		cout << "Name of personality: ";
 		name=GetPersonalityName(player);
 		cout << "Number of card in hand: ";
-		ReadInt(num);
+		Read::Int(num);
 		while(player.CheckInHand(num)==false){
 			cout << "The number of the card you typed does not exist, please retype the number of the card you want from hand" << endl;
-			ReadInt(num);
+			Read::Int(num);
 		}
 		player.EquipPersonality(name,player.SeeHandCard(num));
 		cout << "Would you like to Equip any other personalities? (y/n): ";
@@ -81,10 +93,10 @@ void phase2::BuyItem(Player &player){
 	string name;
 	cout << "\nAvailable Items to buy:\n 	1. Katana price::"<<5<<"| 2. Spear price: "<<5<<" | 3. Bow price: "<< 30 <<" | 4. Ninjato price: "<< 15<<" | 5. Wakizashi price: " << 15<< endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	ReadInt(input);
+	Read::Int(input);
 	while(input<0 || input>5){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		ReadInt(input);
+		Read::Int(input);
 	}
 	switch(input) {
 		case 0:
@@ -126,10 +138,10 @@ void phase2::BuyFollower(Player &player){
 	cout << "\nAvailable Followers to buy:\n 	1. Footsoldier price::"<<5<<"| 2. Archer price: "<<5<<" | 3. Sieger price: "<< 30 <<" | 4. Cavalry price: "<< 15
 		 <<" | 5. Atakebune price: " << 15<< "| 6. Bushido price :" << endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	ReadInt(input);
+	Read::Int(input);
 	while(input<0 || input>6){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		ReadInt(input);
+		Read::Int(input);
 	}
 	switch(input) {
 		case 0:

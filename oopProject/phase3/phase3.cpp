@@ -1,5 +1,6 @@
 #include <sstream>
-#include "phase3.hpp"
+#include "phase3.h"
+#include "../dependencies/Read.hpp"
 phase3:: phase3(Player **pls,int n)
 :players(pls),num_of_players(n)
 {
@@ -12,7 +13,7 @@ void phase3:: Attack_Choice(int plindex)
  Player *temp=players[plindex];
  int enemy; string enemyPr;
  cout<<"In which player do you want to attack?"<<endl;
- cin>>enemy;
+ enemy=Read::Int();
  if(enemy<=0 || enemy >num_of_players)
   {
     cout<<"Sorry there is no such player"<<endl;
@@ -20,7 +21,9 @@ void phase3:: Attack_Choice(int plindex)
   }
  enemy-=1;
  unordered_map<string,Holding* >enemyProvinces=players[enemy]->GetProvinces();
- cout<<"In which provinces ?"<<endl;
+ cout<<"enemyProvinces are:";
+ players[enemy]->printProvinces();
+ cout<<"\nIn which provinces do you wanna atack ??"<<endl;
  cin>>enemyPr;
  if(enemyProvinces.find(enemyPr)==enemyProvinces.end())
     {
@@ -41,7 +44,7 @@ void phase3:: Attack_Choice(int plindex)
      input=true;
  }
  int totaldamage=0;
- /*list<Personality*>army=temp->getArmy();//get attack points from Army
+ list<Personality*>army=temp->getArmy();//get attack points from Army
  std::list<Personality *>::const_iterator it;
  it = army.begin();
  while (it != army.end()){
@@ -50,15 +53,7 @@ void phase3:: Attack_Choice(int plindex)
         totaldamage+=(*it)->getAttack();
       cout<<(*it)->getname()<<endl;;
       ++it;
- }*/
-	Personality **army=temp->getArmy();
-	for(int i=0; i<4; i++){
-		if(find(attackersVector.begin(),attackersVector.end(),army[i]->getname())!=attackersVector.end())
-     	if(army[i]->canUse())
-        	totaldamage+=army[i]->getAttack();
-      		cout<<army[i]->getname()<<endl;;
-	}
- 
+ }
  int personalitydefence=underAttack->getDefenerPoints(); //get defence points from  personalities garding the provine
  int provincedefence=players[enemy]->getInitalDefense();
  bool loss=false;
@@ -130,18 +125,13 @@ void phase3:: defence_Choise(int plindex){
        break;
   }
   //done with input now time to add defendants to province
-  /*list<Personality*>army=temp->getArmy();
+  list<Personality*>army=temp->getArmy();
   std::list<Personality *>::const_iterator it;
   it = army.begin();
   while (it != army.end()){
     if(find(defencePers.begin(),defencePers.end(),(*it)->getname())!=defencePers.end())
         underAttack->addDefandant(*it);
        ++it;
-  }*/
-  Personality **army=temp->getArmy();
-  for(int i=0; i<4; i++){
-  	if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end())
-        underAttack->addDefandant(army[i]);
   }
 }
 void phase3:: play(){

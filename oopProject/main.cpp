@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gameboard/gameboard.hpp"
+#include "gameboard/gameboard.h"
 #include <list>
 int main(){
    gameboard GB;
