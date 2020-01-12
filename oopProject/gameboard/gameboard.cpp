@@ -1,4 +1,4 @@
-#include "gameboard.h"
+#include "gameboard.hpp"
 #include <sstream>
 #include "../dependencies/Functionalities.hpp"
 #include <iostream>

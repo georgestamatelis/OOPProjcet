@@ -1,14 +1,14 @@
 #pragma once
 #include <list>
 #include <unordered_map>
-#include "../cards/item.h"
-#include "../cards/Holding.h"
-#include "../cards/personality.h"
-#include "../cards/Personalities.h"
-#include "../cards/Stronghold.h"
-#include "../cards/follower.h"
-#include "../cards/Followers.h"
-#include "../cards/greencard.h"
+#include "../cards/item.hpp"
+#include "../cards/Holding.hpp"
+#include "../cards/personality.hpp"
+#include "../cards/Personalities.hpp"
+#include "../cards/Stronghold.hpp"
+#include "../cards/follower.hpp"
+#include "../cards/Followers.hpp"
+#include "../cards/greencard.hpp"
 
 class Player
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "follower.h"
+#include "follower.hpp"
 
 class Footsoldier:public follower
 {

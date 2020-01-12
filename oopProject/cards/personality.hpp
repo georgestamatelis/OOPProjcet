@@ -1,7 +1,7 @@
 #pragma once
-#include "blackcard.h"
-#include "follower.h"
-#include "item.h"
+#include "blackcard.hpp"
+#include "follower.hpp"
+#include "item.hpp"
 #include <vector>
 
 class Personality:public blackCard

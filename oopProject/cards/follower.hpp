@@ -1,5 +1,5 @@
 #pragma once
-#include "greencard.h"
+#include "greencard.hpp"
 
 class follower:public greenCard
 {

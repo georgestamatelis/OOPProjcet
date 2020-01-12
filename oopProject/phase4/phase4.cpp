@@ -1,10 +1,10 @@
 #include <iostream>
-#include "phase4.h"
-#include "../player/Player.h"
-#include "../player/Player.h"
-#include "../cards/item.h"
-#include "../cards/follower.h"
-#include "../cards/Properties.h"
+#include "phase4.hpp"
+#include "../player/Player.hpp"
+#include "../player/Player.hpp"
+#include "../cards/item.hpp"
+#include "../cards/follower.hpp"
+#include "../cards/Properties.hpp"
 #include "../dependencies/Functionalities.hpp"
 using namespace std;
 

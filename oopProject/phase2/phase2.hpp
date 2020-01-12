@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../player/Player.h"
+#include "../player/Player.hpp"
 
 class phase2{
 	private:

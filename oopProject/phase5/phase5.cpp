@@ -1,4 +1,4 @@
-#include "phase5.h"
+#include "phase5.hpp"
 
 phase5 ::phase5(Player **players,int num_of_players)
 :players(players),num_of_players(num_of_players)

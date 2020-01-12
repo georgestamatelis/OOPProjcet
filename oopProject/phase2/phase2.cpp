@@ -1,8 +1,8 @@
 #include <iostream>
 #include <sstream>
 #include <limits>
-#include "phase2.h"
-#include "../cards/Items.h"
+#include "phase2.hpp"
+#include "../cards/Items.hpp"
 #include "../dependencies/Functionalities.hpp"
 using namespace std;
 
@@ -43,7 +43,7 @@ void phase2::equipPhase(Player &player){
 	do{
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		//if(player.HasArmy()==false) {cout << "Sorry, you dont have an army to equip." << endl; return;}
+		//if(player.hppasArmy()==false) {cout << "Sorry, you dont have an army to equip." << endl; return;}
 		cout << "Your hand cards:" << endl;
 		player.printHand();
 		cout << "Your army: " << endl;

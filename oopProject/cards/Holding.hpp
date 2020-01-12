@@ -1,6 +1,6 @@
 #pragma once
-#include "blackcard.h"
-#include "personality.h"
+#include "blackcard.hpp"
+#include "personality.hpp"
 #include <vector>
 
 class Holding:public blackCard

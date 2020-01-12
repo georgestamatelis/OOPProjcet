@@ -1,4 +1,4 @@
-#include "phase1.h"
+#include "phase1.hpp"
 phase1:: phase1(Player **pl,int n)
 :players(pl),num_of_players(n)
 {

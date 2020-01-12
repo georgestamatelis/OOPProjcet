@@ -1,5 +1,5 @@
 #pragma once
-#include "blackcard.h"
+#include "blackcard.hpp"
 
 class StrongHold:public blackCard
 {

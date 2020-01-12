@@ -1,5 +1,5 @@
 #pragma once
-#include "card.h"
+#include "card.hpp"
 
 class blackCard:public Card
 {

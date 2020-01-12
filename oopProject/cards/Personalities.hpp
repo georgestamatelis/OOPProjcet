@@ -1,5 +1,5 @@
 #pragma once
-#include "personality.h"
+#include "personality.hpp"
 class Attacker:public Personality
 {
 private:
