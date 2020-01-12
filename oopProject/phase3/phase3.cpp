@@ -1,5 +1,6 @@
 #include <sstream>
 #include "phase3.hpp"
+#include "../dependencies/Functionalities.hpp"
 phase3:: phase3(Player **pls,int n)
 :players(pls),num_of_players(n)
 {

@@ -4,6 +4,9 @@ cflags=-o
 program=test
 
 test:$(OBJECTS)
+	$(cc) $(OBJECTS) -D COLORS $(cflags) $(program)
+
+no_colors:$(OBJECTS)
 	$(cc) $(OBJECTS) $(cflags) $(program)
 
 run:$(program)
