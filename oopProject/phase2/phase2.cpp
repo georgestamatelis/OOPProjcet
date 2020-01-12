@@ -1,22 +1,10 @@
-#include <limits>
 #include <iostream>
+#include <sstream>
+#include <limits>
 #include "phase2.h"
-#include "../dependencies/Read.hpp"
 #include "../cards/Items.h"
-
+#include "../dependencies/Functionalities.hpp"
 using namespace std;
-
-bool phase2::YesOrNo(char a, char b,string message){
-	char answer;
-	cin >> answer;
-	while(answer!=a && answer!=b){
-		cout << message << endl;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cin >> answer;
-	}
-	return (answer==a)? true : false;
-}
 
 string phase2::GetPersonalityName(Player &player){
 	string name;
@@ -64,10 +52,10 @@ void phase2::equipPhase(Player &player){
 		cout << "Name of personality: ";
 		name=GetPersonalityName(player);
 		cout << "Number of card in hand: ";
-		Read::Int(num);
+		ReadInt(num);
 		while(player.CheckInHand(num)==false){
 			cout << "The number of the card you typed does not exist, please retype the number of the card you want from hand" << endl;
-			Read::Int(num);
+			ReadInt(num);
 		}
 		player.EquipPersonality(name,player.SeeHandCard(num));
 		cout << "Would you like to Equip any other personalities? (y/n): ";
@@ -93,10 +81,10 @@ void phase2::BuyItem(Player &player){
 	string name;
 	cout << "\nAvailable Items to buy:\n 	1. Katana price::"<<5<<"| 2. Spear price: "<<5<<" | 3. Bow price: "<< 30 <<" | 4. Ninjato price: "<< 15<<" | 5. Wakizashi price: " << 15<< endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	Read::Int(input);
+	ReadInt(input);
 	while(input<0 || input>5){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		Read::Int(input);
+		ReadInt(input);
 	}
 	switch(input) {
 		case 0:
@@ -138,10 +126,10 @@ void phase2::BuyFollower(Player &player){
 	cout << "\nAvailable Followers to buy:\n 	1. Footsoldier price::"<<5<<"| 2. Archer price: "<<5<<" | 3. Sieger price: "<< 30 <<" | 4. Cavalry price: "<< 15
 		 <<" | 5. Atakebune price: " << 15<< "| 6. Bushido price :" << endl;
 	cout << "If you would like to buy any of these type its number (0 if you wouldn't like to buy any)" << endl;
-	Read::Int(input);
+	ReadInt(input);
 	while(input<0 || input>6){
 		cout << "Wrong number!, please enter a number in 0-5" << endl;
-		Read::Int(input);
+		ReadInt(input);
 	}
 	switch(input) {
 		case 0:

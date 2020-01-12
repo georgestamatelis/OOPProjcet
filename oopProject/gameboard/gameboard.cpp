@@ -1,6 +1,6 @@
 #include "gameboard.h"
 #include <sstream>
-#include "../dependencies/Read.hpp"
+#include "../dependencies/Functionalities.hpp"
 #include <iostream>
 
 gameboard::gameboard()
@@ -9,11 +9,11 @@ gameboard::gameboard()
   string line;
   cout<<"Initializing GameBoard"<<endl;
   cout<<"How many players ? :";
- num_of_players=Read::Int();
+ num_of_players=ReadInt();
  while(num_of_players<=1 || num_of_players>8)
  {
    cout<<"Sorry the rules say there must be 2-8 players  Try again"<<endl;
-   num_of_players=Read::Int();
+   num_of_players=ReadInt();
    //cout<<num_of_players<<" "<<line<<endl;
  }
   players =new Player *[num_of_players];
