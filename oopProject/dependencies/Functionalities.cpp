@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "../player/Player.hpp"
 
 using namespace std;
 
@@ -17,8 +18,8 @@ bool YesOrNo(char a, char b,string message){
 	return (answer==a)? true : false;
 }
 
-int Honor_compare(const void * a, const void * b){
-  return ( *(int*)a - *(int*)b );
+int Honorcompare(const void * p1, const void * p2){
+	return ((Player*)p1)->GetPlayerHonour() - ((Player*)p2)->GetPlayerHonour();
 }
 
 void ReadInt(int &ret){

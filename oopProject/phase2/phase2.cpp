@@ -3,6 +3,7 @@
 #include <limits>
 #include "phase2.hpp"
 #include "../cards/Items.hpp"
+#include "../player/Player.hpp"
 #include "../dependencies/Functionalities.hpp"
 using namespace std;
 
@@ -19,19 +20,20 @@ string phase2::GetPersonalityName(Player &player){
 	return name;
 }
 
-phase2::phase2(vector <Player*> &giver_players):players(&giver_players){
-	cout<<"Start of phase 2"<<endl;
-}
+phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
 
 void phase2::play(){
-	int i=1;
-	for(vector <Player*>::iterator CurentPlayer = players->begin(); CurentPlayer != players->end(); CurentPlayer++){
+	cout<<"Start of phase 2"<<endl;
+	//sort
+	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
+	for(int i=0; i<NumOfPlayers; i++){
+	//for(vector <Player*>::iterator CurentPlayer = players->begin(); CurentPlayer != players->end(); CurentPlayer++){
 		cout << "Player number " << i;
-		if( (*CurentPlayer)->HasArmy()==true ){
+		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to equip your army with cards from your hand? (y/n)" << endl;
-			if(YesOrNo()==true)	equipPhase(**CurentPlayer);
+			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);
 			cout << "Would you like to buy cards to equip your army? (y/n)" << endl;
-			if(YesOrNo()==true)	BuyCards(**CurentPlayer);
+			if(YesOrNo()==true)	BuyCards(*GivenPlayers[i]);
 		}else cout << " does not have a army to equip!" << endl;
 		i++;
 	}
@@ -97,7 +99,7 @@ void phase2::BuyItem(Player &player){
 			new_card = new Spear("Name");
 			break;
 		case 3:
-			new_card = new Spear("Name");
+			new_card = new Bow("Name");
 			break;
 		case 4:
 			new_card = new Ninjato("Name");
@@ -113,7 +115,9 @@ void phase2::BuyItem(Player &player){
 		player.printArmy();
 	   	cout << "Type the name of the personality you want to equip with this card: ";
 	   	name=GetPersonalityName(player);
-	   	player.EquipPersonality(name,new_card);
+	   	if(player.EquipPersonality(name,new_card)==false){
+					//check
+			}
 	}else{
 		cout << "Not enough money!!" << endl;
 		delete new_card;

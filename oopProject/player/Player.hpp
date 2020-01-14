@@ -39,10 +39,12 @@ public:
 	void AddPersonality(Personality *personality);
 	greenCard *SeeHandCard(int CardIndex);
 	bool EquipPersonality(const std::string &name,greenCard * equipment);
+	int GetPersonalityHonor(string name);
 	bool AddProvince(string name);
 	void printArmy();
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+	unsigned int GetPlayerHonour() const {return honor_points;}
 	vector<Personality* >getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName,int);

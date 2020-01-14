@@ -5,7 +5,8 @@
 
 class phase2{
 	private:
-		vector <Player*> *players;
+		Player** GivenPlayers;
+		int NumOfPlayers;
 		void BuyCards(Player &player);
 		void BuyItem(Player &player);
 		void BuyFollower(Player &player);
@@ -13,7 +14,7 @@ class phase2{
 		void UpgradeCard(Player &player,greenCard *card);
 		std::string GetPersonalityName(Player &player);
 	public:
-		phase2(vector <Player*> &players);
+		phase2(Player** players,int NumOP);
 		void play();
 		~phase2();
 };

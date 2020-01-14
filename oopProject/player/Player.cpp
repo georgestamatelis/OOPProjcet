@@ -61,12 +61,23 @@ void Player::loosePersonalty(string name)
 }
 int Player::getPersonalityDamage(string name){
 	int i=0;
-	while(army[i]!=NULL && i<4){
+	while(army[i]!=NULL){
 		if( (army[i]->getname()).compare(name)==0 )
 			return army[i]->getAttack();
 	}
 	return -1;
 }
+
+int Player::GetPersonalityHonor(string name){
+	int i=0;
+	for(int i=0;i<army.size();i++){
+	    if(name.compare(army[i]->getname())==0){
+    		return army[i]->getHonour();
+    	}
+	}
+	return -1;
+}
+
 bool Player::PlaceInHand(greenCard &Card){
 	for(int i=0; i<6; i++){
 		if(hand[i]==NULL){
@@ -155,6 +166,10 @@ greenCard *Player::SeeHandCard(int CardIndex){
 
 bool Player::EquipPersonality(const std::string &name,greenCard * equipment){
 	//asuming that name and cad index are valiable
+
+	if(GetPersonalityHonor(name)<equipment->get_minumumHonor()){
+		cout << "Not enough honor to equip this personality" << endl;
+	} return false;
 
 	for(int i=0;i<army.size();i++){
 	    if(name.compare(army[i]->getname())==0){
