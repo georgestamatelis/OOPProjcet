@@ -45,7 +45,7 @@ public:
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
 	vector<Personality* >getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
-	void looseDefencePersonalities(string provinceName);
+	void looseDefencePersonalities(string provinceName,int);
 	void loosePersonalty(string name);
 	void looseProvince(string name);
 	int getPersonalityDamage(string name);

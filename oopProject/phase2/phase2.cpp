@@ -8,12 +8,13 @@ using namespace std;
 
 string phase2::GetPersonalityName(Player &player){
 	string name;
-	cin >> name;
+	name=ReadString();
 	while(player.CheckName(name)==false){
 		cout << "The name you gave does not exist, please retype the name of the personality you want to equip" << endl;
-		cin >> name;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  //  cin.ignore();
+		name=ReadString();
+		//cin.clear();
+		//cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 	return name;
 }
@@ -153,6 +154,7 @@ void phase2::BuyFollower(Player &player){
 			new_card = new Bushido("Name");
 			break;
 	}
+
 	if( player.GetMoney(new_card->GetCost())==true) {
 		cout << "Would you like to upgrade this card? (y/n): " <<endl;
 		if(YesOrNo()==true) UpgradeCard(player,new_card);

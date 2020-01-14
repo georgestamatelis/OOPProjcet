@@ -8,7 +8,7 @@ private:
   int initialMoney;
   int initialDefense;
 public:
-  StrongHold(string name,int c=0,int initialHonor=5,int initialMoney=5,int initialDefense=5)
+  StrongHold(string name,int c=0,int initialHonor=5,int initialMoney=50,int initialDefense=5)
   :blackCard(name,c),initialHonor(initialHonor),initialMoney(initialMoney),initialDefense(initialDefense)
   {
 

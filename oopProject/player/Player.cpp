@@ -37,16 +37,25 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 
   money=Honor.getInitialMoney();
 	honor_points=Honor.getInitialMoney();
-	provinces["farm"]= new Farmland("farm");
-	provinces["mine"]=new Mine("mine");
-	provinces["Warrior"]= new Attacker("Warrior");
-	provinces["Palpatine"]= new Chancellor("Palpatine");
+	provinces["a"]= new Farmland("farm");
+	provinces["b"]=new Mine("mine");
+	provinces["c"]= new Attacker("Warrior");
+	provinces["d"]= new Chancellor("Palpatine");
 
 }
-void Player::loosePersonalty(string name){
-
- provinces[name]->Kill();
- provinces.erase(name);
+void Player::loosePersonalty(string name)
+{
+	for(int i=0;i<army.size();i++)
+	{
+		if(army[i]->getname()==name)
+		 { cout<<"Killing"<<army[i]->getname()<<endl;
+			 army[i]->Kill();
+			 army.erase(army.begin()+i);
+		 return;
+	 }
+	}
+ 	//provinces[name]->Kill();
+ 	//provinces.erase(name);
  //delete province[name];
 
 }
@@ -124,14 +133,19 @@ void Player::printHand(){
 }
 
 void Player::printProvinces(){
-	for(auto x:provinces)
-	 if(x.second->canUse())
-		x.second->print();
+	if(provinces.find("a")!=provinces.end())
+  cout<<"a: "<<provinces["a"]->getname()<<endl;
+	if(provinces.find("b")!=provinces.end())
+	cout<<"b: "<<provinces["b"]->getname()<<endl;
+	if(provinces.find("c")!=provinces.end())
+	cout<<"c: "<<provinces["c"]->getname()<<endl;
+	if(provinces.find("d")!=provinces.end())
+	cout<<"d: "<<provinces["d"]->getname()<<endl;
 }
 
 void Player::AddPersonality(Personality *personality){
 	army.push_back(personality);
-	personality->tap();
+//	personality->tap();
 }
 
 greenCard *Player::SeeHandCard(int CardIndex){
@@ -175,11 +189,12 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 	{
 		//cout<<"Soldier"<<endl;
 		Personality *temp=(Personality*)provinces[name];
-		if(money <temp->GetCost())
+		if(money <temp->GetCost() )
 		{
-			cout<<"Sorry Player Doesn't have enough money"<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			cout<<"Sorry Player Doesn't have enough money ,money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
+		money-=temp->GetCost();
 		AddPersonality(temp);
   }
 	else{
@@ -188,19 +203,25 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 			cout<<"Sorry Player Doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
+		money-=provinces[name]->GetCost();
 		AddHolding((Holding*)provinces[name]);
 	}
-	provinces.erase(name);
-	static DeckBuilder db;
+	//provinces.erase(name);
+	//provinces[name]=NULL;
+	DeckBuilder db;
  	db.deckShuffler(dynastyDeck);
 	blackCard *newProvince=dynastyDeck->front();
-	provinces[newProvince->getname()]=newProvince;
+	while(provinces.find(newProvince->getname())!=provinces.end())
+	{db.deckShuffler(dynastyDeck);
+	blackCard *newProvince=dynastyDeck->front();}
+	provinces[name]=newProvince;
 
 	return true;
 }
 void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
+		if(army[i]->canUse())
 		cout<<army[i]->getname()<<endl;
 	}
 }
@@ -227,11 +248,12 @@ Player::~Player(){
       	delete node.second;
 	}
 }
-void Player::looseDefencePersonalities(string provinceName){
-	if(provinces.find(provinceName)==provinces.end())
-		return;
-	provinces.erase(provinceName);
-	provinces[provinceName]->Kill();
+void Player::looseDefencePersonalities(string provinceName,int dmg){
+	for(int i=0;i<Holdings.size();i++){
+		if(Holdings[i]->getname()==provinceName){
+			Holdings[i]->loosePersonalties(dmg);
+		}
+	}
 }
 void Player:: performSeppuku(){
 	lost=true;
@@ -241,14 +263,16 @@ void Player::looseProvince(string name)
 {
 	if(provinces.find(name)==provinces.end())
 		return;
-	cout <<"Kiling province "<<name;
+	cout <<"KILLING PROVINCE "<<provinces[name]->getname();
 	provinces[name]->Kill();
 	provinces.erase(name);
+	honor_points-=1;
 	if (honor_points<=0){
 		performSeppuku();
 	}
 }
-void Player:: discardSurplusFateCards(){
+void Player:: discardSurplusFateCards()
+{
 
 }
 void Player:: add_money(){
@@ -256,8 +280,8 @@ void Player:: add_money(){
 		money+=Holdings[i]->get_harvest_value();
 }
 bool Player::CheckName(const string &name){
-	for(int i=0;i,army.size();i++)
-		if(name.compare(army[i]->getname())==0)
+	for(int i=0;i<army.size();i++)
+		if(name==army[i]->getname())
 			return true;
 
 	return false;

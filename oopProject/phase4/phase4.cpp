@@ -22,12 +22,14 @@ void phase4::play(){
 		player->printProvinces();
 		cout<<"would you like to buy any provinces? (y/n)" <<endl;
 		if(YesOrNo()==true){
+			cin.ignore();
 		  cout<<"Which one??"<<endl;
-			string answer;
-			cin>>answer;
-			cout<<answer<<endl;
-			players[i]->AddProvince(answer);
-			
+			char answer[40];
+			cin.getline(answer,40);
+			string  str(answer);
+			cout<<str<<endl;
+			players[i]->AddProvince(str);
+
 			//BuyProvince(*player);
 		}
 	}

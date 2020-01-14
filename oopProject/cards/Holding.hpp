@@ -23,6 +23,9 @@ public:
   void addDefandant(Personality* name){
     defendants.push_back(name);
   }
+  int getDefence(){
+    return getDefenerPoints();
+  }
   int getDefenerPoints(){
     int sum=0;
     for(int i=0;i<defendants.size();i++){
