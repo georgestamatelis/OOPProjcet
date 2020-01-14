@@ -3,15 +3,21 @@
 #include "follower.hpp"
 #include "item.hpp"
 #include <vector>
+#define MAXF 15
+#define MAXI 15
 
 class Personality:public blackCard
 {
 private:
+  int max_number_of_followers;
+  int max_number_of_items;
   int attack,defense,honour;
   bool isDead;
   vector <follower*> guards;
   vector <Item*> equipment;
 public:
+  bool CanTakeItem(){return (equipment.size()<max_number_of_items);}
+  bool CanTakeFollower(){return (guards.size()<max_number_of_followers);}
   bool isPersonality(){return true;}
   int getHonour(){return honour;}
   int getDefence(){
@@ -38,7 +44,7 @@ public:
     return sum;
   }
   Personality(string name,int c,bool b1,bool b2,int attack,int defense,int honour,bool isDead)
-  :blackCard(name,c,b1,b2),attack(attack),defense(defense),honour(honour),isDead(false)
+  :blackCard(name,c,b1,b2),attack(attack),defense(defense),honour(honour),isDead(false),max_number_of_items(MAXI),max_number_of_followers(MAXF)
   {
 
   }
