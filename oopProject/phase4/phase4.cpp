@@ -35,15 +35,6 @@ void phase4::play(){
 	}
 }
 
-//WE DONT NEED THEM THE PLAYER CLASS DOES EVERYTHING
-void phase4::BuyProvince(Player &player){
-
-}
-
-void phase4::BuyPersonality(Player &player){
-
-}
-
 phase4::~phase4(){
 	cout<<"End of phase 2"<<endl;
 }

@@ -82,7 +82,7 @@ public:
 		}else if((equipment->GetType()).compare("follower")==0 ){
 			follower& eq = (follower&)(*equipment);//downcast
 			addFollower(&eq);
-		}else cout << "Oh shit!!!!!!!!!!!!!!!" << endl;
+		}else cout << "Oh !!!!!!!!!!!!!!!!!!!!" << endl;
 	 }
    void loosePersonalties(int sum)
    {

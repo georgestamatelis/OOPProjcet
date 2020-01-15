@@ -38,7 +38,9 @@ public:
 
 	void AddPersonality(Personality *personality);
 	greenCard *SeeHandCard(int CardIndex);
-	bool EquipPersonality(const std::string &name,greenCard * equipment);
+	/*bool EquipPersonality(const std::string &name,greenCard * equipment);
+	*/bool EquipPersonality(int index,greenCard * equipment);
+	const Personality *GetPersonality(int index);
 	int GetPersonalityHonor(string name);
 	bool AddProvince(string name);
 	void printArmy();
