@@ -4,6 +4,7 @@
 using namespace std;
 
 void merge(Holding *up,Holding *sub){
+	//cout<<"MERGING\n"<<endl;
 	sub->setU();
 	up->setS();
 	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
@@ -24,7 +25,7 @@ bool Compatible(Holding *a,Holding *b){
 	}
 }
 ///////////////////////////////////////////////
-Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(1){
+Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(4){
 	static DeckBuilder db;
 	fateDeck=db.createFateDeck();
 	lost=false;
@@ -36,7 +37,6 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	}
 
   money=Honor.getInitialMoney();
-	honor_points=Honor.getInitialMoney();
 	provinces["a"]= new Farmland("farm");
 	provinces["b"]=new Mine("mine");
 	provinces["c"]= new Attacker("Warrior");
@@ -278,13 +278,11 @@ void Player::looseProvince(string name)
 {
 	if(provinces.find(name)==provinces.end())
 		return;
+	looseHonor();
 	cout <<"KILLING PROVINCE "<<provinces[name]->getname();
 	provinces[name]->Kill();
 	provinces.erase(name);
-	honor_points-=1;
-	if (honor_points<=0){
-		performSeppuku();
-	}
+
 }
 void Player:: discardSurplusFateCards()
 {
@@ -300,4 +298,10 @@ bool Player::CheckName(const string &name){
 			return true;
 
 	return false;
+}
+void Player::looseHonor()
+{
+
+	if(honor_points<=0)
+		performSeppuku();
 }

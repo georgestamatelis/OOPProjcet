@@ -51,7 +51,7 @@ public:
 	void loosePersonalty(string name);
 	void looseProvince(string name);
 	int getPersonalityDamage(string name);
-	void looseHonor(){honor_points-=1;}
+	void looseHonor();
 	inline int isAlive(){ return !lost;}
 	void add_money();
 	inline bool HasArmy(){ (army[0]==NULL)? false : true;};
