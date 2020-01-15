@@ -88,10 +88,10 @@ void phase3:: Attack_Choice(int plindex)
  else if(totaldamage < personalityDefence){
    loss=true;
    for (int i=0;i<attackersVector.size();i++){
-  //   players[plindex]>loosePersonalty(attackersVector[i]);
+     players[plindex]->loosePersonalty(attackersVector[i]);
    }
    int totalLoss=personalityDefence-totaldamage;
-  // underAttack->loosePersonalties(totalLoss);
+   underAttack->loosePersonalties(totalLoss);
  }
  if(loss){
    players[plindex]->looseHonor();
