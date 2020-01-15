@@ -320,8 +320,8 @@ bool Player::CheckName(const string &name){
 	return false;
 }
 void Player::looseHonor()
-{
-
+{	
+	honor_points-=1
 	if(honor_points<=0)
 		performSeppuku();
 }
