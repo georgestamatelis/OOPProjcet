@@ -83,6 +83,14 @@ public:
 			follower& eq = (follower&)(*equipment);//downcast
 			addFollower(&eq);
 		}else cout << "Oh shit!!!!!!!!!!!!!!!" << endl;
-	}
-
+	 }
+   void loosePersonalties(int sum)
+   {
+      for(int i=0;i<guards.size();i++){
+        if(sum<=0)
+          return;
+        sum-=guards[i]->get_defence_bonus();
+        guards[i]->Kill();
+      }
+   }
 };

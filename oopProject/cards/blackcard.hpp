@@ -11,4 +11,7 @@ public:
   :Card(n,c,b2),isRevealed(b1){}
   virtual bool isPersonality(){return false;}
   virtual int getDefence(){ return 0;}
+  virtual void loosePersonalties(int n){
+    cout<<"WRONG LOOSE PERSONALITIES"<<endl;
+  }
 };

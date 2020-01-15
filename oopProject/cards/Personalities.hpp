@@ -6,7 +6,7 @@ private:
 
 public:
 Attacker(string name)
-:Personality(name,5,false,false,3,2,2,false)
+:Personality(name,5,false,false,3,2,1,false)
 {}
 
 };
