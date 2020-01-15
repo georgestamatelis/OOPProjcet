@@ -43,3 +43,17 @@ string ReadString(){
 	string answer(array);
 	return answer;
 }
+
+#ifdef COLORS
+	//If compiler flag allow it, ANSI color codes are used to change the consolone color to the requested one
+	void SetToRed(){std::cout << "\033[" << 31 << "m";}//Using the esc sequence and the code for volor red, in a linux system the color of the latters will change
+	void SetToGreen(){std::cout << "\033[" << 32 << "m";}//32 for green
+	void SetToBlue(){std::cout << "\033[" << 34 << "m";}//34 for blue
+	void SetToDefault(){std::cout << "\033[" << 39 << "m";}//And 33 for the default one
+	#else
+	//Otherwise,colors are not used sisnce the body of the functions are empty, so when the functions are called nothing happens
+	void SetToRed(){}
+	void SetToGreen(){}
+	void SetToBlue(){}
+	void SetToDefault(){}
+#endif

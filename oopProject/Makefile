@@ -6,6 +6,9 @@ program=test
 test:$(OBJECTS)
 	$(cc) $(OBJECTS) $(cflags) $(program)
 
+colors:$(OBJECTS)
+	$(cc) $(OBJECTS) -D COLORS $(cflags) $(program)
+
 run:$(program)
 	./$(program)
 clean:
