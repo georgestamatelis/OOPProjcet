@@ -24,16 +24,13 @@ void phase2::play(){
 }
 
 void phase2::equipPhase(Player &player){
-	bool equiping=true,equiploop,upgrade;
+	bool equiping=true,equiped;
 	string name;
 	int num;
-	unsigned int TotalCost;
-	Personality *pers;
-	greenCard *card;
+	const Personality *pers;
 	do{
-		TotalCost=0;
-		upgrade=false;
-
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "Your hand cards:" << endl;
 		player.printHand();
 		cout << "Number of card in hand: ";
@@ -43,22 +40,20 @@ void phase2::equipPhase(Player &player){
 			ReadInt(num);
 		}
 
-		card=player.SeeHandCard(num);
-		if( player.SeeMoney()>=card->GetCost() ) {
-			TotalCost+=card->GetCost();
+		if( player.GetMoney(player.SeeHandCard(num)->GetCost())==true) {
+			greenCard *card=player.DrawFromHand(num);
 
 			cout << "Would you like to upgrade this card? (y/n): " <<endl;
 			if(YesOrNo()==true){
 				if(player.CheckHonor(card->get_minumumHonor())){
-					if(player.SeeMoney()>=card->get_bonus_cost() + TotalCost){
-						TotalCost+=card->get_bonus_cost();
-						upgrade=true;
+					if(player.GetMoney(card->get_bonus_cost())==true){
+						card->upgrade();
 					}else cout <<"Upgrade of card  failed not enough money!"<< endl;
-				}else cout <<"Upgrade of card failed not enough honor!"<< endl;
+				}else cout <<"Upgrade of card  failed not enough honor!"<< endl;
 			}
 
 			do{
-				equiploop=false;
+				equiped=false;
 				player.printArmy();
 				cout << "Please type the number of the personality you want to equip" << endl;
 				cout << "Number of personality: ";
@@ -67,24 +62,34 @@ void phase2::equipPhase(Player &player){
 					cout << "Invalid number of personality, please type the correct one: ";
 					ReadInt(num);
 				}
-				if(pers->getHonour() >= card->get_minumumHonor()){
-					player.GetMoney(TotalCost);
-					player.DrawFromHand(num);
-					pers->Equip(card);	
-					if(upgrade) card->upgrade();
-				}else{
-					cout << "Not enough honor to equip this personality, would you like to equip the card to another personality? (y/n)" << endl;
+
+				while(player.EquipPersonality(num,card)==false){
+					cout << "Would you like to equip another? (y/n)" << endl;
 					if(YesOrNo()){
-						equiploop=true;
-					} else equiploop=false;
+						equiped=true;
+					}else{
+						player.PlaceInHand(*card);
+						equiped=false;
+					}
 				}
-			}while(equiploop);
+
+			}while(equiped);
 
 		}else cout << "Not enough money!!" << endl;
 
 		cout << "Would you like to Equip any other personalities? (y/n): ";
 		equiping=YesOrNo();
 	}while(equiping);
+}
+
+string phase2::GetPersonalityName(Player &player){
+	string name;
+	name=ReadString();
+	while(player.CheckName(name)==false){
+		cout << "The name you gave does not exist, please retype the name of the personality you want to equip" << endl;
+		name=ReadString();
+	}
+	return name;
 }
 
 phase2::~phase2(){
