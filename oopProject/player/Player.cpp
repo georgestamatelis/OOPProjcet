@@ -229,7 +229,7 @@ void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
 		if(army[i]->canUse())
-			cout<<army[i]->getname()<<endl;
+			cout << i << ". " << army[i]->getname() << endl;
 	}
 }
 

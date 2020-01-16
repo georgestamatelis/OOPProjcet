@@ -63,7 +63,7 @@ void phase2::equipPhase(Player &player){
 				cout << "Please type the number of the personality you want to equip" << endl;
 				cout << "Number of personality: ";
 				ReadInt(num);
-				num-=1;
+				//num-=1;
 				while( (pers=player.GetPersonality(num))==NULL ){
 					cout << "Invalid number of personality, please type the correct one: ";
 					ReadInt(num);
