@@ -24,8 +24,6 @@ private:
 	StrongHold Honor;
 public:
 	Player();
-	bool PlaceInHand(greenCard &Card);
-
 	unordered_map<string,blackCard*>& GetProvinces(){return provinces;}
 
 	void untapEverything();
@@ -39,15 +37,17 @@ public:
 	void AddPersonality(Personality *personality);
 	greenCard *SeeHandCard(int CardIndex);
 	/*bool EquipPersonality(const std::string &name,greenCard * equipment);
-	*/bool EquipPersonality(int index,greenCard * equipment);
-	const Personality *GetPersonality(int index);
+	bool EquipPersonality(int index,greenCard * equipment);*/
+	Personality *GetPersonality(int index);
 	int GetPersonalityHonor(string name);
 	bool AddProvince(string name);
 	void printArmy();
+	unsigned int SeeMoney() {return money;};
 	bool GetMoney(unsigned int amount);
+	void AddMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
 	unsigned int GetPlayerHonour() const {return honor_points;}
-	vector<Personality* >getArmy(){return army;}
+	vector<Personality* > &getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName,int);
 	void loosePersonalty(string name);
@@ -60,6 +60,7 @@ public:
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 	greenCard* DrawFromHand(int index);
+	bool PlaceInHand(greenCard &Card);
 	void AddHolding(Holding * province);
 	//int get
 	~Player();
