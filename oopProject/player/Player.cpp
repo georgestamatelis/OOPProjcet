@@ -35,7 +35,7 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	for(i=0; i<6; i++){
 		hand[i]=NULL;
 	}
-
+  //honor_points=Honor.getInitialMoney();
   money=Honor.getInitialMoney();
 	provinces["a"]= new Farmland("farm");
 	provinces["b"]=new Mine("mine");
@@ -179,7 +179,7 @@ greenCard *Player::SeeHandCard(int CardIndex){
     	}
 	}
 	return false;
-}*/
+}
 
 bool Player::EquipPersonality(int index,greenCard * equipment){
 	//asuming that name and cad index are valiable
@@ -192,13 +192,14 @@ bool Player::EquipPersonality(int index,greenCard * equipment){
 	army[index]->Equip(equipment);
 
 	return false;
-}
-const Personality *Player::GetPersonality(int index){
+}*/
+Personality *Player::GetPersonality(int index){
 	if( index>army.size() ){
 		return NULL;
 	} else return army[index];
 
 }
+
 void Player::AddHolding(Holding * province)
 {
 	for(int i=0;i<Holdings.size();i++)
@@ -257,7 +258,7 @@ void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
 		if(army[i]->canUse())
-		cout<<army[i]->getname()<<endl;
+		cout << i << ". " << army[i]->getname() << endl;
 	}
 }
 
@@ -266,6 +267,10 @@ bool Player::GetMoney(unsigned int amount){
 		money=money-amount;
 		return true;
 	} else return false;
+}
+
+void Player::AddMoney(unsigned int amount){
+	money=money+amount; 
 }
 
 Player::~Player(){
@@ -308,10 +313,11 @@ void Player:: discardSurplusFateCards()
 {
 
 }
-void Player:: add_money(){
+void Player:: add_money(){//not this name
 	for(int i=0;i<Holdings.size();i++)
 		money+=Holdings[i]->get_harvest_value();
 }
+
 bool Player::CheckName(const string &name){
 	for(int i=0;i<army.size();i++)
 		if(name==army[i]->getname())
@@ -319,8 +325,9 @@ bool Player::CheckName(const string &name){
 
 	return false;
 }
-void Player::looseHonor(){	
-	honor_points-=1;
+void Player::looseHonor()
+{
+
 	if(honor_points<=0)
 		performSeppuku();
 }
