@@ -25,7 +25,7 @@ bool Compatible(Holding *a,Holding *b){
 	}
 }
 ///////////////////////////////////////////////
-Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(4){
+Player::Player(string n):life_points(4),money(0),numberOfProvinces(4),Honor("what here?"),honor_points(4),name(n){
 	static DeckBuilder db;
 	fateDeck=db.createFateDeck();
 	lost=false;

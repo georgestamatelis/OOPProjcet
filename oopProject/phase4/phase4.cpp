@@ -16,7 +16,7 @@ void phase4::play(){
 	//APPLY THE SHORT FUNCTION HERE
 	for(int i=0;i<num_of_players;i++)
 	{
-		cout<<"player "<<i+1<<"'s turn"<<endl;
+		cout << "Player " << players[i]->GetName() << " turn:" << endl;
 		Player *player=players[i];
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
 		player->printProvinces();

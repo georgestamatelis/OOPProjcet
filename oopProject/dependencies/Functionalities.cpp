@@ -38,22 +38,26 @@ int ReadInt(){
 		return ret;
 }
 string ReadString(){
-	char array[50];
-	cin.getline(array,50);
-	string answer(array);
-	return answer;
+	char str[50];
+	cin.getline(str,50);
+	//string answer(array);
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	return str;
 }
 
 #ifdef COLORS
 	//If compiler flag allow it, ANSI color codes are used to change the consolone color to the requested one
-	void SetToRed(){std::cout << "\033[" << 31 << "m";}//Using the esc sequence and the code for volor red, in a linux system the color of the latters will change
-	void SetToGreen(){std::cout << "\033[" << 32 << "m";}//32 for green
-	void SetToBlue(){std::cout << "\033[" << 34 << "m";}//34 for blue
-	void SetToDefault(){std::cout << "\033[" << 39 << "m";}//And 33 for the default one
+	void SetToRed(){cout << "\033[" << 31 << "m";}//Using the esc sequence and the code for volor red, in a linux system the color of the latters will change
+	void SetToGreen(){cout << "\033[" << 32 << "m";}//32 for green
+	void SetToYellow(){cout << "\033[" << 33 << "m";}
+	void SetToBlue(){cout << "\033[" << 34 << "m";}//34 for blue
+	void SetToDefault(){cout << "\033[" << 39 << "m";}//And 33 for the default one
 	#else
 	//Otherwise,colors are not used sisnce the body of the functions are empty, so when the functions are called nothing happens
 	void SetToRed(){}
 	void SetToGreen(){}
+	void SetToYellow(){}
 	void SetToBlue(){}
 	void SetToDefault(){}
 #endif

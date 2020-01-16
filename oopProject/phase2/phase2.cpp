@@ -14,7 +14,7 @@ void phase2::play(){
 	//sort
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
-		cout << "Player number " << i+1;
+		cout << "Player " << GivenPlayers[i]->GetName() << " turn:" << endl;
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n)" << endl;
 			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);

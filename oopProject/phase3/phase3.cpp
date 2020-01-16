@@ -144,7 +144,7 @@ void phase3:: play(){
   cin.clear();
   string line;int choice=0; //stringstream ss;
   for(int i=0;i<num_of_players;i++){
-    cout<<"Player "<<i+1<<"turn:"<<endl;
+    cout << "Player " << players[i]->GetName() << " turn";
     cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
     cin>>line;
     stringstream ss(line);

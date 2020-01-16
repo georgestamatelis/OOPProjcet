@@ -18,7 +18,7 @@ gameboard::gameboard()
  }
   players =new Player *[num_of_players];
   for(int i=0;i<num_of_players;i++)
-    players[i]=new Player;
+    players[i]=new Player(to_string(i));
   P1=new phase1(players,num_of_players);
   P2=new phase2(players,num_of_players);
   P3=new phase3(players,num_of_players);

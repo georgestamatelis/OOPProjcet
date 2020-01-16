@@ -10,9 +10,9 @@
 #include "../cards/Followers.hpp"
 #include "../cards/greencard.hpp"
 #include <vector>
-class Player
-{
+class Player{
 private:
+	string name;
 	list <greenCard*> *fateDeck;
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
@@ -23,7 +23,8 @@ private:
 	unsigned int life_points,money,numberOfProvinces,honor_points;
 	StrongHold Honor;
 public:
-	Player();
+	Player(string n);
+	const string &GetName(){return name;} 
 	bool PlaceInHand(greenCard &Card);
 
 	unordered_map<string,blackCard*>& GetProvinces(){return provinces;}
