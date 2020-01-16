@@ -35,7 +35,7 @@ Player::Player():life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopani
 	for(i=0; i<6; i++){
 		hand[i]=NULL;
 	}
-  //honor_points=Honor.getInitialMoney();
+
   money=Honor.getInitialMoney();
 	provinces["a"]= new Farmland("farm");
 	provinces["b"]=new Mine("mine");
@@ -164,8 +164,9 @@ greenCard *Player::SeeHandCard(int CardIndex){
 	return NULL;
 }
 
-bool Player::EquipPersonality(const std::string &name,greenCard * equipment){
+/*bool Player::EquipPersonality(const std::string &name,greenCard * equipment){
 	//asuming that name and cad index are valiable
+	int i;
 
 	if(GetPersonalityHonor(name)<equipment->get_minumumHonor()){
 		cout << "Not enough honor to equip this personality" << endl;
@@ -178,6 +179,25 @@ bool Player::EquipPersonality(const std::string &name,greenCard * equipment){
     	}
 	}
 	return false;
+}*/
+
+bool Player::EquipPersonality(int index,greenCard * equipment){
+	//asuming that name and cad index are valiable
+	if(index >army.size()) return false;
+
+	if(army[index]->getHonour()<equipment->get_minumumHonor()){
+		cout << "Not enough honor to equip this personality" << endl;
+	} return false;
+
+	army[index]->Equip(equipment);
+
+	return false;
+}
+const Personality *Player::GetPersonality(int index){
+	if( index>army.size() ){
+		return NULL;
+	} else return army[index];
+
 }
 void Player::AddHolding(Holding * province)
 {
@@ -299,9 +319,8 @@ bool Player::CheckName(const string &name){
 
 	return false;
 }
-void Player::looseHonor()
-{
-
+void Player::looseHonor(){	
+	honor_points-=1;
 	if(honor_points<=0)
 		performSeppuku();
 }
