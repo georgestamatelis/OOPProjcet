@@ -14,12 +14,12 @@ void phase2::play(){
 	//sort
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
-		cout << "Player number " << i;
+		cout << "Player number " << i+1;
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n)" << endl;
 			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);
 		}else cout << " does not have a army to equip!" << endl;
-		i++;
+
 	}
 }
 
@@ -63,6 +63,7 @@ void phase2::equipPhase(Player &player){
 				cout << "Please type the number of the personality you want to equip" << endl;
 				cout << "Number of personality: ";
 				ReadInt(num);
+				num-=1;
 				while( (pers=player.GetPersonality(num))==NULL ){
 					cout << "Invalid number of personality, please type the correct one: ";
 					ReadInt(num);
@@ -70,7 +71,7 @@ void phase2::equipPhase(Player &player){
 				if(pers->getHonour() >= card->get_minumumHonor()){
 					player.GetMoney(TotalCost);
 					player.DrawFromHand(num);
-					pers->Equip(card);	
+					pers->Equip(card);
 					if(upgrade) card->upgrade();
 				}else{
 					cout << "Not enough honor to equip this personality, would you like to equip the card to another personality? (y/n)" << endl;

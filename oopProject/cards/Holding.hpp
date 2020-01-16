@@ -8,7 +8,6 @@ class Holding:public blackCard
 private:
   int harvestValue;//returns per round
   bool upperHolding,subHolding;
-  vector<Personality *>defendants;
   bool full_chain;
 public:
   Holding(string name,int c,bool b1,bool b2,int hv,bool upH=false,bool subH=false)
@@ -20,27 +19,7 @@ public:
   void print(){
     cout<<"Holding : "<<this->getname()<<endl;
   }
-  void addDefandant(Personality* name){
-    defendants.push_back(name);
-  }
-  int getDefence(){
-    return getDefenerPoints();
-  }
-  int getDefenerPoints(){
-    int sum=0;
-    for(int i=0;i<defendants.size();i++){
-      sum+=defendants[i]->getDefence();
-    }
-    return sum;
-  }
-  void loosePersonalties(int sum){
-    for(int i=0;i<defendants.size();i++){
-      if(sum<=0)
-        return;
-       sum-=defendants[i]->getDefence();
-       defendants[i]->Kill();
-    }
-  }
+
   int get_harvest_value(){
     int total_money=harvestValue;
     if(upperHolding){

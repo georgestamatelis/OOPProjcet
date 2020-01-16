@@ -21,22 +21,24 @@ void phase3:: Attack_Choice(int plindex)
   players[enemyIndex]->printProvinces();
   cout<<"Which one do you want to attack : ";
   string answer;
-  cin>>answer;
+  answer=ReadString();
   while(answer!="a" && answer !="b" && answer!="c" && answer!="d" ){
     cout<<"Sorry no such province.Try again :";
     cin>>answer;
   }
  blackCard * underAttack=players[enemyIndex]->GetProvinces()[answer];
+ if(underAttack->isKilled())
+  return;
  cout<<"Your available army is :"<<endl;
  players[plindex]->printArmy();
- cout<<"Which personalitiew do you want to use?"<<endl;
+ //cout<<"Which personalitiew do you want to use?"<<endl;
  bool input=false;
  vector <string>attackersVector;
  while(!input)
  {
    string attackers,answer;
    cout<<"Which personality do you wanna use?"<<endl;
-   cin>>attackers;
+   attackers=ReadString();
    attackersVector.push_back(attackers);
    cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
    cin>>answer;
@@ -62,18 +64,19 @@ void phase3:: Attack_Choice(int plindex)
       players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence+provinceDefence);
       players[enemyIndex]->looseProvince(answer);
  }
- else if (totaldamage >personalityDefence && totaldamage< personalityDefence+provinceDefence)
+ else if (totaldamage >=personalityDefence && totaldamage< personalityDefence+provinceDefence)
  { //lose all attackers and all defenders
    loss=true;
    players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence+provinceDefence);
    int totalLoss=totaldamage-personalityDefence;//+provincedefence;
-   while(totalLoss>=0){
-     for(int i=0;i<attackersVector.size();i++)
+    for(int i=0;i<attackersVector.size();i++)
      {
         totalLoss-=players[plindex]->getPersonalityDamage(attackersVector[i]);
         players[plindex]->loosePersonalty(attackersVector[i]);
+        if(totalLoss <=0)
+          return;
      }
-     }
+
 }
  else if(totaldamage ==personalityDefence)
  {
@@ -113,6 +116,8 @@ void phase3:: defence_Choise(int plindex)
     cin>>prDef;
   //  return;
   }
+  cout<<"available army is: " <<endl;
+  players[plindex]->printArmy();
   Holding * underAttack=(Holding *)provinces[prDef];
   bool endinput=false;
   vector<string>defencePers;
@@ -129,7 +134,7 @@ void phase3:: defence_Choise(int plindex)
   //done with input now time to add defendants to province
   vector <Personality*>army=temp->getArmy();
   for(int i=0;i<army.size();i++){
-     if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end())
+     if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end() && army[i]->canUse())
         underAttack->addDefandant(army[i]);
  }
 

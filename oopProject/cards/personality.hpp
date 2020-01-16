@@ -20,7 +20,8 @@ public:
   bool CanTakeFollower(){return (guards.size()<max_number_of_followers);}
   bool isPersonality(){return true;}
   int getHonour(){return honour;}
-  int getDefence(){
+  int getDefence()
+  {
     int sum=defense;
     for(int i=0;i<guards.size();i++)
     {
@@ -29,8 +30,8 @@ public:
     for(int i=0;i<equipment.size();i++){
       sum+=equipment[i]->get_defence_bonus();
     }
-    return sum;
-    }
+    return sum+getDefenerPoints();
+  }
   int getAttack()
   {
     int sum=attack;
@@ -82,7 +83,7 @@ public:
 		}else if((equipment->GetType()).compare("follower")==0 ){
 			follower& eq = (follower&)(*equipment);//downcast
 			addFollower(&eq);
-		}else cout << "Oh !!!!!!!!!!!!!!!!!!!!" << endl;
+		}else cout << "Oh shit!!!!!!!!!!!!!!!" << endl;
 	 }
    void loosePersonalties(int sum)
    {
