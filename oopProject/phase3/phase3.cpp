@@ -12,7 +12,7 @@ void phase3:: Attack_Choice(int plindex)
   cout<<"Which Player do you want to attack  ?:";
   int enemyIndex=ReadInt();
   enemyIndex-=1;
-  while(enemyIndex <0 || enemyIndex ==plindex){
+ while(enemyIndex <0 || enemyIndex ==plindex || enemyIndex >=num_of_players){
     cout<<"Wrong input : ";
     enemyIndex=ReadInt();
     enemyIndex-=1;
@@ -33,13 +33,16 @@ void phase3:: Attack_Choice(int plindex)
  players[plindex]->printArmy();
  //cout<<"Which personalitiew do you want to use?"<<endl;
  bool input=false;
- vector <string>attackersVector;
+ vector <int>attackersVector;
+ vector <Personality *>army=players[plindex]->getArmy();
  while(!input)
  {
-   string attackers,answer;
+   int attackers;
+   string answer;
    cout<<"Which personality do you wanna use?"<<endl;
-   attackers=ReadString();
-   attackersVector.push_back(attackers);
+   attackers=ReadInt();
+   if(attackers>=1 && attackers<=army.size())
+    attackersVector.push_back(attackers-1);
    cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
    cin>>answer;
    if(answer=="n" )
@@ -47,34 +50,35 @@ void phase3:: Attack_Choice(int plindex)
  }
  //time for attack
  int totaldamage=0;
- vector <Personality *>army=players[plindex]->getArmy();
- for(int i=0;i<army.size();i++)
+ for(int i=0;i<attackersVector.size();i++)
  {
-   if(find(attackersVector.begin(),attackersVector.end(),army[i]->getname())!=attackersVector.end())
-      {totaldamage+=army[i]->getAttack();
-    /*  cout<<"Fook";*/}
+   if(army[attackersVector[i]]->canUse())
+    totaldamage+=army[attackersVector[i]]->getAttack();
  }
+
  bool loss=false;
  int provinceDefence=players[enemyIndex]->getInitalDefense();
  int personalityDefence=underAttack->getDefence();
  cout<<"Total Damage "<<totaldamage<<"prD "<<provinceDefence<<"personD "<<personalityDefence<<endl;
- if(totaldamage >= personalityDefence+provinceDefence)
+ if(totaldamage >= (personalityDefence+provinceDefence))
  {
     //attacker wins
+    cout<<"ATTACKER WINS THE BATTLE"<<endl;
       players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence+provinceDefence);
       players[enemyIndex]->looseProvince(answer);
+      return;
  }
  else if (totaldamage >=personalityDefence && totaldamage< personalityDefence+provinceDefence)
- { //lose all attackers and all defenders
+ { //lose some attackers and all defenders
    loss=true;
    players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence+provinceDefence);
    int totalLoss=totaldamage-personalityDefence;//+provincedefence;
     for(int i=0;i<attackersVector.size();i++)
      {
-        totalLoss-=players[plindex]->getPersonalityDamage(attackersVector[i]);
-        players[plindex]->loosePersonalty(attackersVector[i]);
+        totalLoss-=army[attackersVector[i]]->getAttack();
+        players[plindex]->loosePersonalty(army[attackersVector[i]]->getname());
         if(totalLoss <=0)
-          return;
+          break;
      }
 
 }
@@ -82,23 +86,31 @@ void phase3:: Attack_Choice(int plindex)
  {
    //lose
    loss=true;
-   players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence);
+   players[enemyIndex]->looseDefencePersonalities(answer,personalityDefence);//loose all defenders
    //+loose all attackeras
    for (int i=0;i<attackersVector.size();i++){
-     players[plindex]->loosePersonalty(attackersVector[i]);
+     players[plindex]->loosePersonalty(army[attackersVector[i]]->getname());
+
    }
  }
  else if(totaldamage < personalityDefence){
    loss=true;
    for (int i=0;i<attackersVector.size();i++){
-     players[plindex]->loosePersonalty(attackersVector[i]);
+     players[plindex]->loosePersonalty(army[attackersVector[i]]->getname());
    }
+
    int totalLoss=personalityDefence-totaldamage;
    underAttack->loosePersonalties(totalLoss);
  }
  if(loss){
-   players[plindex]->looseHonor();
- }
+       players[plindex]->looseHonor();
+       for(int i=0;i<attackersVector.size();i++){
+         if(!army[attackersVector[i]]->isKilled()){
+          army[attackersVector[i]]->tap();
+          army[attackersVector[i]]->looseHonor();
+          army[attackersVector[i]]->hurtItems();
+       }}
+       }
 }
 void phase3:: defence_Choise(int plindex)
 {
@@ -118,25 +130,26 @@ void phase3:: defence_Choise(int plindex)
   }
   cout<<"available army is: " <<endl;
   players[plindex]->printArmy();
-  Holding * underAttack=(Holding *)provinces[prDef];
+  blackCard * underAttack=(blackCard *)provinces[prDef];
   bool endinput=false;
-  vector<string>defencePers;
+  vector<int >defencePers;
+  vector <Personality*> army=temp->getArmy();
   while(!endinput){
-    string defendant,answer;
+    int defendant;
+//    string defendant,answer;
     cout<<"Which personalities will defend it??"<<endl;
-    cin>>defendant;
+    defendant=ReadInt();
+    if(defendant >=1 && defendant<=army.size())
+    defencePers.push_back(defendant-1);
     cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
-    cin>>answer;
-    defencePers.push_back(defendant);
-    if(answer=="n" || answer=="N" || answer=="No")
-       break;
+    if(!YesOrNo())
+      break;
   }
   //done with input now time to add defendants to province
-  vector <Personality*>army=temp->getArmy();
-  for(int i=0;i<army.size();i++){
-     if(find(defencePers.begin(),defencePers.end(),army[i]->getname())!=defencePers.end() && army[i]->canUse())
-        underAttack->addDefandant(army[i]);
- }
+  for(int i=0;i<defencePers.size();i++)
+    if(army[defencePers[i]]->canUse() )
+      underAttack->addDefandant(army[i]);
+
 
 }
 void phase3:: play(){
@@ -144,20 +157,13 @@ void phase3:: play(){
   cin.clear();
   string line;int choice=0; //stringstream ss;
   for(int i=0;i<num_of_players;i++){
-    cout << "Player " << players[i]->GetName() << " turn";
+    cout<<"Player "<<i+1<<"turn:"<<endl;
     cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
-    cin>>line;
-    stringstream ss(line);
-    ss>>choice;
+    choice=ReadInt();
     while(choice<1 || choice>3)
     {
       cout<<"Type a number between 1 and 3 ,Try again"<<endl;
-      cin.clear();
-      ss.str("");
-      ss.clear();
-      getline(cin,line);
-      ss<<line;
-      ss>>choice;
+      choice=ReadInt();
     }
 
     switch (choice){
