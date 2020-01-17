@@ -24,8 +24,9 @@ bool Compatible(Holding *a,Holding *b){
 		return false;
 	}
 }
+
 ///////////////////////////////////////////////
-Player::Player(string n):life_points(4),money(0),numberOfProvinces(4),Honor("what here?"),honor_points(4),name(n){
+Player::Player(string n):life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(4),name(n){
 	static DeckBuilder db;
 	fateDeck=db.createFateDeck();
 	lost=false;
@@ -54,9 +55,6 @@ void Player::loosePersonalty(string name)
 		 return;
 	 }
 	}
- 	//provinces[name]->Kill();
- 	//provinces.erase(name);
- //delete province[name];
 
 }
 int Player::getPersonalityDamage(string name){
@@ -229,7 +227,7 @@ void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
 		if(army[i]->canUse())
-			cout << i << ". " << army[i]->getname() << endl;
+			cout<<i+1<<": "<<army[i]->getname()<<endl;
 	}
 }
 
@@ -256,15 +254,24 @@ Player::~Player(){
 	}
 }
 void Player::looseDefencePersonalities(string provinceName,int dmg){
-	cout<<"OF COURSE"<<endl;
-	if(provinces[provinceName]->isPersonality())
-	{
-//		cout<<"Hell yeahh buddy"<<endl;
-
-		return;
-	}
+	//cout<<"OF COURSE"<<endl;
+	cout<<"DAMAGE ="<<dmg<<"NAME IS"<<provinceName<<endl;
+	vector <blackCard *> temp=provinces[provinceName]->getDefenders();
 	provinces[provinceName]->loosePersonalties(dmg);
-	cout<<"Exiting"<<endl;
+	for(int i=0;i<temp.size();i++){
+		Personality * soldier=(Personality *)temp[i];
+		for(int j=0; j<army.size();j++)
+			{
+				if(dmg<=0)
+					return;
+				if(army[i]->getname()==soldier->getname())
+					{	dmg-=army[j]->getDefence();
+						army[j]->Kill();
+						army.erase(army.begin()+j);
+					}
+
+			}
+	}
 }
 void Player:: performSeppuku(){
 	lost=true;
@@ -290,13 +297,14 @@ void Player:: add_money(){
 }
 bool Player::CheckName(const string &name){
 	for(int i=0;i<army.size();i++)
-		if(name==army[i]->getname())
+		if(name==army[i]->getname() )
 			return true;
 
 	return false;
 }
 void Player::looseHonor()
 {
+	cout<<"Player looses Honor, new Honor points are :"<<honor_points-1<<endl;
  honor_points-=1;
 	if(honor_points<=0)
 		performSeppuku();
