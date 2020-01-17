@@ -1,0 +1,4 @@
+1)players names
+2)Short in every phase
+3)check phase 1-phase 5 - between rounds
+4)destructors
