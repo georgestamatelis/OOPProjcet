@@ -12,8 +12,10 @@ phase4::phase4(Player **player,int num_of_players)
 :players(player),num_of_players(num_of_players){}
 
 void phase4::play(){
-	cout<<"START OF PHASE 4"<<endl;
-	//APPLY THE SHORT FUNCTION HERE
+	SetToYellow();
+	cout<<"Start if phase 4 [Economy phase]"<<endl;
+	SetToDefault();
+	qsort(players,num_of_players,sizeof(Player*),Honorcompare);
 	for(int i=0;i<num_of_players;i++)
 	{
 		cout << "Player " << players[i]->GetName() << " turn:" << endl;

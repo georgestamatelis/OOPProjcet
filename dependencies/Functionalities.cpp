@@ -29,6 +29,7 @@ void ReadInt(int &ret){
 			std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			//std::cout << "!!"<< ret << std::endl;
     	}
+			cin.ignore();//
     	//std::cout << "!!"<< ret << std::endl;
 	}
 
@@ -38,11 +39,15 @@ int ReadInt(){
 		return ret;
 }
 string ReadString(){
-	char str[50];
-	cin.getline(str,50);
+	//char str[50];
+	string str;
+	//cin.clear();
+	//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	//cin.ignore();
+	getline(cin,str);
+	//cin.ignore();
+
 	//string answer(array);
-	cin.clear();
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	return str;
 }
 

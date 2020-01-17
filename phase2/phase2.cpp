@@ -10,15 +10,16 @@ using namespace std;
 phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
 
 void phase2::play(){
-	cout<<"Start of phase 2"<<endl;
-	//sort
+	SetToYellow();
+	cout<<"Start of phase 2 [Equiping phase]"<<endl;
+	SetToDefault();
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
 		cout << "Player " << GivenPlayers[i]->GetName() << " turn:" << endl;
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n)" << endl;
 			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);
-		}else cout << " does not have a army to equip!" << endl;
+		}else cout << " Does not have a army to equip!" << endl;
 
 	}
 }

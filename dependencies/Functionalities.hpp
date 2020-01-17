@@ -6,5 +6,6 @@ int ReadInt();
 std::string ReadString();
 void SetToRed();
 void SetToGreen();
+void SetToYellow();
 void SetToBlue();
 void SetToDefault();

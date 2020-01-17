@@ -136,10 +136,10 @@ greenCard* Player::DrawFromHand(int index){
 	return NULL;
 }
 
-void Player::printHand(){
+void Player::printHand(bool numbers){
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL){
-			cout << i << ". ";
+			if(numbers) cout << i << ". ";
 			hand[i]->print();
 		}
 	}

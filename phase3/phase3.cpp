@@ -47,6 +47,9 @@ void phase3:: Attack_Choice(int plindex)
    cin>>answer;
    if(answer=="n" )
      input=true;
+  /*right code for lines 47-49
+   input=!YesOrNo();
+  */
  }
  //time for attack
  int totaldamage=0;
@@ -153,12 +156,14 @@ void phase3:: defence_Choise(int plindex)
 
 }
 void phase3:: play(){
-  cout<<"PHASE 3  || BATTLE PHASE"<<endl;
+  SetToYellow();
+  cout<<"PHASE 3  [Battle phase]"<<endl;
+  SetToDefault();
   cin.clear();
   string line;int choice=0; //stringstream ss;
-  //qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
+  //qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
-    cout<<"Player "<<players[i]->GetName()<<"turn:"<<endl;
+    cout<<"Player "<<players[i]->GetName()<<" turn:"<<endl;
     cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
     choice=ReadInt();
     while(choice<1 || choice>3)

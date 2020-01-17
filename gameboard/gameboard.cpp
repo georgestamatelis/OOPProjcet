@@ -13,15 +13,13 @@ gameboard::gameboard()
  while(num_of_players<=1 || num_of_players>8)
  {
    cout<<"Sorry the rules say there must be 2-8 players  Try again"<<endl;
-   num_of_players=ReadInt();
+   ReadInt(num_of_players);
    //cout<<num_of_players<<" "<<line<<endl;
  }
   players =new Player *[num_of_players];
   for(int i=0;i<num_of_players;i++)
-    { string answ;
-      cout<<"Please Give me players "<<i<<"'s  name:"<<endl;
-      cin>>answ;
-      players[i]=new Player(answ);
+    { cout<<"Please type players "<<i<<"'s  name:"<<endl;
+      players[i]=new Player(ReadString());
     }
   P1=new phase1(players,num_of_players);
   P2=new phase2(players,num_of_players);
@@ -55,7 +53,9 @@ void gameboard:: printGameStatistics()
 void gameboard:: gamePlay()
 {
   do{
-    cout<<"GamePlay Begins"<<endl;
+    SetToYellow();
+    cout<<"GamePlay Begins!!"<<endl;
+    SetToDefault();
     P1->play();
     P2->play();
     P3->play();
@@ -69,12 +69,14 @@ void gameboard:: gamePlay()
 
 }
 gameboard:: ~gameboard(){
-  cout<<"Destroying GameBoard game over"<<endl;
+  SetToYellow();
+  cout<<"Destroying GameBoard. Game is over"<<endl;
+  SetToDefault();
   delete P1;
   delete P2;
   delete P3;
   delete P4;
   for (int i=0;i<num_of_players;i++)
     delete players[i];
-  delete players;
+  delete players;//Mayby this should be out of the loop?
 }
