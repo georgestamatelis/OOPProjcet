@@ -50,7 +50,7 @@ void Player::loosePersonalty(string name)
 	for(int i=0;i<army.size();i++)
 	{
 		if(army[i]->getname()==name)
-		 { cout<<"Killing"<<army[i]->getname()<<endl;
+		 { cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
 			 army[i]->Kill();
 			 army.erase(army.begin()+i);
 		 return;
@@ -267,7 +267,7 @@ Player::~Player(){
 }
 void Player::looseDefencePersonalities(string provinceName,int dmg){
 	//cout<<"OF COURSE"<<endl;
-	cout<<"DAMAGE ="<<dmg<<"NAME IS"<<provinceName<<endl;
+	//cout<<"DAMAGE ="<<dmg<<"NAME IS"<<provinceName<<endl;
 	vector <blackCard *> temp=provinces[provinceName]->getDefenders();
 	provinces[provinceName]->loosePersonalties(dmg);
 	for(int i=0;i<temp.size();i++){
@@ -294,7 +294,7 @@ void Player::looseProvince(string name)
 	if(provinces.find(name)==provinces.end())
 		return;
 	looseHonor();
-	cout <<"KILLING PROVINCE "<<provinces[name]->getname();
+	cout <<"PLAYER "<<GetName()<<"LOSES PROVINCE "<<provinces[name]->getname();
 	provinces[name]->Kill();
 	provinces.erase(name);
 

@@ -121,7 +121,7 @@ public:
    }
    void Kill(){
      isDead=true;
-     cout<<"Personality "<<getname()<<"got fucked up real good"<<endl;
+    // cout<<"Personality "<<getname()<<"got fucked up real good"<<endl;
      for(int i=0;i<guards.size();i++)
       guards[i]->Kill();
     isDead=true;

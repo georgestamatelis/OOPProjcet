@@ -7,15 +7,30 @@ phase3:: phase3(Player **pls,int n)
 {
 
 }
+
 void phase3:: Attack_Choice(int plindex)
 {
+  if(!players[plindex]->HasArmy()){
+    cout<<"Sorry you don't have army"<<endl;
+    return;
+  }
+  int enemyIndex;
+  string enemyname;
   cout<<"Which Player do you want to attack  ?:";
-  int enemyIndex=ReadInt();
-  enemyIndex-=1;
+  cin>>enemyname;
+  for(int i=0;i<num_of_players;i++)
+    if(players[i]->GetName()==enemyname)
+      enemyIndex=i;
+//  int enemyIndex=ReadInt();
+  //enemyIndex-=1;
  while(enemyIndex <0 || enemyIndex ==plindex || enemyIndex >=num_of_players){
     cout<<"Wrong input : ";
-    enemyIndex=ReadInt();
-    enemyIndex-=1;
+    cin>>enemyname;
+    for(int i=0;i<num_of_players;i++)
+      if(players[i]->GetName()==enemyname)
+        enemyIndex=i;
+    //enemyIndex=ReadInt();
+    //enemyIndex-=1;
   }
   cout<<"Enemy Players Provinces are :"<<endl;
   players[enemyIndex]->printProvinces();
@@ -41,15 +56,12 @@ void phase3:: Attack_Choice(int plindex)
    string answer;
    cout<<"Which personality do you wanna use?"<<endl;
    attackers=ReadInt();
-   if(attackers>=1 && attackers<=army.size())
+   if(attackers>=1 && attackers<=army.size() && find(attackersVector.begin(),attackersVector.end(),attackers-1 )==attackersVector.end())
     attackersVector.push_back(attackers-1);
    cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
-   cin>>answer;
-   if(answer=="n" )
+   //cin>>answer;
+   if(!YesOrNo() )
      input=true;
-  /*right code for lines 47-49
-   input=!YesOrNo();
-  */
  }
  //time for attack
  int totaldamage=0;
@@ -117,8 +129,13 @@ void phase3:: Attack_Choice(int plindex)
 }
 void phase3:: defence_Choise(int plindex)
 {
+
   if(plindex>=num_of_players)
       return;
+  if(!players[plindex]->HasArmy()){
+        cout<<"Sorry you don't have army"<<endl;
+        return;
+    }
   Player *temp=players[plindex];
   string prDef;
   unordered_map<string,blackCard*> provinces=temp->GetProvinces();
@@ -161,7 +178,7 @@ void phase3:: play(){
   SetToDefault();
   cin.clear();
   string line;int choice=0; //stringstream ss;
-  //qsort(players,num_of_players,sizeof(Player*),Honorcompare);
+  qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
     cout<<"Player "<<players[i]->GetName()<<" turn:"<<endl;
     cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
