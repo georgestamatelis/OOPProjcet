@@ -15,7 +15,9 @@ void phase5:: play(){
   }
   for(int i=0;i<num_of_players;i++)
   {
+      SetToBlue();
       cout<<"Player :" <<players[i]->GetName()<<endl;
+      SetToDefault();
       players[i]->printHand();
       players[i]->printProvinces();
       players[i]->PrintHoldings();

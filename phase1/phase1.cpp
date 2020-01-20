@@ -9,7 +9,9 @@ phase1:: phase1(Player **pl,int n)
 void phase1:: play(){
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
+    SetToBlue();
     cout<<"Player: "<<players[i]->GetName()<<endl;
+    SetToDefault();
     players[i]->untapEverything();
     players[i]->drawFateCard();
     players[i]->revealProvinces();

@@ -18,7 +18,9 @@ void phase4::play(){
 	qsort(players,num_of_players,sizeof(Player*),Honorcompare);
 	for(int i=0;i<num_of_players;i++)
 	{
+		SetToBlue();
 		cout << "Player " << players[i]->GetName() << " turn:" << endl;
+		SetToDefault();
 		Player *player=players[i];
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
 		player->printProvinces();

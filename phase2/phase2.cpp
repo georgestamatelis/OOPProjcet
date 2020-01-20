@@ -15,7 +15,9 @@ void phase2::play(){
 	SetToDefault();
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
+		SetToBlue();
 		cout << "Player " << GivenPlayers[i]->GetName() << " turn:" << endl;
+		SetToDefault();
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n)" << endl;
 			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);

@@ -180,7 +180,9 @@ void phase3:: play(){
   string line;int choice=0; //stringstream ss;
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
+    SetToBlue();
     cout<<"Player "<<players[i]->GetName()<<" turn:"<<endl;
+    SetToDefault();
     cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
     choice=ReadInt();
     while(choice<1 || choice>3)
