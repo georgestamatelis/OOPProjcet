@@ -11,40 +11,40 @@ phase3:: phase3(Player **pls,int n)
 void phase3:: Attack_Choice(int plindex)
 {
   if(!players[plindex]->HasArmy()){
-    cout<<"Sorry you don't have army"<<endl;
+    cout<<"Sorry you don't have army!"<<endl;
     return;
   }
-  int enemyIndex;
+  int enemyIndex=0;
   string enemyname;
-  cout<<"Which Player do you want to attack  ?:";
+  cout<<"Which Player do you want to attack? ";
   enemyname=ReadString();
   for(int i=0;i<num_of_players;i++)
-    if(players[i]->GetName()==enemyname)
-      enemyIndex=i;
+    if( enemyname.compare(players[i]->GetName())==0 )
+        enemyIndex=i;
 //  int enemyIndex=ReadInt();
   //enemyIndex-=1;
  while(enemyIndex <0 || enemyIndex ==plindex || enemyIndex >=num_of_players){
-    cout<<"Wrong input : ";
-    cin>>enemyname;
+    cout<<"Wrong input. Please type the name of the player you want to attack: ";
+    enemyname=ReadString();
     for(int i=0;i<num_of_players;i++)
       if(players[i]->GetName()==enemyname)
         enemyIndex=i;
     //enemyIndex=ReadInt();
     //enemyIndex-=1;
   }
-  cout<<"Enemy Players Provinces are :"<<endl;
+  cout<<"Enemy Players Provinces are: "<<endl;
   players[enemyIndex]->printProvinces();
-  cout<<"Which one do you want to attack : ";
+  cout<<"Which one do you want to attack: ";
   string answer;
   answer=ReadString();
   while(answer!="a" && answer !="b" && answer!="c" && answer!="d" ){
-    cout<<"Sorry no such province.Try again :";
+    cout<<"Sorry no such province. Try again: ";
     cin>>answer;
   }
  blackCard * underAttack=players[enemyIndex]->GetProvinces()[answer];
  if(underAttack->isKilled())
   return;
- cout<<"Your available army is :"<<endl;
+ cout<<"Your available army is: "<<endl;
  players[plindex]->printArmy();
  //cout<<"Which personalitiew do you want to use?"<<endl;
  bool input=false;
@@ -54,11 +54,11 @@ void phase3:: Attack_Choice(int plindex)
  {
    int attackers;
    string answer;
-   cout<<"Which personality do you wanna use?"<<endl;
+   cout<<"Which personality do you wanna use? ";
    attackers=ReadInt();
    if(attackers>=1 && attackers<=army.size() && find(attackersVector.begin(),attackersVector.end(),attackers-1 )==attackersVector.end())
     attackersVector.push_back(attackers-1);
-   cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
+   cout<<"Do you wanna use more personalities? (y/n): ";
    //cin>>answer;
    if(!YesOrNo() )
      input=true;
@@ -141,14 +141,14 @@ void phase3:: defence_Choise(int plindex)
   unordered_map<string,blackCard*> provinces=temp->GetProvinces();
   cout<<"Your  Province are :"<<endl;
   players[plindex]->printProvinces();
-  cout<<"Which province do you wanna defend? : ";//<<endl;
+  cout<<"Which province do you wanna defend? ";//<<endl;
   cin>>prDef;
   while(provinces.find(prDef)==provinces.end()){
-    cout<<"Sorry there is no such province,try again:"<<endl;
+    cout<<"Sorry there is no such province. Try again: ";
     cin>>prDef;
   //  return;
   }
-  cout<<"available army is: " <<endl;
+  cout<<"Your available army is: " <<endl;
   players[plindex]->printArmy();
   blackCard * underAttack=(blackCard *)provinces[prDef];
   bool endinput=false;
@@ -157,11 +157,11 @@ void phase3:: defence_Choise(int plindex)
   while(!endinput){
     int defendant;
 //    string defendant,answer;
-    cout<<"Which personalities will defend it??"<<endl;
+    cout<<"Which personalities will defend it? ";
     defendant=ReadInt();
     if(defendant >=1 && defendant<=army.size())
     defencePers.push_back(defendant-1);
-    cout<<"Do you wanna use more personalities?? (y/n)"<<endl;
+    cout<<"Do you wanna use more personalities? (y/n): ";
     if(!YesOrNo())
       break;
   }
@@ -174,20 +174,21 @@ void phase3:: defence_Choise(int plindex)
 }
 void phase3:: play(){
   SetToYellow();
-  cout<<"PHASE 3  [Battle phase]"<<endl;
+  cout<<"Phase 3 [Battle phase]"<<endl;
   SetToDefault();
   cin.clear();
-  string line;int choice=0; //stringstream ss;
+  string line;
+  int choice=0; //stringstream ss;
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
-    SetToBlue();
-    cout<<"Player "<<players[i]->GetName()<<" turn:"<<endl;
+    SetToYellow();
+    cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
     SetToDefault();
-    cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: "<<endl;
+    cout<<"Type 1 for attack options ,2 for defence options, 3 to end your turn: " ;
     choice=ReadInt();
     while(choice<1 || choice>3)
     {
-      cout<<"Type a number between 1 and 3 ,Try again"<<endl;
+      cout<<"Please type a number between 1 and 3. Try again: ";
       choice=ReadInt();
     }
 
@@ -208,5 +209,5 @@ void phase3:: play(){
   }
 }
 phase3:: ~phase3(){
-  cout<<"End of phase3"<<endl;
+  cout<<"End of phase 3"<<endl;
 }

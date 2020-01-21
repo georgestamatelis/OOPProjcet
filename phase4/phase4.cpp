@@ -12,27 +12,34 @@ phase4::phase4(Player **player,int num_of_players)
 :players(player),num_of_players(num_of_players){}
 
 void phase4::play(){
+	string province;
 	SetToYellow();
-	cout<<"Start if phase 4 [Economy phase]"<<endl;
+	cout<<"Phase 4 [Economy phase]"<<endl;
 	SetToDefault();
 	qsort(players,num_of_players,sizeof(Player*),Honorcompare);
 	for(int i=0;i<num_of_players;i++)
 	{
-		SetToBlue();
-		cout << "Player " << players[i]->GetName() << " turn:" << endl;
+		SetToYellow();
+		cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
 		SetToDefault();
 		Player *player=players[i];
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
 		player->printProvinces();
-		cout<<"would you like to buy any provinces? (y/n)" <<endl;
+		cout<<"would you like to buy any provinces? (y/n): ";
 		if(YesOrNo()==true){
-			cin.ignore();
-		  cout<<"Which one??"<<endl;
+			cout<<"Which one: ";
+			province=ReadString();
+			while(players[i]->AddProvince(province)==false){
+				cout << "Unable to buy this province, please type another: ";
+				province=ReadString();
+			}
+			/*cin.ignore();
 			char answer[40];
 			cin.getline(answer,40);
 			string  str(answer);
-			cout<<str<<endl;
-			players[i]->AddProvince(str);
+			cout<<str<<endl;*/
+
+			//players[i]->AddProvince(str);
 
 			//BuyProvince(*player);
 		}
@@ -40,5 +47,5 @@ void phase4::play(){
 }
 
 phase4::~phase4(){
-	cout<<"End of phase 2"<<endl;
+	cout<<"End of phase 4"<<endl;
 }

@@ -208,7 +208,7 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 		Personality *temp=(Personality*)provinces[name];
 		if(!tap_holdings(temp->GetCost()))
 		{
-			cout<<"Sorry Player Doesn't have enough money ,money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			cout<<"Sorry Player doesn't have enough money ,money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
 		AddPersonality(temp);
@@ -216,7 +216,7 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 	else{
 		if(!tap_holdings(provinces[name]->GetCost())) //takes care of money
 		{
-			cout<<"Sorry Player Doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
 		AddHolding((Holding*)provinces[name]);
@@ -356,17 +356,17 @@ Player::~Player(){
 	delete[] hand;
 
 	for (auto f : *fateDeck) {
-    delete f;
+    	delete f;
 	}
 	delete fateDeck;
 
 	for (auto c : *dynastyDeck) {
-    delete c;
+		delete c;
 	}
 	delete dynastyDeck;
 
 	for (auto a : army) {
-    delete a;
+    	delete a;
 	}
 
 	for (auto h : Holdings) {
@@ -374,6 +374,6 @@ Player::~Player(){
 	}
 
 	for (auto& it : provinces){
-    delete it.second;
+    	delete it.second;
 	}
 }

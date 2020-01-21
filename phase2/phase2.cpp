@@ -11,15 +11,15 @@ phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
 
 void phase2::play(){
 	SetToYellow();
-	cout<<"Start of phase 2 [Equiping phase]"<<endl;
+	cout<<"Phase 2 [Equiping phase]"<<endl;
 	SetToDefault();
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
-		SetToBlue();
-		cout << "Player " << GivenPlayers[i]->GetName() << " turn:" << endl;
+		SetToYellow();
+		cout << "Player '" << GivenPlayers[i]->GetName() << "' turn:" << endl;
 		SetToDefault();
 		if( GivenPlayers[i]->HasArmy()==true ){
-			cout << "\n\nWould you like to buy cards from your hand? (y/n)" << endl;
+			cout << "\n\nWould you like to buy cards from your hand? (y/n): ";
 			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);
 		}else cout << " Does not have a army to equip!" << endl;
 
@@ -50,7 +50,7 @@ void phase2::equipPhase(Player &player){
 		if( player.SeeMoney()>=card->GetCost() ) {
 			TotalCost+=card->GetCost();
 
-			cout << "Would you like to upgrade this card? (y/n): " <<endl;
+			cout << "Would you like to upgrade this card? (y/n): ";
 			if(YesOrNo()==true){
 				if(player.CheckHonor(card->get_minumumHonor())){
 					if(player.SeeMoney()>=card->get_bonus_cost() + TotalCost){
@@ -77,7 +77,7 @@ void phase2::equipPhase(Player &player){
 					pers->Equip(card);
 					if(upgrade) card->upgrade();
 				}else{
-					cout << "Not enough honor to equip this personality, would you like to equip the card to another personality? (y/n)" << endl;
+					cout << "Not enough honor to equip this personality, would you like to equip the card to another personality? (y/n): ";
 					if(YesOrNo()){
 						equiploop=true;
 					} else equiploop=false;

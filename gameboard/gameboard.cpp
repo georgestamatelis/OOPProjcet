@@ -8,17 +8,17 @@ gameboard::gameboard()
   rounds=0;
   string line;
   cout<<"Initializing GameBoard"<<endl;
-  cout<<"How many players ? :";
- num_of_players=ReadInt();
+  cout<<"How many players? ";
+  num_of_players=ReadInt();
  while(num_of_players<=1 || num_of_players>8)
  {
-   cout<<"Sorry the rules say there must be 2-8 players  Try again"<<endl;
+   cout<<"Sorry the rules say there must be 2-8 players. Try again: ";
    ReadInt(num_of_players);
    //cout<<num_of_players<<" "<<line<<endl;
  }
   players =new Player *[num_of_players];
   for(int i=0;i<num_of_players;i++)
-    { cout<<"Please type players "<<i<<"'s  name:"<<endl;
+    { cout<<"Please type players "<<i<<"'s  name: ";
       players[i]=new Player(ReadString());
     }
   P1=new phase1(players,num_of_players);
@@ -54,7 +54,10 @@ void gameboard:: gamePlay()
 {
   do{
     SetToYellow();
-    cout<<"GamePlay Begins!!"<<endl;
+    cout<<" __________________________\n"
+        <<"|                          |\n"
+        <<"|     GamePlay Begins!!    |\n"
+        <<"V                          V\n"<<endl;
     SetToDefault();
     P1->play();
     P2->play();

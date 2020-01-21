@@ -10,11 +10,13 @@ bool YesOrNo(char a, char b,string message){
 	char answer;
 	cin >> answer;
 	while(answer!=a && answer!=b){
-		cout << message << endl;
+		cout << message;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> answer;
 	}
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	return (answer==a)? true : false;
 }
 
@@ -45,8 +47,8 @@ string ReadString(){
 	//cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	//cin.ignore();
 	getline(cin,str);
-	//cin.ignore();
-
+	//cin.clear();
+	//cin.clear();
 	//string answer(array);
 	return str;
 }

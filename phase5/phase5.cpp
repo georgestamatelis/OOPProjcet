@@ -8,6 +8,9 @@ phase5 ::phase5(Player **players,int num_of_players)
 
 }
 void phase5:: play(){
+  SetToYellow();
+  cout<<"Phase 5 [End phase]"<<endl;
+  SetToDefault();
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int  i=0;i<num_of_players;i++)
   {
@@ -15,8 +18,8 @@ void phase5:: play(){
   }
   for(int i=0;i<num_of_players;i++)
   {
-      SetToBlue();
-      cout<<"Player :" <<players[i]->GetName()<<endl;
+      SetToYellow();
+      cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
       SetToDefault();
       players[i]->printHand();
       players[i]->printProvinces();
@@ -24,5 +27,5 @@ void phase5:: play(){
   }
 }
 phase5:: ~phase5(){
-
+  cout<<"End of phase 5"<<endl;
 }

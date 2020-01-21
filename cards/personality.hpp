@@ -126,4 +126,13 @@ public:
       guards[i]->Kill();
     isDead=true;
    }
+   ~Personality(){
+	   	for (auto g : guards) {
+	    	delete g;
+		}
+	
+		for (auto e : equipment) {
+			delete e;
+		}
+   }
 };

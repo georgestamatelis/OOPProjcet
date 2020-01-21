@@ -7,10 +7,13 @@ phase1:: phase1(Player **pl,int n)
 
 }
 void phase1:: play(){
+  SetToYellow();
+  cout<<"Phase 1 [Start phase]"<<endl;
+  SetToDefault();
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
-    SetToBlue();
-    cout<<"Player: "<<players[i]->GetName()<<endl;
+    SetToYellow();
+    cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
     SetToDefault();
     players[i]->untapEverything();
     players[i]->drawFateCard();
@@ -21,5 +24,5 @@ void phase1:: play(){
 }
 phase1::~phase1()
 {
-  cout<<"End of phase1"<<endl;
+  cout<<"End of phase 1"<<endl;
 }
