@@ -9,6 +9,7 @@
 #include "../cards/follower.hpp"
 #include "../cards/Followers.hpp"
 #include "../cards/greencard.hpp"
+#include "../dependencies/DeckBuilder.hpp"
 #include <vector>
 class Player{
 private:
@@ -22,6 +23,7 @@ private:
 	unordered_map<string,blackCard*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
 	StrongHold Honor;
+	DeckBuilder deckb;
 public:
 	Player(string n);
 	const string &GetName(){return name;}

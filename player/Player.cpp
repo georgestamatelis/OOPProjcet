@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Player.hpp"
 #include "../dependencies/Functionalities.hpp"
-#include "../dependencies/DeckBuilder.hpp"
 using namespace std;
 
 void merge(Holding *up,Holding *sub){
@@ -27,11 +26,9 @@ bool Compatible(Holding *a,Holding *b){
 }
 
 ///////////////////////////////////////////////
-Player::Player(string n):life_points(4),money(0),numberOfProvinces(4),Honor("Perdikopanis"),honor_points(4),name(n){
-	static DeckBuilder db;
-	fateDeck=db.createFateDeck();
-	lost=false;
-	dynastyDeck=db.createDynastyDeck();
+Player::Player(string n):life_points(1),money(500),numberOfProvinces(4),Honor("Castle"),honor_points(1),name(n),lost(false){
+	fateDeck=deckb.createFateDeck();
+	dynastyDeck=deckb.createDynastyDeck();
 	int i;
 	hand= new greenCard*[6];
 	for(i=0; i<6; i++){
@@ -110,13 +107,15 @@ void Player::untapEverything(){
 }
 
 void Player::drawFateCard(){
-	static DeckBuilder db;
-	db.deckShuffler(fateDeck);
+	deckb.deckShuffler(fateDeck);
 	greenCard *FateCard=fateDeck->front();
 	fateDeck->pop_front();
 	if(PlaceInHand(*FateCard)==true){
 		fateDeck->erase(fateDeck->begin());
-	}else cout << "Hand full!!!" << endl;
+	}else {
+		cout << "Hand full!!!" << endl;
+		delete FateCard;
+	}
 }
 greenCard* Player::DrawFromHand(int index){
 	greenCard* tmp;
@@ -224,13 +223,9 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 	}
 	//provinces.erase(name);
 	//provinces[name]=NULL;
-	DeckBuilder db;
- 	db.deckShuffler(dynastyDeck);
-	blackCard *newProvince=dynastyDeck->front();
-	while(provinces.find(newProvince->getname())!=provinces.end())
-	{db.deckShuffler(dynastyDeck);
-	blackCard *newProvince=dynastyDeck->front();}
-	provinces[name]=newProvince;
+ 	deckb.deckShuffler(dynastyDeck);
+	provinces[name]=dynastyDeck->front();
+	dynastyDeck->pop_front();
   provinces[name]->tap();
 	return true;
 }
@@ -250,21 +245,6 @@ bool Player::GetMoney(unsigned int amount){
 	} else return false;
 }
 
-Player::~Player(){
-	for(int i=0; i<6; i++){
-		if(hand[i]!=NULL) delete hand[i];
-	}
-	delete[] hand;
-	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
-		delete (*it);
-	}
-	for(list <blackCard*>::iterator it = dynastyDeck->begin(); it != dynastyDeck->end(); it++){
-		delete (*it);
-	}
-	for (auto node : provinces){
-      	delete node.second;
-	}
-}
 void Player::looseDefencePersonalities(string provinceName,int dmg){
 	//cout<<"OF COURSE"<<endl;
 	//cout<<"DAMAGE ="<<dmg<<"NAME IS"<<provinceName<<endl;
@@ -296,6 +276,7 @@ void Player::looseProvince(string name)
 	looseHonor();
 	cout <<"PLAYER "<<GetName()<<"LOSES PROVINCE "<<provinces[name]->getname();
 	provinces[name]->Kill();
+	delete provinces[name];
 	provinces.erase(name);
 
 }
@@ -366,4 +347,33 @@ void Player::PrintHoldings()
 	for(int i=0;i<Holdings.size();i++)
 		if(Holdings[i]->canUse())
 			Holdings[i]->print();
+}
+
+Player::~Player(){
+	for(int i=0; i<6; i++){
+		if(hand[i]!=NULL) delete hand[i];
+	}
+	delete[] hand;
+
+	for (auto f : *fateDeck) {
+    delete f;
+	}
+	delete fateDeck;
+
+	for (auto c : *dynastyDeck) {
+    delete c;
+	}
+	delete dynastyDeck;
+
+	for (auto a : army) {
+    delete a;
+	}
+
+	for (auto h : Holdings) {
+		delete h;
+	}
+
+	for (auto& it : provinces){
+    delete it.second;
+	}
 }

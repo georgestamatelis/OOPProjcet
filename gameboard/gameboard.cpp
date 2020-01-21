@@ -76,7 +76,9 @@ gameboard:: ~gameboard(){
   delete P2;
   delete P3;
   delete P4;
-  for (int i=0;i<num_of_players;i++)
+  delete P5;
+  for(int i=0;i<num_of_players;i++){
     delete players[i];
-  delete players;//Mayby this should be out of the loop?
+  }
+  delete[] players;//Mayby this should be out of the loop?
 }

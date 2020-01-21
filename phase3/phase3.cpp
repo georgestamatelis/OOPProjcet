@@ -17,7 +17,7 @@ void phase3:: Attack_Choice(int plindex)
   int enemyIndex;
   string enemyname;
   cout<<"Which Player do you want to attack  ?:";
-  cin>>enemyname;
+  enemyname=ReadString();
   for(int i=0;i<num_of_players;i++)
     if(players[i]->GetName()==enemyname)
       enemyIndex=i;
