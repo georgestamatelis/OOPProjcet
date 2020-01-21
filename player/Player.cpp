@@ -109,12 +109,12 @@ void Player::untapEverything(){
 void Player::drawFateCard(){
 	deckb.deckShuffler(fateDeck);
 	greenCard *FateCard=fateDeck->front();
-	fateDeck->pop_front();
+	//fateDeck->pop_front();
 	if(PlaceInHand(*FateCard)==true){
 		fateDeck->erase(fateDeck->begin());
 	}else {
 		cout << "Hand full!!!" << endl;
-		delete FateCard;
+		//delete FateCard;
 	}
 }
 greenCard* Player::DrawFromHand(int index){
