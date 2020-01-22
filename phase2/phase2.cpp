@@ -29,7 +29,7 @@ void phase2::play(){
 void phase2::equipPhase(Player &player){
 	bool equiping=true,equiploop,upgrade;
 	string name;
-	int num;
+	int num,CardIndex;
 	unsigned int TotalCost;
 	Personality *pers;
 	greenCard *card;
@@ -40,13 +40,13 @@ void phase2::equipPhase(Player &player){
 		cout << "Your hand cards:" << endl;
 		player.printHand();
 		cout << "Number of card in hand: ";
-		ReadInt(num);
-		while(player.CheckInHand(num)==false){
+		ReadInt(CardIndex);
+		while(player.CheckInHand(CardIndex)==false){
 			cout << "The number of the card you typed does not exist, please retype the number of the card you want from hand" << endl;
-			ReadInt(num);
+			ReadInt(CardIndex);
 		}
 
-		card=player.SeeHandCard(num);
+		card=player.SeeHandCard(CardIndex);
 		if( player.SeeMoney()>=card->GetCost() ) {
 			TotalCost+=card->GetCost();
 
@@ -73,7 +73,7 @@ void phase2::equipPhase(Player &player){
 				}
 				if(pers->getHonour() >= card->get_minumumHonor()){
 					player.GetMoney(TotalCost);
-					player.DrawFromHand(num);
+					card=player.DrawFromHand(CardIndex);
 					pers->Equip(card);
 					if(upgrade) card->upgrade();
 				}else{

@@ -42,4 +42,9 @@ public:
   }
   vector<blackCard*> getDefenders(){return defendants;}
   void reveal() { isRevealed=true;}
+  ~blackCard(){
+      for (auto d : defendants) {
+        delete d;//check in case of error
+    }
+   }
 };

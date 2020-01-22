@@ -366,7 +366,7 @@ Player::~Player(){
 	delete dynastyDeck;
 
 	for (auto a : army) {
-    	delete a;
+		delete a;
 	}
 
 	for (auto h : Holdings) {
