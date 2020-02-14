@@ -127,51 +127,49 @@ void phase3:: Attack_Choice(int plindex)
        }}
        }
 }
-void phase3:: defence_Choise(int plindex)
-{
 
-  if(plindex>=num_of_players)
-      return;
-  if(!players[plindex]->HasArmy()){
-        cout<<"Sorry you don't have army"<<endl;
-        return;
-    }
-  Player *temp=players[plindex];
-  string prDef;
-  unordered_map<string,blackCard*> provinces=temp->GetProvinces();
-  cout<<"Your  Province are :"<<endl;
-  players[plindex]->printProvinces();
-  cout<<"Which province do you wanna defend? ";//<<endl;
-  cin>>prDef;
-  while(provinces.find(prDef)==provinces.end()){
-    cout<<"Sorry there is no such province. Try again: ";
-    cin>>prDef;
-  //  return;
-  }
-  cout<<"Your available army is: " <<endl;
-  players[plindex]->printArmy();
-  blackCard * underAttack=(blackCard *)provinces[prDef];
-  bool endinput=false;
-  vector<int >defencePers;
-  vector <Personality*> army=temp->getArmy();
-  while(!endinput){
-    int defendant;
-//    string defendant,answer;
-    cout<<"Which personalities will defend it? ";
-    defendant=ReadInt();
-    if(defendant >=1 && defendant<=army.size())
-    defencePers.push_back(defendant-1);
-    cout<<"Do you wanna use more personalities? (y/n): ";
-    if(!YesOrNo())
-      break;
-  }
-  //done with input now time to add defendants to province
-  for(int i=0;i<defencePers.size();i++)
-    if(army[defencePers[i]]->canUse() )
-      underAttack->addDefandant(army[i]);
+void phase3::defence_Choise(int plindex){
 
-
+	if(plindex>=num_of_players) return;
+	if(!players[plindex]->HasArmy()){
+		cout<<"Sorry you don't have army"<<endl;
+		return;
+	}
+	
+	Player *temp_p=players[plindex];
+	unordered_map<string,blackCard*>& provinces=temp_p->GetProvinces();
+	string prDef;
+		
+	cout<<"Your  Province are :"<<endl;
+	players[plindex]->printProvinces();
+	cout<<"Which province do you wanna defend? ";//<<endl;
+	cin>>prDef;
+	while(provinces.find(prDef)==provinces.end()){
+		cout<<"Sorry there is no such province. Try again: ";
+		cin>>prDef;
+	}
+	cout<<"Your available army is: " <<endl;
+	players[plindex]->printArmy();
+	blackCard* underAttack=(blackCard *)provinces[prDef];
+	bool endinput=false;
+	vector<int> defencePers;
+	vector <Personality*> army=temp_p->getArmy();
+	while(!endinput){
+		int defendant;
+		//string defendant,answer;
+		cout<<"Which personalities will defend it? ";
+		defendant=ReadInt();
+		if(defendant >=1 && defendant<=army.size())
+		defencePers.push_back(defendant-1);
+		cout<<"Do you wanna use more personalities? (y/n): ";
+		if(!YesOrNo()) break;
+	}
+	//done with input now time to add defendants to province
+	for(int i=0;i<defencePers.size();i++)
+		if(army[defencePers[i]]->canUse() )
+			underAttack->addDefandant(army[i]);
 }
+
 void phase3:: play(){
   SetToYellow();
   cout<<"Phase 3 [Battle phase]"<<endl;

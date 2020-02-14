@@ -8,7 +8,7 @@ class blackCard:public Card
 {
 private:
  bool isRevealed;
- vector<blackCard *>defendants;
+ vector<blackCard*> defendants;
 public:
   blackCard(string n,int c ,bool b1=false,bool b2=false)
   :Card(n,c,b2),isRevealed(b1){
@@ -42,9 +42,9 @@ public:
   }
   vector<blackCard*> getDefenders(){return defendants;}
   void reveal() { isRevealed=true;}
-  ~blackCard(){
+	/*~blackCard(){
       for (auto d : defendants) {
-        delete d;//check in case of error
+        //delete d;//check in case of error
     }
-   }
+   }*/
 };

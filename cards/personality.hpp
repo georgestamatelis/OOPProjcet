@@ -72,7 +72,7 @@ public:
   void print()
   {
     SetToRed();
-    cout<<"Personality :"<<this->getname()<<endl;
+    cout<<"Personality: "<<this->getname()<<endl;
     cout<<"Attack: "<<this->getAttack()<<endl;
     cout<<"Defence: "<<this->getDefence()<<endl;
     cout<<"Honor Points: "<<this->getHonour()<<endl;

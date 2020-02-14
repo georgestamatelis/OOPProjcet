@@ -18,8 +18,8 @@ private:
 	list <blackCard*> *dynastyDeck;
 	greenCard **hand;
 	bool lost;
-	std::vector<Personality *>army;
-	std::vector<Holding *> Holdings;
+	std::vector<Personality*> army;
+	std::vector<Holding*> Holdings;
 	unordered_map<string,blackCard*> provinces;
 	unsigned int life_points,money,numberOfProvinces,honor_points;
 	StrongHold Honor;
@@ -34,7 +34,7 @@ public:
 	void untapEverything();
 	void drawFateCard();
 	void revealProvinces();
-  void performSeppuku();
+	void performSeppuku();
 	void printHand(bool numbers=true);
 	void printProvinces();
 	void discardSurplusFateCards();
@@ -50,7 +50,7 @@ public:
 	bool GetMoney(unsigned int amount);
 	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
 	unsigned int GetPlayerHonour() const {return honor_points;}
-	vector<Personality* >getArmy(){return army;}
+	vector<Personality*>& getArmy(){return army;}
 	int getInitalDefense(){return Honor.getInitialDefense();}
 	void looseDefencePersonalities(string provinceName,int);
 	void loosePersonalty(string name);
@@ -59,7 +59,7 @@ public:
 	void looseHonor();
 	inline int isAlive(){ return !lost;}
 	void add_money();
- bool HasArmy();//{ (army[0]==NULL)? false : true;};
+	bool HasArmy();//{ (army[0]==NULL)? false : true;};
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 	greenCard* DrawFromHand(int index);

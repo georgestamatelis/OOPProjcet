@@ -49,7 +49,8 @@ void Player::loosePersonalty(string name)
 		if(army[i]->getname()==name)
 		 { cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
 			 army[i]->Kill();
-			 army.erase(army.begin()+i);
+			 /*delete army[i];//here i.c.o.b.
+			 army.erase(army.begin()+i);*/
 		 return;
 	 }
 	}
@@ -181,8 +182,7 @@ Personality *Player::GetPersonality(int index){
 
 }
 
-void Player::AddHolding(Holding * province)
-{
+void Player::AddHolding(Holding * province){
 	for(int i=0;i<Holdings.size();i++)
 	{
 		if(Compatible(Holdings[i],province))
@@ -196,23 +196,20 @@ void Player::AddHolding(Holding * province)
 	//province->tap();
 	Holdings.push_back(province);
 }
+
 bool Player::AddProvince(string name) //erase that province from the provinces dictionary and replace
 {
-	if(provinces.find(name)==provinces.end())
-		return false;
-	if(!provinces[name]->canUse())
-		return false;
-	if(provinces[name]->isPersonality())
-	{
+	if(provinces.find(name)==provinces.end()) return false;
+	if(!provinces[name]->canUse()) return false;
+	if(provinces[name]->isPersonality()){
 		//cout<<"Soldier"<<endl;
 		Personality *temp=(Personality*)provinces[name];
-		if(!tap_holdings(temp->GetCost()))
-		{
-			cout<<"Sorry Player doesn't have enough money ,money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+		if(!tap_holdings(temp->GetCost())){
+			cout<<"Sorry Player doesn't have enough money , Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
 		AddPersonality(temp);
-  }
+	}
 	else{
 		if(!tap_holdings(provinces[name]->GetCost())) //takes care of money
 		{
@@ -226,7 +223,7 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
  	deckb.deckShuffler(dynastyDeck);
 	provinces[name]=dynastyDeck->front();
 	dynastyDeck->pop_front();
-  provinces[name]->tap();
+	provinces[name]->tap();
 	return true;
 }
 void Player::printArmy(){
@@ -259,7 +256,8 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 				if(army[i]->getname()==soldier->getname())
 					{	dmg-=army[j]->getDefence();
 						army[j]->Kill();
-						army.erase(army.begin()+j);
+						/*delete army[i];//here i.c.o.b.
+						army.erase(army.begin()+j);*/
 					}
 
 			}
