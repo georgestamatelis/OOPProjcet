@@ -18,7 +18,7 @@ public:
     isTapped=false;
   }
 
-  bool canUse(){
+  virtual bool canUse(){
     if (isTapped || isDead)
       return false;
     return true;

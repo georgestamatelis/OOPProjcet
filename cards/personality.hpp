@@ -76,6 +76,7 @@ public:
     cout<<"Attack: "<<this->getAttack()<<endl;
     cout<<"Defence: "<<this->getDefence()<<endl;
     cout<<"Honor Points: "<<this->getHonour()<<endl;
+    cout<<"Is it alive: "<<!isDead<<endl;
     cout<<"---------------------------------------"<<endl;
     SetToDefault();
   }
@@ -130,9 +131,15 @@ public:
 	   	for (auto g : guards) {
 	    	delete g;
 		}
-	
+
 		for (auto e : equipment) {
 			delete e;
 		}
    }
+
+bool canUse(){
+  if(isDead || !blackCard::canUse())
+    return false;
+  return true;
+}
 };

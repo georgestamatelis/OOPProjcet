@@ -26,7 +26,7 @@ bool Compatible(Holding *a,Holding *b){
 }
 
 ///////////////////////////////////////////////
-Player::Player(string n):life_points(1),money(500),numberOfProvinces(4),Honor("Castle"),honor_points(1),name(n),lost(false){
+Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("Castle"),honor_points(4),name(n),lost(false){
 	fateDeck=deckb.createFateDeck();
 	dynastyDeck=deckb.createDynastyDeck();
 	int i;
@@ -265,7 +265,7 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 }
 void Player:: performSeppuku(){
 	lost=true;
-	cout<<"Player(name) got Fucked in the ass "<<endl;
+	cout<<"Player:"<<name<<"performed Seppuku  "<<endl;
 }
 void Player::looseProvince(string name)
 {
@@ -304,7 +304,7 @@ bool Player:: HasArmy(){
 	if(army.size()==0)
 		return false;
   for(int i=0;i<army.size();i++)
-		if(!army[i]->isKilled())
+		if(army[i]->canUse())
 			return true;
 	return false;
 }
