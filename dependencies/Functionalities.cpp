@@ -25,21 +25,22 @@ int Honorcompare(const void * p1, const void * p2){
 }
 
 void ReadInt(int &ret){
-		while(!(std::cin >> ret)){
-			//if(input.size()!=ret/10+1) continue;
-			std::cin.clear();
-			std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			//std::cout << "!!"<< ret << std::endl;
-    	}
-			cin.ignore();//
-    	//std::cout << "!!"<< ret << std::endl;
-	}
+	while(!(std::cin >> ret)){
+		//if(input.size()!=ret/10+1) continue;
+		std::cin.clear();
+		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		//std::cout << "!!"<< ret << std::endl;
+    }
+	cin.ignore();//
+    //std::cout << "!!"<< ret << std::endl;
+}
 
 int ReadInt(){
-		int ret;
-		ReadInt(ret);
-		return ret;
+	int ret;
+	ReadInt(ret);
+	return ret;
 }
+
 string ReadString(){
 	//char str[50];
 	string str;

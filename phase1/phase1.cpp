@@ -1,11 +1,8 @@
 #include "phase1.hpp"
 #include "../dependencies/Functionalities.hpp"
 
-phase1:: phase1(Player **pl,int n)
-:players(pl),num_of_players(n)
-{
+phase1:: phase1(Player **pl,int n):players(pl),num_of_players(n){}
 
-}
 void phase1:: play(){
   SetToYellow();
   cout<<"Phase 1 [Start phase]"<<endl;
@@ -22,7 +19,7 @@ void phase1:: play(){
     players[i]->printProvinces();
   }
 }
-phase1::~phase1()
-{
+
+phase1::~phase1(){
   cout<<"End of phase 1"<<endl;
 }

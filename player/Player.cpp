@@ -10,13 +10,15 @@ void merge(Holding *up,Holding *sub){
 	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
 		up->setFC();
 }
+
 bool Compatible(Holding *a,Holding *b){
-		if(a->return_type() == b->return_type())
-			return false;
+	if(a->return_type() == b->return_type())
+		return false;
 	if(a->return_type() > b->return_type()){
 		if(!a->has_subholding() && !b->has_upperholding())
 			return true;
-		return false;
+		else 
+			return false;
 	}
 	if(a->return_type() < b->return_type()){
 		if(!a->has_upperholding() && !b->has_subholding())
@@ -35,27 +37,26 @@ Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("C
 		hand[i]=NULL;
 	}
 
-  money=Honor.getInitialMoney();
+	money=Honor.getInitialMoney();
 	provinces["a"]= new Farmland("farm");
 	provinces["b"]=new Mine("mine");
 	provinces["c"]= new Attacker("Warrior");
 	provinces["d"]= new Chancellor("Palpatine");
 
 }
-void Player::loosePersonalty(string name)
-{
-	for(int i=0;i<army.size();i++)
-	{
-		if(army[i]->getname()==name)
-		 { cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
-			 army[i]->Kill();
-			 /*delete army[i];//here i.c.o.b.
-			 army.erase(army.begin()+i);*/
-		 return;
-	 }
-	}
 
+void Player::loosePersonalty(string name){
+	for(int i=0;i<army.size();i++){
+		if(army[i]->getname()==name){ 
+			cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
+			army[i]->Kill();
+			/*delete army[i];//here i.c.o.b.
+			army.erase(army.begin()+i);*/
+			return;
+		}
+	}
 }
+
 int Player::getPersonalityDamage(string name){
 	int i=0;
 	while(army[i]!=NULL){
@@ -97,14 +98,12 @@ void Player::untapEverything(){
 			hand[i]->Untap();
 		}
 	}
-  for(auto x: provinces)
+  	for(auto x: provinces)
 		x.second->Untap();
 
 	for(int i=0;i<army.size();i++)
-	  if(army[i]!=NULL)
+		if(army[i]!=NULL)
 			army[i]->Untap();
-
-
 }
 
 void Player::drawFateCard(){
@@ -118,6 +117,7 @@ void Player::drawFateCard(){
 		//delete FateCard;
 	}
 }
+
 greenCard* Player::DrawFromHand(int index){
 	greenCard* tmp;
 	int i,y;
@@ -147,21 +147,23 @@ void Player::printHand(bool numbers){
 
 
 void Player::printProvinces(){
-	if(provinces.find("a")!=provinces.end())
-	  {cout<<"a:"<<endl;
-  	provinces["a"]->print();}
-	if(provinces.find("b")!=provinces.end())
-	{	cout<<"b:"<<endl;
-			provinces["b"]->print();
+	if(provinces.find("a")!=provinces.end()){
+		cout<<"a:"<<endl;
+  		provinces["a"]->print();}
+	if(provinces.find("b")!=provinces.end()){
+		cout<<"b:"<<endl;
+		provinces["b"]->print();
 	}
-	if(provinces.find("c")!=provinces.end())
-	{	 cout<<"c:"<<endl;
-		 provinces["c"]->print();
-  }
-	if(provinces.find("d")!=provinces.end())
-	 { cout<<"d: "<<endl;
-		 provinces["d"]->print();
-	 }
+
+	if(provinces.find("c")!=provinces.end()){
+		cout<<"c:"<<endl;
+		provinces["c"]->print();
+  	}
+
+	if(provinces.find("d")!=provinces.end()){
+		cout<<"d: "<<endl;
+		provinces["d"]->print();
+	}
 }
 
 void Player::AddPersonality(Personality *personality){
@@ -183,10 +185,8 @@ Personality *Player::GetPersonality(int index){
 }
 
 void Player::AddHolding(Holding * province){
-	for(int i=0;i<Holdings.size();i++)
-	{
-		if(Compatible(Holdings[i],province))
-		{
+	for(int i=0;i<Holdings.size();i++){
+		if(Compatible(Holdings[i],province)){
 			if(Holdings[i]->return_type() >province->return_type())
 				merge(Holdings[i],province);
 			else
@@ -229,9 +229,10 @@ bool Player::AddProvince(string name) //erase that province from the provinces d
 void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
-		if(army[i]->canUse())
-			{cout<<i+1<<endl;
-			army[i]->print();}
+		if(army[i]->canUse()){
+			cout<<i+1<<endl;
+			army[i]->print();
+		}
 	}
 }
 
@@ -249,26 +250,24 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 	provinces[provinceName]->loosePersonalties(dmg);
 	for(int i=0;i<temp.size();i++){
 		Personality * soldier=(Personality *)temp[i];
-		for(int j=0; j<army.size();j++)
-			{
-				if(dmg<=0)
-					return;
-				if(army[i]->getname()==soldier->getname())
-					{	dmg-=army[j]->getDefence();
-						army[j]->Kill();
-						/*delete army[i];//here i.c.o.b.
-						army.erase(army.begin()+j);*/
-					}
-
+		for(int j=0; j<army.size();j++){
+			if(dmg<=0)
+				return;
+			if(army[i]->getname()==soldier->getname()){
+				dmg-=army[j]->getDefence();
+				army[j]->Kill();
+				/*delete army[i];//here i.c.o.b.
+				army.erase(army.begin()+j);*/
 			}
+		}
 	}
 }
 void Player:: performSeppuku(){
 	lost=true;
 	cout<<"Player:"<<name<<"performed Seppuku  "<<endl;
 }
-void Player::looseProvince(string name)
-{
+
+void Player::looseProvince(string name){
 	if(provinces.find(name)==provinces.end())
 		return;
 	looseHonor();
@@ -278,14 +277,14 @@ void Player::looseProvince(string name)
 	provinces.erase(name);
 
 }
-void Player:: discardSurplusFateCards()
-{
 
-}
+void Player::discardSurplusFateCards(){}//what the fuck is that
+
 void Player:: add_money(){
 	for(int i=0;i<Holdings.size();i++)
 		money+=Holdings[i]->get_harvest_value();
 }
+
 bool Player::CheckName(const string &name){
 	for(int i=0;i<army.size();i++)
 		if(name==army[i]->getname() )
@@ -293,55 +292,49 @@ bool Player::CheckName(const string &name){
 
 	return false;
 }
-void Player::looseHonor()
-{
+
+void Player::looseHonor(){
 	cout<<"Player looses Honor, new Honor points are :"<<honor_points-1<<endl;
- honor_points-=1;
+ 	honor_points-=1;
 	if(honor_points<=0)
 		performSeppuku();
 }
-bool Player:: HasArmy(){
-	if(army.size()==0)
-		return false;
-  for(int i=0;i<army.size();i++)
-		if(army[i]->canUse())
-			return true;
-	return false;
-}
-bool Player::tap_holdings(int sum)
-{
 
-		if( sum >money && Holdings.size()==0)
+bool Player::HasArmy(){
+	if(army.size()<=0) return false;
+  	for(int i=0;i<army.size();i++)
+		if(army[i]->canUse())//is that ok for dead?
+			return true;
+		else
 			return false;
-		sum-=money;
+}
+
+bool Player::tap_holdings(int sum){
+	if( sum >money && Holdings.size()==0) return false;
+	sum-=money;
   	money-=sum;
-		for(int i=0;i<Holdings.size();i++)
-		{
-			if(Holdings[i]->canUse())
-				{
-					sum-=Holdings[i]->get_harvest_value();
-					Holdings[i]->tap();
-				}
-			if(sum<=0)
-				break;
+	for(int i=0;i<Holdings.size();i++){
+		if(Holdings[i]->canUse()){
+			sum-=Holdings[i]->get_harvest_value();
+			Holdings[i]->tap();
 		}
-		if(sum>0)
-		{
-			 for(int i=0;i<Holdings.size();i++)
-			     Holdings[i]->Untap();
-		 money+=sum;
-		 return false;
-	 }
-	 return true;
+		if(sum<=0) break;
+	}
+	if(sum>0){
+		for(int i=0;i<Holdings.size();i++)
+			Holdings[i]->Untap();
+		money+=sum;
+		return false;
+	}
+	return true;
 }
-void Player:: revealProvinces()
-{
+void Player:: revealProvinces(){
 	for(auto x: provinces)
-	 if(x.second->canUse())
-	 	x.second->reveal();
+		if(x.second->canUse())
+			x.second->reveal();
 }
-void Player::PrintHoldings()
-{
+
+void Player::PrintHoldings(){
 	for(int i=0;i<Holdings.size();i++)
 		if(Holdings[i]->canUse())
 			Holdings[i]->print();

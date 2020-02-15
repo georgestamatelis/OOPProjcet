@@ -11,6 +11,7 @@
 #include "../cards/greencard.hpp"
 #include "../dependencies/DeckBuilder.hpp"
 #include <vector>
+
 class Player{
 private:
 	string name;
