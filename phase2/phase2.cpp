@@ -29,7 +29,7 @@ void phase2::play(){
 void phase2::equipPhase(Player &player){
 	bool equiping=true,equiploop,upgrade;
 	string name;
-	int num,CardIndex;
+	int num,CardIndex,CardsCount;
 	unsigned int TotalCost;
 	Personality *pers;
 	greenCard *card;
@@ -38,11 +38,15 @@ void phase2::equipPhase(Player &player){
 		upgrade=false;
 
 		cout << "Your hand cards:" << endl;
-		player.printHand();
+		CardsCount=player.printHand();
+		if(CardsCount==-1){
+			cout << "Your hand is empty!!!" << endl;
+			return;
+		}
 		cout << "Number of card in hand: ";
 		ReadInt(CardIndex);
-		while(player.CheckInHand(CardIndex)==false){
-			cout << "The number of the card you typed does not exist, please retype the number of the card you want from hand" << endl;
+		while(CardIndex>CardsCount || player.CheckInHand(CardIndex)==false){
+			cout << "The number of the card you typed does not exist, please retype the number of the card you want from hand: ";
 			ReadInt(CardIndex);
 		}
 

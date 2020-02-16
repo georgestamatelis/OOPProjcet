@@ -36,7 +36,7 @@ public:
 	void drawFateCard();
 	void revealProvinces();
 	void performSeppuku();
-	void printHand(bool numbers=true);
+	int printHand(bool numbers=true);
 	void printProvinces();
 	void discardSurplusFateCards();
 	void PrintHoldings();

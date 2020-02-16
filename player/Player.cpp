@@ -136,13 +136,16 @@ greenCard* Player::DrawFromHand(int index){
 	return NULL;
 }
 
-void Player::printHand(bool numbers){
+int Player::printHand(bool numbers){
+	int count=-1;
 	for(int i=0; i<6; i++){
 		if(hand[i]!=NULL){
 			if(numbers) cout << i << ". ";
 			hand[i]->print();
+			count++;
 		}
 	}
+	return count;
 }
 
 
@@ -197,8 +200,7 @@ void Player::AddHolding(Holding * province){
 	Holdings.push_back(province);
 }
 
-bool Player::AddProvince(string name) //erase that province from the provinces dictionary and replace
-{
+bool Player::AddProvince(string name){ //erase that province from the provinces dictionary and replace
 	if(provinces.find(name)==provinces.end()) return false;
 	if(!provinces[name]->canUse()) return false;
 	if(provinces[name]->isPersonality()){

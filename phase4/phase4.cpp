@@ -12,36 +12,31 @@ phase4::phase4(Player **player,int num_of_players)
 :players(player),num_of_players(num_of_players){}
 
 void phase4::play(){
+	bool FristPurchase;
 	string province;
 	SetToYellow();
 	cout<<"Phase 4 [Economy phase]"<<endl;
 	SetToDefault();
 	qsort(players,num_of_players,sizeof(Player*),Honorcompare);
-	for(int i=0;i<num_of_players;i++)
-	{
+	for(int i=0;i<num_of_players;i++){
 		SetToYellow();
 		cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
 		SetToDefault();
-		Player *player=players[i];
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
-		player->printProvinces();
+		FristPurchase=true;
+		players[i]->printProvinces();
 		cout<<"would you like to buy any provinces? (y/n): ";
-		if(YesOrNo()==true){
+		while(YesOrNo()==true){
+			if(FristPurchase==false) {
+				players[i]->printProvinces();
+			}else FristPurchase=false;
 			cout<<"Which one: ";
 			province=ReadString();
 			while(players[i]->AddProvince(province)==false){
 				cout << "Unable to buy this province, please type another: ";
 				province=ReadString();
 			}
-			/*cin.ignore();
-			char answer[40];
-			cin.getline(answer,40);
-			string  str(answer);
-			cout<<str<<endl;*/
-
-			//players[i]->AddProvince(str);
-
-			//BuyProvince(*player);
+			cout<<"would you like to buy any other province? (y/n): ";
 		}
 	}
 }
