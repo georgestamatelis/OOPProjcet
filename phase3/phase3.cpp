@@ -25,7 +25,7 @@ void phase3::Attack_Choice(int plindex)
     cout << "Wrong input. Please type the name of the player you want to attack: ";
     enemyname = ReadString();
     for (int i = 0; i < num_of_players; i++)
-      if (players[i]->GetName() == enemyname)
+      if (enemyname.compare(players[i]->GetName())==0)
         enemyIndex = i;
   }
   cout << "Enemy Players Provinces are: " << endl;
@@ -41,13 +41,13 @@ void phase3::Attack_Choice(int plindex)
   blackCard *underAttack = players[enemyIndex]->GetProvinces()[answer];
   if (underAttack->isKilled())
     return;
-  cout << "Your available army is: " << endl;
-  players[plindex]->printArmy();
   bool input = false;
   vector<int> attackersVector;
   vector<Personality *> army = players[plindex]->getArmy();
   while (!input)
   {
+	cout << "Your available army is: " << endl;
+	players[plindex]->printArmy();
     int attackers;
     string answer;
     cout << "Which personality do you wanna use? ";

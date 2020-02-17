@@ -1,3 +1,38 @@
+final|
+     V
+2
+player 1
+player 2
+3
+3
+y
+d
+y
+c
+n
+y
+a
+n
+y
+0
+y
+1
+n
+1
+player 2
+a
+1
+y
+2
+n
+3
+y
+d
+y
+c
+n
+
+_______________________________________
 2
 a
 b
