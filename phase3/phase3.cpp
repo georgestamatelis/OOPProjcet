@@ -119,6 +119,7 @@ void phase3::Attack_Choice(int plindex)
   }
   if (loss)
   {
+     //attacking personalities that lost battle loose item durabilty and or items they get tapped and loosehonr
     players[plindex]->looseHonor();
     for (int i = 0; i < attackersVector.size(); i++)
     {
@@ -126,7 +127,7 @@ void phase3::Attack_Choice(int plindex)
       {
         army[attackersVector[i]]->tap();
         army[attackersVector[i]]->looseHonor();
-        army[attackersVector[i]]->hurtItems();
+        army[attackersVector[i]]->hurtItems(); //item durability -=1 for each item of personality
       }
     }
   }
