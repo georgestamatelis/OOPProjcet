@@ -17,7 +17,7 @@ bool Compatible(Holding *a,Holding *b){
 	if(a->return_type() > b->return_type()){
 		if(!a->has_subholding() && !b->has_upperholding())
 			return true;
-		else 
+		else
 			return false;
 	}
 	if(a->return_type() < b->return_type()){
@@ -47,7 +47,7 @@ Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("C
 
 void Player::loosePersonalty(string name){
 	for(int i=0;i<army.size();i++){
-		if(army[i]->getname()==name){ 
+		if(army[i]->getname()==name){
 			cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
 			army[i]->Kill();
 			/*delete army[i];//here i.c.o.b.
@@ -103,7 +103,10 @@ void Player::untapEverything(){
 
 	for(int i=0;i<army.size();i++)
 		if(army[i]!=NULL)
-			army[i]->Untap();
+		{	army[i]->Untap();
+			army[i]->UntapFolowers();
+    }
+
 }
 
 void Player::drawFateCard(){

@@ -24,27 +24,31 @@ class Personality : public blackCard{
     int getDefence(){
       int sum = defense;
       for (int i = 0; i < guards.size(); i++){
-        sum += guards[i]->get_defence_bonus();
+        if(guards[i]->canUse())
+          sum += guards[i]->get_defence_bonus();
       }
       for (int i = 0; i < equipment.size(); i++){
-        sum += equipment[i]->get_defence_bonus();
+        if(equipment[i]->canUse())
+          sum += equipment[i]->get_defence_bonus();
       }
       return sum + getDefenerPoints();
     }
     int getAttack(){
       int sum = attack;
       for (int i = 0; i < guards.size(); i++){
-        sum += guards[i]->get_attack_bonus();
+        if(guards[i]->canUse())
+           sum += guards[i]->get_attack_bonus();
       }
       for (int i = 0; i < equipment.size(); i++){
-        sum += equipment[i]->get_attack_bonus();
+        if(equipment[i]->canUse())
+          sum += equipment[i]->get_attack_bonus();
       }
       return sum;
     }
 
     Personality(string name, int c, bool b1, bool b2, int attack, int defense, int honour, bool isDead)
         : blackCard(name, c, b1, b2), attack(attack), defense(defense), honour(honour), isDead(false), max_number_of_items(MAXI), max_number_of_followers(MAXF){}
-    
+
     bool check_dead(){return isDead;}
 
     void Attack(){
@@ -118,7 +122,10 @@ class Personality : public blackCard{
       for (int i = 0; i < guards.size(); i++)
         guards[i]->tap();
     }
-
+   void UntapFolowers(){
+     for(int i=0;i<guards.size();i++)
+       guards[i]->Untap();
+   }
     void Kill(){
       isDead = true;
       // cout<<"Personality "<<getname()<<"got fucked up real good"<<endl;

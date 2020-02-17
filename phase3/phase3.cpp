@@ -189,7 +189,7 @@ void phase3::play()
   SetToDefault();
   cin.clear();
   string line;
-  int choice = 0; //stringstream ss;
+  int choice = 0; 
   qsort(players, num_of_players, sizeof(Player *), Honorcompare);
   for (int i = 0; i < num_of_players; i++)
   {
