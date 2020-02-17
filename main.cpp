@@ -1,8 +1,7 @@
-#include <iostream>
 #include "gameboard/gameboard.hpp"
-#include <list>
-int main(){
-   gameboard GB;
 
-  return 0;
+int main(){
+	gameboard L5R;
+	L5R.gamePlay();
+	return 0;
 }

@@ -3,6 +3,8 @@
 #include "../dependencies/Functionalities.hpp"
 #include <iostream>
 
+using namespace std;
+
 gameboard::gameboard()
 {
   rounds=0;
@@ -14,7 +16,6 @@ gameboard::gameboard()
  {
    cout<<"Sorry the rules say there must be 2-8 players. Try again: ";
    ReadInt(num_of_players);
-   //cout<<num_of_players<<" "<<line<<endl;
  }
   players =new Player *[num_of_players];
   for(int i=0;i<num_of_players;i++)
@@ -26,9 +27,8 @@ gameboard::gameboard()
   P3=new phase3(players,num_of_players);
   P4=new phase4(players,num_of_players);
   P5=new phase5(players,num_of_players);
-
-  gamePlay();
 }
+
 bool gameboard::isWinner(){
   int sum=0;
   for(int i=0;i<num_of_players;i++){
@@ -39,6 +39,7 @@ bool gameboard::isWinner(){
     return true;
   return false;
 }
+
 void gameboard:: printGameStatistics()
 {
   rounds++;
@@ -50,27 +51,29 @@ void gameboard:: printGameStatistics()
   }
   cout<<"Total alive Players: "<<sum<<"  Total dead players : "<<num_of_players-sum<<endl;
 }
-void gameboard:: gamePlay()
+
+void gameboard::gamePlay()
 {
-  do{
-    SetToYellow();
-    cout<<" __________________________\n"
-        <<"|                          |\n"
-        <<"|     GamePlay Begins!!    |\n"
-        <<"V                          V\n"<<endl;
-    SetToDefault();
-    P1->play();
-    P2->play();
-    P3->play();
-    P4->play();
-    P5->play();
-    printGameStatistics();
-    for(int i=0;i<num_of_players;i++){
-      players[i]->add_money();
-    }
-  }while(!isWinner());
+	SetToYellow();
+	cout<<" __________________________\n"
+		<<"|                          |\n"
+		<<"|     GamePlay Begins!!    |\n"
+		<<"V                          V\n"<<endl;
+	SetToDefault();
+	do{
+		P1->play();
+		P2->play();
+		P3->play();
+		P4->play();
+		P5->play();
+		printGameStatistics();
+		for(int i=0;i<num_of_players;i++){
+			players[i]->add_money();
+		}
+	}while(!isWinner());
 
 }
+
 gameboard:: ~gameboard(){
   SetToYellow();
   cout<<"Destroying GameBoard. Game is over"<<endl;

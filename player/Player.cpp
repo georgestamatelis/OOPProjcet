@@ -4,7 +4,6 @@
 using namespace std;
 
 void merge(Holding *up,Holding *sub){
-	//cout<<"MERGING\n"<<endl;
 	sub->setU();
 	up->setS();
 	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
@@ -112,12 +111,10 @@ void Player::untapEverything(){
 void Player::drawFateCard(){
 	deckb.deckShuffler(fateDeck);
 	greenCard *FateCard=fateDeck->front();
-	//fateDeck->pop_front();
 	if(PlaceInHand(*FateCard)==true){
 		fateDeck->erase(fateDeck->begin());
 	}else {
 		cout << "Hand full!!!" << endl;
-		//delete FateCard;
 	}
 }
 
@@ -126,14 +123,12 @@ greenCard* Player::DrawFromHand(int index){
 	int i,y;
 	for(i=0; i<6; i++){
 		if(hand[i]!=NULL){
-			//if( name.compare(hand[i]->getname())==0 ){
 				tmp=hand[i];
 				for(y=i; y<5; y++){
 					hand[y]=hand[y+1];
 				}
 				hand[y]=NULL;
 				return tmp;
-			//}
 		}
 	}
 	return NULL;
@@ -174,7 +169,6 @@ void Player::printProvinces(){
 
 void Player::AddPersonality(Personality *personality){
 	army.push_back(personality);
-//	personality->tap();
 }
 
 greenCard *Player::SeeHandCard(int CardIndex){
@@ -199,7 +193,6 @@ void Player::AddHolding(Holding * province){
 				merge(province,Holdings[i]);
 		}
 	}
-	//province->tap();
 	Holdings.push_back(province);
 }
 
@@ -207,7 +200,6 @@ bool Player::AddProvince(string name){ //erase that province from the provinces 
 	if(provinces.find(name)==provinces.end()) return false;
 	if(!provinces[name]->canUse()) return false;
 	if(provinces[name]->isPersonality()){
-		//cout<<"Soldier"<<endl;
 		Personality *temp=(Personality*)provinces[name];
 		if(!tap_holdings(temp->GetCost())){
 			cout<<"Sorry Player doesn't have enough money , Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
@@ -223,14 +215,13 @@ bool Player::AddProvince(string name){ //erase that province from the provinces 
 		}
 		AddHolding((Holding*)provinces[name]);
 	}
-	//provinces.erase(name);
-	//provinces[name]=NULL;
  	deckb.deckShuffler(dynastyDeck);
 	provinces[name]=dynastyDeck->front();
 	dynastyDeck->pop_front();
 	provinces[name]->tap();
 	return true;
 }
+
 void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
@@ -249,8 +240,6 @@ bool Player::GetMoney(unsigned int amount){
 }
 
 void Player::looseDefencePersonalities(string provinceName,int dmg){
-	//cout<<"OF COURSE"<<endl;
-	//cout<<"DAMAGE ="<<dmg<<"NAME IS"<<provinceName<<endl;
 	vector <blackCard *> temp=provinces[provinceName]->getDefenders();
 	provinces[provinceName]->loosePersonalties(dmg);
 	for(int i=0;i<temp.size();i++){
@@ -261,8 +250,6 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 			if(army[i]->getname()==soldier->getname()){
 				dmg-=army[j]->getDefence();
 				army[j]->Kill();
-				/*delete army[i];//here i.c.o.b.
-				army.erase(army.begin()+j);*/
 			}
 		}
 	}
@@ -359,6 +346,7 @@ Player::~Player(){
 	for (auto c : *dynastyDeck) {
 		delete c;
 	}
+	
 	delete dynastyDeck;
 
 	for (auto a : army) {

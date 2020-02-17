@@ -1,6 +1,8 @@
 #include "phase1.hpp"
 #include "../dependencies/Functionalities.hpp"
 
+using namespace std;
+
 phase1:: phase1(Player **pl,int n):players(pl),num_of_players(n){}
 
 void phase1:: play(){

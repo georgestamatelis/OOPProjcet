@@ -7,7 +7,7 @@ class Item : public greenCard{
     std::string type;
 
   public:
-    Item(string name, int cost, int AB, int DB, int mh, int eb, int ec, int durability, string t = "item")
+    Item(std::string name, int cost, int AB, int DB, int mh, int eb, int ec, int durability, std::string t = "item")
     :greenCard(name, cost, AB, DB, mh, eb, ec, t), durability(durability){
       type = "item";
     }
@@ -16,7 +16,7 @@ class Item : public greenCard{
       durability -= 1;
       if (durability <= 0)
       {
-        cout << "Item" << getname() << "is Destroyed" << endl;
+        std::cout << "Item" << getname() << "is Destroyed" << std::endl;
         Kill();
       }
     }

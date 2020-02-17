@@ -6,52 +6,42 @@
 
 using namespace std;
 
-bool YesOrNo(char a, char b,string message){
+bool YesOrNo(char a, char b,string message){//This function prints a message and asks for two chars as awnser, one coresponds to true and one to false (default arguments a simple ues or no question)
 	char answer;
 	cin >> answer;
-	while(answer!=a && answer!=b){
-		cout << message;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	while(answer!=a && answer!=b){//While one of the two needed charactes is not typed
+		cout << message;//Print the error message
+		cin.clear();//Clear the buffer
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');//And ignore anything else that may has stayed there
 		cin >> answer;
 	}
-	cin.clear();
+	cin.clear();//Before exiting the function, clear and ingnore one more
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	return (answer==a)? true : false;
+	return (answer==a)? true : false;//Return the acording value for the given input
+}
+
+void ReadInt(int &ret){//Function that reads an int and places it to given integer
+	while(!(std::cin >> ret)){//While not only intergers are given as input
+		std::cin.clear();//Clear and ignore the buffer, and read again
+		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+	cin.ignore();
+}
+
+int ReadInt(){//Function that reads an int and returns it
+	int ret;
+	ReadInt(ret);//Read int with above function
+	return ret;//return the result
+}
+
+string ReadString(){
+	string str;
+	getline(cin,str);//	Get the whole buffer as string input
+	return str;//and return it
 }
 
 int Honorcompare(const void * p1, const void * p2){
 	return ((Player*)p1)->GetPlayerHonour() - ((Player*)p2)->GetPlayerHonour();
-}
-
-void ReadInt(int &ret){
-	while(!(std::cin >> ret)){
-		//if(input.size()!=ret/10+1) continue;
-		std::cin.clear();
-		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		//std::cout << "!!"<< ret << std::endl;
-    }
-	cin.ignore();//
-    //std::cout << "!!"<< ret << std::endl;
-}
-
-int ReadInt(){
-	int ret;
-	ReadInt(ret);
-	return ret;
-}
-
-string ReadString(){
-	//char str[50];
-	string str;
-	//cin.clear();
-	//cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	//cin.ignore();
-	getline(cin,str);
-	//cin.clear();
-	//cin.clear();
-	//string answer(array);
-	return str;
 }
 
 #ifdef COLORS

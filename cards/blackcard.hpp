@@ -1,15 +1,14 @@
 #pragma once
 #include "card.hpp"
 #include <vector>
-using namespace std;
 
 class blackCard : public Card{
   private:
     bool isRevealed;
-    vector<blackCard*> defendants;
+    std::vector<blackCard*> defendants;
 
   public:
-    blackCard(string n, int c, bool b1 = false, bool b2 = false)
+    blackCard(std::string n, int c, bool b1 = false, bool b2 = false)
       :Card(n, c, b2), isRevealed(b1){}
 
     virtual bool isPersonality() { return false; }
@@ -42,12 +41,7 @@ class blackCard : public Card{
       }
     }
 
-    vector<blackCard *> getDefenders() { return defendants; }
+    std::vector<blackCard *> getDefenders() { return defendants; }
 
     void reveal() { isRevealed = true; }
-    /*~blackCard(){
-        for (auto d : defendants) {
-          //delete d;//check in case of error
-      }
-    }*/
 };

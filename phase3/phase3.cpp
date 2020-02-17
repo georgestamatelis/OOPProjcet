@@ -2,6 +2,8 @@
 #include "../dependencies/Functionalities.hpp"
 #include "phase3.hpp"
 
+using namespace std;
+
 phase3::phase3(Player **pls, int n) : players(pls), num_of_players(n) {}
 
 void phase3::Attack_Choice(int plindex)
@@ -18,8 +20,6 @@ void phase3::Attack_Choice(int plindex)
   for (int i = 0; i < num_of_players; i++)
     if (enemyname.compare(players[i]->GetName()) == 0)
       enemyIndex = i;
-  //  int enemyIndex=ReadInt();
-  //enemyIndex-=1;
   while (enemyIndex < 0 || enemyIndex == plindex || enemyIndex >= num_of_players)
   {
     cout << "Wrong input. Please type the name of the player you want to attack: ";
@@ -27,8 +27,6 @@ void phase3::Attack_Choice(int plindex)
     for (int i = 0; i < num_of_players; i++)
       if (players[i]->GetName() == enemyname)
         enemyIndex = i;
-    //enemyIndex=ReadInt();
-    //enemyIndex-=1;
   }
   cout << "Enemy Players Provinces are: " << endl;
   players[enemyIndex]->printProvinces();
@@ -45,7 +43,6 @@ void phase3::Attack_Choice(int plindex)
     return;
   cout << "Your available army is: " << endl;
   players[plindex]->printArmy();
-  //cout<<"Which personalitiew do you want to use?"<<endl;
   bool input = false;
   vector<int> attackersVector;
   vector<Personality *> army = players[plindex]->getArmy();
@@ -58,7 +55,6 @@ void phase3::Attack_Choice(int plindex)
     if (attackers >= 1 && attackers <= army.size() && find(attackersVector.begin(), attackersVector.end(), attackers - 1) == attackersVector.end())
       attackersVector.push_back(attackers - 1);
     cout << "Do you wanna use more personalities? (y/n): ";
-    //cin>>answer;
     if (!YesOrNo())
       input = true;
   }

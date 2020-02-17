@@ -7,10 +7,10 @@ class greenCard : public Card{
     int AttackBonus;
     int defenseBonus;
     int minimumHonor, effectBonus, effectCost;
-    string cardtext;
+    std::string cardtext;
 
   public:
-    greenCard(string name, int cost, int AB, int DB, int mh, int eb, int ec, string t, bool b = true)
+    greenCard(std::string name, int cost, int AB, int DB, int mh, int eb, int ec, std::string t, bool b = true)
         : Card(name, cost, b), AttackBonus(AB), defenseBonus(DB), minimumHonor(mh), effectBonus(eb),
           effectCost(ec), cardtext(t){}
 
@@ -23,13 +23,13 @@ class greenCard : public Card{
 
     void print(){
       SetToGreen();
-      cout << "greenCard: " << getname() << endl;
-      cout << "Type: " << cardtext << endl;
-      cout << "AttackBonus: " << AttackBonus << endl;
-      cout << "defenseBonus: " << defenseBonus << endl;
-      cout << "Upgrade Cost: " << effectCost << endl;
-      cout << "minimumHonor :" << get_minumumHonor() << endl;
-      cout << "_____________________________________________________" << endl;
+      std::cout << "greenCard: " << getname() << std::endl;
+      std::cout << "Type: " << cardtext << std::endl;
+      std::cout << "AttackBonus: " << AttackBonus << std::endl;
+      std::cout << "defenseBonus: " << defenseBonus << std::endl;
+      std::cout << "Upgrade Cost: " << effectCost << std::endl;
+      std::cout << "minimumHonor :" << get_minumumHonor() << std::endl;
+      std::cout << "_____________________________________________________" << std::endl;
       SetToDefault();
     }
 

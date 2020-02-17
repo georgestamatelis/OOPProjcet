@@ -13,8 +13,8 @@ class Personality : public blackCard{
     int max_number_of_items;
     int attack, defense, honour;
     bool isDead;
-    vector<follower*> guards;
-    vector<Item*> equipment;
+    std::vector<follower*> guards;
+    std::vector<Item*> equipment;
 
   public:
     bool CanTakeItem() { return (equipment.size() < max_number_of_items); }
@@ -46,14 +46,14 @@ class Personality : public blackCard{
       return sum;
     }
 
-    Personality(string name, int c, bool b1, bool b2, int attack, int defense, int honour, bool isDead)
+    Personality(std::string name, int c, bool b1, bool b2, int attack, int defense, int honour, bool isDead)
         : blackCard(name, c, b1, b2), attack(attack), defense(defense), honour(honour), isDead(false), max_number_of_items(MAXI), max_number_of_followers(MAXF){}
 
     bool check_dead(){return isDead;}
 
     void Attack(){
       if (!canUse()){
-        cout << "Card is either tapped  and you can't use it in this round or it was killed in a previous round" << endl;
+        std::cout << "Card is either tapped  and you can't use it in this round or it was killed in a previous round" << std::endl;
         return;
       }
       //attack
@@ -61,19 +61,19 @@ class Personality : public blackCard{
 
     void Defend(){
       if (!canUse()){
-        cout << "Card is either tapped  and you can't use it in this round or it was killed in a previous round" << endl;
+        std::cout << "Card is either tapped  and you can't use it in this round or it was killed in a previous round" << std::endl;
         return;
       }
     }
 
     void print(){
       SetToRed();
-      cout << "Personality: " << this->getname() << endl;
-      cout << "Attack: " << this->getAttack() << endl;
-      cout << "Defence: " << this->getDefence() << endl;
-      cout << "Honor Points: " << this->getHonour() << endl;
-      cout << "Is it alive: " << !isDead << endl;
-      cout << "---------------------------------------" << endl;
+      std::cout << "Personality: " << this->getname() << std::endl;
+      std::cout << "Attack: " << this->getAttack() << std::endl;
+      std::cout << "Defence: " << this->getDefence() << std::endl;
+      std::cout << "Honor Points: " << this->getHonour() << std::endl;
+      std::cout << "Is it alive: " << !isDead << std::endl;
+      std::cout << "---------------------------------------" << std::endl;
       SetToDefault();
     }
 
@@ -93,7 +93,7 @@ class Personality : public blackCard{
         addFollower(&eq);
       }
       else
-        cout << "Oh no!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        std::cout << "Oh no!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     }
 
     void loosePersonalties(int sum){
@@ -128,7 +128,6 @@ class Personality : public blackCard{
    }
     void Kill(){
       isDead = true;
-      // cout<<"Personality "<<getname()<<"got fucked up real good"<<endl;
       for (int i = 0; i < guards.size(); i++)
         guards[i]->Kill();
       isDead = true;

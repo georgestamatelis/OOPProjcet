@@ -1,6 +1,8 @@
 #include "phase5.hpp"
 #include "../dependencies/Functionalities.hpp"
 
+using namespace std;
+
 phase5::phase5(Player **players, int num_of_players) : players(players), num_of_players(num_of_players){}
 
 void phase5::play(){

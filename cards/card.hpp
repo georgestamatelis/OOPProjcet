@@ -1,11 +1,10 @@
 #pragma once
 #include <string>
 #include <iostream>
-using namespace std;
 
 class Card{
   private:
-    string name;
+    std::string name;
     int cost;
     bool isTapped;
 
@@ -13,7 +12,7 @@ class Card{
     bool isDead;
 
   public:
-    Card(string n, int c, bool is = false)
+    Card(std::string n, int c, bool is = false)
         : name(n), cost(c), isTapped(is), isDead(false) {}
 
     void Untap(){
@@ -38,7 +37,7 @@ class Card{
     virtual void print() = 0;
     
     //getters
-    string getname(){return name;}
+    std::string getname(){return name;}
     int isKilled(){return isDead;}
     int GetCost() {return cost;}
 };

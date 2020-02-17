@@ -12,7 +12,7 @@ phase4::phase4(Player **player,int num_of_players)
 :players(player),num_of_players(num_of_players){}
 
 void phase4::play(){
-	bool FristPurchase;
+	bool FirstPurchase;
 	string province;
 	SetToYellow();
 	cout<<"Phase 4 [Economy phase]"<<endl;
@@ -23,13 +23,13 @@ void phase4::play(){
 		cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
 		SetToDefault();
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
-		FristPurchase=true;
+		FirstPurchase=true;
 		players[i]->printProvinces();
 		cout<<"would you like to buy any provinces? (y/n): ";
 		while(YesOrNo()==true){
-			if(FristPurchase==false) {
+			if(FirstPurchase==false) {
 				players[i]->printProvinces();
-			}else FristPurchase=false;
+			}else FirstPurchase=false;
 			cout<<"Which one: ";
 			province=ReadString();
 			while(players[i]->AddProvince(province)==false){
