@@ -125,6 +125,7 @@ void phase3::Attack_Choice(int plindex)
     {
       if (!army[attackersVector[i]]->isKilled())
       {
+        army[attackersVector[i]]->tapFollowers();
         army[attackersVector[i]]->tap();
         army[attackersVector[i]]->looseHonor();
         army[attackersVector[i]]->hurtItems(); //item durability -=1 for each item of personality
