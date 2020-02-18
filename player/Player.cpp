@@ -168,6 +168,7 @@ void Player::printProvinces(){
 }
 
 void Player::AddPersonality(Personality *personality){
+	cout<<"PLAYER "<<name<<"BUYS PERSONALITY "<<personality->getname()<<endl;
 	army.push_back(personality);
 }
 
@@ -297,8 +298,8 @@ bool Player::HasArmy(){
   	for(int i=0;i<army.size();i++)
 		if(army[i]->canUse())//is that ok for dead?
 			return true;
-		else
-			return false;
+
+		return false;
 }
 
 bool Player::tap_holdings(int sum){
@@ -346,7 +347,7 @@ Player::~Player(){
 	for (auto c : *dynastyDeck) {
 		delete c;
 	}
-	
+
 	delete dynastyDeck;
 
 	for (auto a : army) {
