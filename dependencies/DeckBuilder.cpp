@@ -96,6 +96,11 @@ list<blackCard *> *DeckBuilder::createDynastyDeck()
 
 void DeckBuilder::deckShuffler(list<blackCard *> *black)
 {
+	if(black->size() <5 ){
+		delete black;
+		black=createDynastyDeck();
+		return ;
+	}
 	vector<blackCard *> vect;
 	list<blackCard *>::iterator it;
 	for (it = black->begin(); it != black->end(); it++)
