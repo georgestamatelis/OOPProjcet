@@ -13,7 +13,7 @@ void phase3::Attack_Choice(int plindex)
     cout << "Sorry you don't have army!" << endl;
     return;
   }
-  int enemyIndex = 0;
+  int enemyIndex = -1;
   string enemyname;
   cout << "Which Player do you want to attack? ";
   enemyname = ReadString();
@@ -52,6 +52,10 @@ void phase3::Attack_Choice(int plindex)
     string answer;
     cout << "Which personality do you wanna use? ";
     attackers = ReadInt();
+    if(attackers<=0 || attackers > army.size())
+      cout<<"Sorry no such personality please try again"<<endl;
+    if(find(attackersVector.begin(), attackersVector.end(), attackers - 1) != attackersVector.end())
+      cout<<"You have already choosen that personality"<<endl;
     if (attackers >= 1 && attackers <= army.size() && find(attackersVector.begin(), attackersVector.end(), attackers - 1) == attackersVector.end())
       attackersVector.push_back(attackers - 1);
     cout << "Do you wanna use more personalities? (y/n): ";
@@ -185,7 +189,7 @@ void phase3::play()
   SetToDefault();
   cin.clear();
   string line;
-  int choice = 0; 
+  int choice = 0;
   qsort(players, num_of_players, sizeof(Player *), Honorcompare);
   for (int i = 0; i < num_of_players; i++)
   {
