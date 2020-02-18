@@ -7,6 +7,9 @@ phase5::phase5(Player **players, int num_of_players) : players(players), num_of_
 
 void phase5::play(){
   SetToYellow();
+  cout<<"┌─────────────────────┐\n"
+	  <<"│ Phase 5 [End phase] │\n"
+	  <<"V                     V\n"<<endl;
   cout << "Phase 5 [End phase]" << endl;
   SetToDefault();
   qsort(players, num_of_players, sizeof(Player *), Honorcompare);

@@ -15,6 +15,9 @@ void phase4::play(){
 	bool FirstPurchase;
 	string province;
 	SetToYellow();
+	cout<<"┌─────────────────────────┐\n"
+	    <<"│ Phase 4 [Economy phase] │\n"
+	    <<"V                         V\n"<<endl;
 	cout<<"Phase 4 [Economy phase]"<<endl;
 	SetToDefault();
 	qsort(players,num_of_players,sizeof(Player*),Honorcompare);

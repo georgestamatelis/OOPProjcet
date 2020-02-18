@@ -23,13 +23,14 @@ class greenCard : public Card{
 
     void print(){
       SetToGreen();
-      std::cout << "greenCard: " << getname() << std::endl;
-      std::cout << "Type: " << cardtext << std::endl;
-      std::cout << "AttackBonus: " << AttackBonus << std::endl;
-      std::cout << "defenseBonus: " << defenseBonus << std::endl;
-      std::cout << "Upgrade Cost: " << effectCost << std::endl;
-      std::cout << "minimumHonor :" << get_minumumHonor() << std::endl;
-      std::cout << "_____________________________________________________" << std::endl;
+	  std::cout << "┌─────────────────────────┐\n" 
+                << "│greenCard: " << getname() << "\n"
+                << "│Type: " << cardtext << "\n"
+                << "│AttackBonus: " << AttackBonus << "\n"
+                << "│defenseBonus: " << defenseBonus << "\n"
+                << "│Upgrade Cost: " << effectCost << "\n"
+                << "│minimumHonor :" << get_minumumHonor() << "\n"
+                << "└─────────────────────────┘" << std::endl;
       SetToDefault();
     }
 

@@ -68,12 +68,13 @@ class Personality : public blackCard{
 
     void print(){
       SetToRed();
-      std::cout << "Personality: " << this->getname() << std::endl;
-      std::cout << "Attack: " << this->getAttack() << std::endl;
-      std::cout << "Defence: " << this->getDefence() << std::endl;
-      std::cout << "Honor Points: " << this->getHonour() << std::endl;
-      std::cout << "Is it alive: " << !isDead << std::endl;
-      std::cout << "---------------------------------------" << std::endl;
+	  std::cout << "┌─────────────────────────┐\n" 
+                << "│Personality: " << this->getname() << "\n"
+                << "│Attack: " << this->getAttack() << "\n"
+	            << "│Defence: " << this->getDefence() << "\n"
+                << "│Honor Points: " << this->getHonour() << "\n"
+                << "│Is it alive: " << !isDead << "\n"
+                << "└─────────────────────────┘" << std::endl;
       SetToDefault();
     }
 

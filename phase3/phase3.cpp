@@ -185,7 +185,9 @@ void phase3::defence_Choise(int plindex)
 void phase3::play()
 {
   SetToYellow();
-  cout << "Phase 3 [Battle phase]" << endl;
+  cout<<"┌────────────────────────┐\n"
+	  <<"│ Phase 3 [Battle phase] │\n"
+	  <<"V                        V\n"<<endl;
   SetToDefault();
   cin.clear();
   string line;

@@ -19,8 +19,10 @@ class Holding : public blackCard{
     
     void print(){
       SetToRed();
-      std::cout << "Holding : " << this->getname() << std::endl;
-      std::cout << "harvestValue: " << this->harvestValue << std::endl;
+	  std::cout << "┌─────────────────────────┐\n" 
+                << "│Holding : " << this->getname() << "\n"
+                << "│harvestValue: " << this->harvestValue << "\n"
+				<< "└─────────────────────────┘" << std::endl;
       SetToDefault();
     }
 

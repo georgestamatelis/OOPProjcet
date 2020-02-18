@@ -21,9 +21,10 @@ bool YesOrNo(char a, char b,string message){//This function prints a message and
 }
 
 void ReadInt(int &ret){//Function that reads an int and places it to given integer
-	while(!(std::cin >> ret)){//While not only intergers are given as input
-		std::cin.clear();//Clear and ignore the buffer, and read again
-		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	while(!(cin >> ret)){//While not only intergers are given as input
+		cout << "Please type an interger: ";
+		cin.clear();//Clear and ignore the buffer, and read again
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 	cin.ignore();
 }
@@ -38,6 +39,15 @@ string ReadString(){
 	string str;
 	getline(cin,str);//	Get the whole buffer as string input
 	return str;//and return it
+}
+
+void PressEnter(){
+	cout <<"Press enter to continue...";
+	//cin.get();
+	//cin.clear();
+	//cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	ReadString();
+	cout << endl;
 }
 
 int Honorcompare(const void * p1, const void * p2){

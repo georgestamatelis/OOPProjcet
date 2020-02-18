@@ -9,7 +9,7 @@ gameboard::gameboard()
 {
   rounds=0;
   string line;
-  cout<<"Initializing GameBoard"<<endl;
+  cout<<"Initializing GameBoard..."<<endl;
   cout<<"How many players? ";
   num_of_players=ReadInt();
  while(num_of_players<=1 || num_of_players>8)
@@ -43,22 +43,24 @@ bool gameboard::isWinner(){
 void gameboard:: printGameStatistics()
 {
   rounds++;
-  cout<<"Round: "<<rounds<<endl;
+  cout<<"┌───────────────Game Statistics────────────────┐\n"
+      <<"│Round: "<<rounds<< "                                      │\n";
   int sum=0;
   for(int i=0;i<num_of_players;i++){
     if(players[i]->isAlive())
       sum++;
   }
-  cout<<"Total alive Players: "<<sum<<"  Total dead players : "<<num_of_players-sum<<endl;
+  cout<<"│Total alive Players: "<<sum<<" / Total dead players: "<<num_of_players-sum<< "│\n"
+      <<"└──────────────────────────────────────────────┘"<< endl;
+	PressEnter();
 }
 
 void gameboard::gamePlay()
 {
 	SetToYellow();
-	cout<<" __________________________\n"
-		<<"|                          |\n"
-		<<"|     GamePlay Begins!!    |\n"
-		<<"V                          V\n"<<endl;
+	cout<<"┌─────────────────────────┐\n"
+		<<"│    GamePlay Begins!!    │\n"
+		<<"V                         V\n"<<endl;
 	SetToDefault();
 	do{
 		P1->play();

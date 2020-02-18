@@ -7,7 +7,9 @@ phase1:: phase1(Player **pl,int n):players(pl),num_of_players(n){}
 
 void phase1:: play(){
   SetToYellow();
-  cout<<"Phase 1 [Start phase]"<<endl;
+  cout<<"┌───────────────────────┐\n"
+	  <<"│ Phase 1 [Start phase] │\n"
+	  <<"V                       V\n"<<endl;
   SetToDefault();
   qsort(players,num_of_players,sizeof(Player*),Honorcompare);
   for(int i=0;i<num_of_players;i++){
@@ -19,6 +21,7 @@ void phase1:: play(){
     players[i]->revealProvinces();
     players[i]->printHand(false);
     players[i]->printProvinces();
+	PressEnter();
   }
 }
 

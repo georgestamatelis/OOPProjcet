@@ -11,7 +11,9 @@ phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
 
 void phase2::play(){
 	SetToYellow();
-	cout<<"Phase 2 [Equiping phase]"<<endl;
+	cout<<"┌──────────────────────────┐\n"
+	    <<"│ Phase 2 [Equiping phase] │\n"
+	    <<"V                          V\n"<<endl;
 	SetToDefault();
 	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
 	for(int i=0; i<NumOfPlayers; i++){
