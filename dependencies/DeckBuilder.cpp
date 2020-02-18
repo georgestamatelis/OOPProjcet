@@ -96,10 +96,10 @@ list<blackCard *> *DeckBuilder::createDynastyDeck()
 
 void DeckBuilder::deckShuffler(list<blackCard *> *black)
 {
-	if(black->size() <5 ){
-		delete black;
-		black=createDynastyDeck();
-		return ;
+	if(black->size() <5 ){//If the cards in the deck are about to end, or have ended.
+		delete black;//Delete the current deck
+		black=createDynastyDeck();//And replace it with a new one
+		return; //the end the function since the new deck is already shuffled
 	}
 	vector<blackCard *> vect;
 	list<blackCard *>::iterator it;
