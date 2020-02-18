@@ -36,6 +36,17 @@ void phase4::play(){
 				cout << "Unable to buy this province, please type another: ";
 				province=ReadString();
 			}
+			std::unordered_map<std::string,blackCard*>& prs =players[i]->GetProvinces();
+			int uselesssum=0;
+			for(auto x: prs)
+				if(!x.second->canUse())
+				  uselesssum++;
+      if(uselesssum >=4){
+				cout<<"No  more provinces available"<<endl;
+				break;
+      //  continue;
+				//return;
+			}
 			cout<<"would you like to buy any other province? (y/n): ";
 		}
 	}
