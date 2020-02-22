@@ -47,8 +47,6 @@ void phase4::play(){
       if(uselesssum >=4){
 				cout<<"No  more provinces available"<<endl;
 				break;
-      //  continue;
-				//return;
 			}
 			cout<<"would you like to buy any other province? (y/n): ";
 		}

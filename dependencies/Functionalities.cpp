@@ -43,9 +43,6 @@ string ReadString(){
 
 void PressEnter(){
 	cout <<"Press enter to continue...";
-	//cin.get();
-	//cin.clear();
-	//cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	ReadString();
 	cout << endl;
 }
