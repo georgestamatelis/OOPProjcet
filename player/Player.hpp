@@ -27,48 +27,49 @@ private:
 	DeckBuilder deckb;
 public:
 	Player(std::string n);
-	const std::string &GetName(){return name;}
-	bool PlaceInHand(greenCard &Card);
-
-	std::unordered_map<std::string,blackCard*>& GetProvinces(){return provinces;}
-
-	void StartRound();//Untaps all cards and initializes money for the player
-	void drawFateCard();
-	void revealProvinces();
-	void performSeppuku();
-	int printHand(bool numbers=true);
-	void printProvinces();
-	void discardSurplusFateCards();
-	void PrintHoldings();
-
-	void AddPersonality(Personality *personality);
-	greenCard *SeeHandCard(int CardIndex);
-	bool EquipPersonality(const std::string &name,greenCard * equipment);
-	bool EquipPersonality(int index,greenCard * equipment);
-	int GetPersonalityHonor(std::string name);
+	
+	void AddHolding(Holding *province);
 	bool AddProvince(std::string name);
-	void printArmy();
-	bool GetMoney(unsigned int amount);
-	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-	unsigned int GetPlayerHonour() const {return honor_points;}
-	std::vector<Personality*>& getArmy(){return army;}
-	int getInitalDefense(){return Honor.getInitialDefense();}
+	void AddPersonality(Personality *personality);
+	
 	void looseDefencePersonalities(std::string provinceName,int);
 	void loosePersonalty(std::string name);
 	void looseProvince(std::string name);
-	int getPersonalityDamage(std::string name);
 	void looseHonor();
+	
+	bool PlaceInHand(greenCard &Card);
+	greenCard *DrawFromHand(int index);
+	void drawFateCard();
+	greenCard *SeeHandCard(int CardIndex);
+	
+	void printArmy();
+	int printHand(bool numbers=true);
+	void PrintHoldings();
+	void printProvinces();
+	void revealProvinces();
+	
+	void StartRound();//Untaps all cards and initializes money for the player
+	void performSeppuku();
+	bool GetMoney(unsigned int amount);
+	Personality *GetPersonality(int);
+	int GetPersonalityHonor(std::string name);
+	int getPersonalityDamage(std::string name);
+
+	
+	bool HasArmy();
 	inline int isAlive(){ return !lost;}
-	bool HasArmy();//{ (army[0]==NULL)? false : true;};
-	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
-	greenCard* DrawFromHand(int index);
-	void AddHolding(Holding * province);
+	bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
+	bool CheckName(const std::string &name);
+	void discardSurplusFateCards();
 	bool tap_holdings(int sum);
 
-/////////////////////
-	unsigned int SeeMoney() {return money;};
-	Personality *GetPersonality(int );
-	//int get
+	unsigned int SeeMoney() {return money;}
+	unsigned int GetPlayerHonour() const {return honor_points;}
+	const std::string &GetName(){return name;}
+	std::unordered_map<std::string,blackCard*>& GetProvinces(){return provinces;}
+	std::vector<Personality*>& getArmy(){return army;}
+	int getInitalDefense(){return Honor.getInitialDefense();}
+	
 	~Player();
 };

@@ -16,7 +16,7 @@ void phase1:: play(){
     SetToYellow();
     cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
     SetToDefault();
-    players[i]->StartRound();
+    players[i]->StartRound();//untap cards and initialize money for player
     players[i]->drawFateCard();
     players[i]->revealProvinces();
     players[i]->printHand(false);
