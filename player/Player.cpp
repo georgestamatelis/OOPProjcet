@@ -7,14 +7,17 @@ void merge(Holding *up,Holding *sub){
 	sub->setU();
 	up->setS();
 	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
-		up->setFC();  //full chain has been closed
+	{	up->setFC();  //full chain has been closed
+		//middle holding has both upper and sub Holdings
+		//the FC(boolen) is a cheap and  easy way to check if a cyrstal mine is connected to a full chain
+	}
 }
 
 bool Compatible(Holding *a,Holding *b){
 	if(a->return_type() == b->return_type()) //no possible chain
 		return false;
 	if(a->return_type() > b->return_type()){ //b >> a possible up-sub relationship
-		if(!a->has_subholding() && !b->has_upperholding()) 
+		if(!a->has_subholding() && !b->has_upperholding())
 			return true;
 		else //a and/or b have up/sub holdings no possible connection
 			return false;
@@ -271,12 +274,10 @@ void Player::looseProvince(string name){
 
 }
 
-void Player::discardSurplusFateCards(){}//what the fuck is that
-
-void Player:: add_money(){
-	for(int i=0;i<Holdings.size();i++)
-		money+=Holdings[i]->get_harvest_value();
+void Player::discardSurplusFateCards(){
+	//we allreadyy do this by default
 }
+
 
 bool Player::CheckName(const string &name){
 	for(int i=0;i<army.size();i++)

@@ -64,14 +64,13 @@ void gameboard::gamePlay()
 	SetToDefault();
 	do{
 		P1->play();
+    
 		P2->play();
 		P3->play();
 		P4->play();
 		P5->play();
 		printGameStatistics();
-		for(int i=0;i<num_of_players;i++){
-			players[i]->add_money();
-		}
+
 	}while(!isWinner());
 
 }

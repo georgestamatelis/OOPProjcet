@@ -13,13 +13,13 @@ class Holding : public blackCard{
   public:
     Holding(std::string name, int c, bool b1, bool b2, int hv, bool upH = false, bool subH = false)
         : blackCard(name, c, b1, b1), harvestValue(hv), upperHolding(upH), subHolding(subH){}
-        
+
     Holding(std::string name, int cost, int Harvest)
         : blackCard(name, cost, false, false), harvestValue(Harvest), upperHolding(false), subHolding(false){}
-    
+
     void print(){
       SetToRed();
-	  std::cout << "┌─────────────────────────┐\n" 
+	  std::cout << "┌─────────────────────────┐\n"
                 << "│Holding : " << this->getname() << "\n"
                 << "│harvestValue: " << this->harvestValue << "\n"
 				<< "└─────────────────────────┘" << std::endl;
@@ -27,30 +27,45 @@ class Holding : public blackCard{
     }
 
     int get_harvest_value(){
-      int total_money = harvestValue;
-      if (upperHolding){
-        if (return_type() == 2){
-          if (!subHolding)
-            total_money += 5;
-          else
-            total_money += harvestValue;
+      int result=harvestValue;
+        switch (return_type()) //no need for break statements cause tha function terminates anyways
+        {
+
+          case 0:
+            return 0;
+          case 1:
+            if(upperHolding)
+              result+=2;
+            return result;
+          case 2:
+             if(upperHolding  && ! subHolding){
+              result+=4;
+             }
+             else if(!upperHolding && subHolding){
+               result+=5;
+             }
+             else if( (upperHolding && subHolding) || full_chain){
+                result*=2;
+             }
+             return result;
+          case 3:
+            if(subHolding && !full_chain)
+              return 2*result;
+            else if(full_chain)
+              return 3*result;
+            return result;
+          default:
+            return 0;
         }
-        else if (return_type() == 1){
-          total_money += 2;
-        }
-      }
-      ////////////////////////////////////
-      if (subHolding){
-        if (return_type() == 3){
-          total_money += harvestValue;
-        }
-        else if (return_type() == 2){
-          total_money += 4;
-        }
-      }
-      return total_money;
     }
-    virtual int return_type() { return 0; }
+    virtual int return_type()
+    { return 0;
+      //return type is
+      // 0 for everything else
+      //1 for Mine
+      //2 for gold Mine
+      //3 for crystal mine
+    }
     bool has_upperholding() { return upperHolding; }
     bool has_subholding() { return subHolding; }
     void setU() { upperHolding = true; }

@@ -59,7 +59,6 @@ public:
 	int getPersonalityDamage(std::string name);
 	void looseHonor();
 	inline int isAlive(){ return !lost;}
-	void add_money();
 	bool HasArmy();//{ (army[0]==NULL)? false : true;};
 	bool CheckName(const std::string &name);
 	inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
