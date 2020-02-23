@@ -227,7 +227,7 @@ void Player::printProvinces(){
 	}
 }
 
-void Player:: revealProvinces(){
+void Player::revealProvinces(){
 	for(auto x: provinces)
 		if(x.second->canUse())
 			x.second->reveal();
