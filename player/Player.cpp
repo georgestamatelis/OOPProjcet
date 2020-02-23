@@ -260,14 +260,14 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 }
 void Player::performSeppuku(){
 	lost=true;
-	cout<<"Player:"<<name<<"performed Seppuku  "<<endl;
+	cout<<"Player '"<< name <<"' performed Seppuku"<<endl;
 }
 
 void Player::looseProvince(string name){
 	if(provinces.find(name)==provinces.end())
 		return;
 	looseHonor();
-	cout <<"PLAYER "<<GetName()<<"LOSES PROVINCE "<<provinces[name]->getname();
+	cout <<"PLAYER '"<< name <<"' LOSES PROVINCE "<<provinces[name]->getname() << endl;
 	provinces[name]->Kill();
 	delete provinces[name];
 	provinces.erase(name);
