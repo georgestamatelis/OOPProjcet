@@ -34,8 +34,8 @@ Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("C
 	fateDeck=deckb.createFateDeck();
 	dynastyDeck=deckb.createDynastyDeck();
 	int i;
-	hand= new greenCard*[6];
-	for(i=0; i<6; i++){
+	hand= new greenCard*[7];
+	for(i=0; i<7; i++){
 		hand[i]=NULL;
 	}
 
@@ -79,7 +79,7 @@ int Player::GetPersonalityHonor(string name){
 }
 
 bool Player::PlaceInHand(greenCard &Card){
-	for(int i=0; i<6; i++){
+	for(int i=0; i<7; i++){
 		if(hand[i]==NULL){
 			hand[i]=&Card;
 			return true;
@@ -124,10 +124,10 @@ void Player::drawFateCard(){
 greenCard* Player::DrawFromHand(int index){
 	greenCard* tmp;
 	int i,y;
-	for(i=0; i<6; i++){
+	for(i=0; i<7; i++){
 		if(hand[i]!=NULL){
 				tmp=hand[i];
-				for(y=i; y<5; y++){
+				for(y=i; y<6; y++){
 					hand[y]=hand[y+1];
 				}
 				hand[y]=NULL;
@@ -139,9 +139,9 @@ greenCard* Player::DrawFromHand(int index){
 
 int Player::printHand(bool numbers){
 	int count=-1;
-	for(int i=0; i<6; i++){
+	for(int i=0; i<7; i++){
 		if(hand[i]!=NULL){
-			if(numbers) cout << i << ". ";
+			if(numbers) cout << i << ". " << endl;
 			hand[i]->print();
 			count++;
 		}
@@ -176,7 +176,7 @@ void Player::AddPersonality(Personality *personality){
 }
 
 greenCard *Player::SeeHandCard(int CardIndex){
-	if(CardIndex<6) return hand[CardIndex];
+	if(CardIndex<7) return hand[CardIndex];
 	return NULL;
 }
 
@@ -258,7 +258,7 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 		}
 	}
 }
-void Player:: performSeppuku(){
+void Player::performSeppuku(){
 	lost=true;
 	cout<<"Player:"<<name<<"performed Seppuku  "<<endl;
 }
@@ -275,7 +275,18 @@ void Player::looseProvince(string name){
 }
 
 void Player::discardSurplusFateCards(){
-	//we allreadyy do this by default
+	int card;
+	if(hand[6]!=NULL){//if the player has 7 cards, then for the rules he needs to through one
+		SetToYellow();
+		cout << "You have exceded the maximum number of cards you can have in your hand!! Your hand:"<<endl;
+		SetToDefault();
+		printHand();
+		SetToYellow();
+		cout << "You have to discard one, please type it's number: ";
+		SetToDefault();
+		ReadInt(card);
+		delete DrawFromHand(card); //Getting the selected card from the hand and deleting it
+	}
 }
 
 
@@ -335,7 +346,7 @@ void Player::PrintHoldings(){
 }
 
 Player::~Player(){
-	for(int i=0; i<6; i++){
+	for(int i=0; i<7; i++){
 		if(hand[i]!=NULL) delete hand[i];
 	}
 	delete[] hand;
