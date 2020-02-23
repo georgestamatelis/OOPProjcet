@@ -52,14 +52,14 @@ int Honorcompare(const void * p1, const void * p2){
 }
 
 #ifdef COLORS
-	//If compiler flag allow it, ANSI color codes are used to change the consolone color to the requested one
+	//If compiler flags allow it, ANSI color codes are used to change the consolone color to the requested one
 	void SetToRed(){cout << "\033[" << 31 << "m";}//Using the esc sequence and the code for volor red, in a linux system the color of the latters will change
 	void SetToGreen(){cout << "\033[" << 32 << "m";}//32 for green
-	void SetToYellow(){cout << "\033[" << 33 << "m";}
+	void SetToYellow(){cout << "\033[" << 33 << "m";}//33 for yellow
 	void SetToBlue(){cout << "\033[" << 34 << "m";}//34 for blue
-	void SetToDefault(){cout << "\033[" << 39 << "m";}//And 33 for the default one
+	void SetToDefault(){cout << "\033[" << 39 << "m";}//And 39 for the default one
 	#else
-	//Otherwise,colors are not used sisnce the body of the functions are empty, so when the functions are called nothing happens
+	//Otherwise,colors are not used. And since the body of the functions is empty, when the functions are called nothing happens
 	void SetToRed(){}
 	void SetToGreen(){}
 	void SetToYellow(){}

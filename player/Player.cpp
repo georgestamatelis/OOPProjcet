@@ -235,7 +235,7 @@ void Player::revealProvinces(){
 
 /////////////////////
 void Player::StartRound(){
-	money=Honor.getInitialMoney();//Initilizing money for player, for this round
+	money=Honor.getInitialMoney();//Initilizing money for player, for this round (from stronghold)
 	
 	//Untaping all cards
 	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
