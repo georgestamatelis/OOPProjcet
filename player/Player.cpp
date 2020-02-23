@@ -7,19 +7,19 @@ void merge(Holding *up,Holding *sub){
 	sub->setU();
 	up->setS();
 	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
-		up->setFC();
+		up->setFC();  //full chain has been closed
 }
 
 bool Compatible(Holding *a,Holding *b){
-	if(a->return_type() == b->return_type())
+	if(a->return_type() == b->return_type()) //no possible chain
 		return false;
-	if(a->return_type() > b->return_type()){
-		if(!a->has_subholding() && !b->has_upperholding())
+	if(a->return_type() > b->return_type()){ //b >> a possible up-sub relationship
+		if(!a->has_subholding() && !b->has_upperholding()) 
 			return true;
-		else
+		else //a and/or b have up/sub holdings no possible connection
 			return false;
 	}
-	if(a->return_type() < b->return_type()){
+	if(a->return_type() < b->return_type()){  // a <<b possible connection
 		if(!a->has_upperholding() && !b->has_subholding())
 			return true;
 		return false;
