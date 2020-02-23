@@ -32,7 +32,7 @@ public:
 
 	std::unordered_map<std::string,blackCard*>& GetProvinces(){return provinces;}
 
-	void untapEverything();
+	void StartRound();//Untaps all cards and initializes money for the player
 	void drawFateCard();
 	void revealProvinces();
 	void performSeppuku();

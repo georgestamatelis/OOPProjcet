@@ -88,7 +88,10 @@ bool Player::PlaceInHand(greenCard &Card){
 	return false;
 }
 
-void Player::untapEverything(){
+void Player::StartRound(){
+	money=Honor.getInitialMoney();//Initilizing money for player, for this round
+	
+	//Untaping all cards
 	for(list <greenCard*>::iterator it = fateDeck->begin(); it != fateDeck->end(); it++){
 		(*it)->Untap();
 	}
