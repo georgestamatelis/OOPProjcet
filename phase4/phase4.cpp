@@ -46,9 +46,9 @@ void phase4::play(){
 			for(auto x: prs)
 				if(!x.second->canUse())
 				  uselesssum++;
-			if(uselesssum >=4){//If the player cant use his provinces, 
-				cout<<"No more provinces available"<<endl;//A message that he has not provinces is printed
-				break;
+			if(uselesssum >=4){//If the player cant buy any more provinces
+				cout<<"No more provinces available"<<endl;
+				break;//The bying loop ends
 			}
 			cout<<"Would you like to buy any other province? (y/n): ";
 		}

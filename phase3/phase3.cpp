@@ -73,7 +73,9 @@ void phase3::Attack_Choice(int plindex)
   bool loss = false;
   int provinceDefence = players[enemyIndex]->getInitalDefense();
   int personalityDefence = underAttack->getDefence();
+  SetToRed();
   cout << "Total Damage " << totaldamage << "prD " << provinceDefence << "personD " << personalityDefence << endl;
+  SetToDefault();
   if (totaldamage >= (personalityDefence + provinceDefence))
   {
     //attacker wins

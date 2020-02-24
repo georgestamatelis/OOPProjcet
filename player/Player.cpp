@@ -87,7 +87,9 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 void Player::loosePersonalty(string name){
 	for(int i=0;i<army.size();i++){
 		if(army[i]->getname()==name){
-			cout<<"Player '"<<GetName()<<"' Loses soldier: "<<army[i]->getname()<<endl;
+			SetToRed();
+			cout<<"Player '"<< this->name <<"' Loses soldier: "<<army[i]->getname()<<endl;
+			SetToDefault();
 			army[i]->Kill();
 			return;
 		}
@@ -98,7 +100,9 @@ void Player::looseProvince(string name){
 	if(provinces.find(name)==provinces.end())
 		return;
 	looseHonor();
-	cout <<"Player '"<< name <<"' Loses province: "<<provinces[name]->getname() << endl;
+	SetToRed();
+	cout <<"Player '"<< this->name <<"' Loses province: "<<provinces[name]->getname() << endl;
+	SetToDefault();
 	provinces[name]->Kill();
 	delete provinces[name];
 	provinces.erase(name);
