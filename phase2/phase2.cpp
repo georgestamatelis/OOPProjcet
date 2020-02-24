@@ -8,6 +8,7 @@
 using namespace std;
 
 phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
+//In the constructorn we initilze only the arrey of the players (with pointers), and the number of them.
 
 void phase2::play(){
 	SetToYellow();
@@ -15,14 +16,14 @@ void phase2::play(){
 	    <<"│ Phase 2 [Equiping phase] │\n"
 	    <<"V                          V\n"<<endl;
 	SetToDefault();
-	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);
-	for(int i=0; i<NumOfPlayers; i++){
+	qsort(GivenPlayers,NumOfPlayers,sizeof(Player*),Honorcompare);//Sorting the arrey players with honor using c++ qsort, so they play in the requested order
+	for(int i=0; i<NumOfPlayers; i++){//For all players (in honor order since they are sorted)
 		SetToYellow();
 		cout << "Player '" << GivenPlayers[i]->GetName() << "' turn:" << endl;
 		SetToDefault();
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n): ";
-			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);
+			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);//If the player want to buy card, the according function is called
 		}else cout << " Does not have a army to equip!" << endl;
 
 	}
@@ -98,5 +99,5 @@ void phase2::equipPhase(Player &player){
 }
 
 phase2::~phase2(){
-  	cout<<"End of phase 2"<<endl;
+  	cout<<"End of phase 2"<<endl;//The deconstructor has no memory to de-allocate, so just a message is printed
 }

@@ -20,7 +20,7 @@ void phase4::play(){
 	    <<"V                         V\n"<<endl;
 	cout<<"Phase 4 [Economy phase]"<<endl;
 	SetToDefault();
-	qsort(players,num_of_players,sizeof(Player*),Honorcompare);
+	qsort(players,num_of_players,sizeof(Player*),Honorcompare);//Sorting players by honor
 	for(int i=0;i<num_of_players;i++){
 		SetToYellow();
 		cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
@@ -28,14 +28,14 @@ void phase4::play(){
 		cout<<"Economy phase\n"<<"Provinces:"<<endl;
 		FirstPurchase=true;
 		players[i]->printProvinces();
-		cout<<"would you like to buy any provinces? (y/n): ";
-		while(YesOrNo()==true){
-			if(FirstPurchase==false) {
+		cout<<"Would you like to buy any provinces? (y/n): ";
+		while(YesOrNo()==true){//While player whants to buy provinces
+			if(FirstPurchase==false) {//If this is not the first purchase the provinces are re-printed to the user
 				players[i]->printProvinces();
 			}else FirstPurchase=false;
 			cout<<"Which one: ";
 			province=ReadString();
-			while(players[i]->AddProvince(province)==false){
+			while(players[i]->AddProvince(province)==false){//Loop until the user types a correct province name
 				cout << "Unable to buy this province, please type another: ";
 				province=ReadString();
 			}
@@ -44,11 +44,11 @@ void phase4::play(){
 			for(auto x: prs)
 				if(!x.second->canUse())
 				  uselesssum++;
-      if(uselesssum >=4){
-				cout<<"No  more provinces available"<<endl;
+			if(uselesssum >=4){//If the player cant use his provinces, 
+				cout<<"No more provinces available"<<endl;//A message that he has not provinces is printed
 				break;
 			}
-			cout<<"would you like to buy any other province? (y/n): ";
+			cout<<"Would you like to buy any other province? (y/n): ";
 		}
 	}
 }

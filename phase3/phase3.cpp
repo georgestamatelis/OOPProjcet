@@ -217,7 +217,7 @@ void phase3::play()
     case 3:
       break;
     default:
-      cout << "Something is wrong with my code" << endl;
+      cout << "Something went wrong" << endl;
       break;
     }
   }

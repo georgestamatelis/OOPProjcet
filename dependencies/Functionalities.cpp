@@ -43,11 +43,11 @@ string ReadString(){
 
 void PressEnter(){
 	cout <<"Press enter to continue...";
-	ReadString();
+	ReadString();//This function ends when \n is given as input
 	cout << endl;
 }
 
-int Honorcompare(const void * p1, const void * p2){
+int Honorcompare(const void * p1, const void * p2){//Function to compare honor of two given players, needed for qsort
 	return ((Player*)p1)->GetPlayerHonour() - ((Player*)p2)->GetPlayerHonour();
 }
 
