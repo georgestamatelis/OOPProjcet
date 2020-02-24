@@ -6,13 +6,13 @@
 
 using namespace std;
 
-bool YesOrNo(char a, char b,string message){//This function prints a message and asks for two chars as awnser, one coresponds to true and one to false (default arguments a simple ues or no question)
+bool YesOrNo(char a, char b,string message){//This function prints a message and asks for one of two chars as awnser, one coresponds to true and one to false (default arguments: a simple yes or no question. See .hpp)
 	char answer;
 	cin >> answer;
 	while(answer!=a && answer!=b){//While one of the two needed charactes is not typed
 		cout << message;//Print the error message
 		cin.clear();//Clear the buffer
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');//And ignore anything else that may has stayed there
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');//And ignore anything else that may stayed there
 		cin >> answer;
 	}
 	cin.clear();//Before exiting the function, clear and ingnore one more

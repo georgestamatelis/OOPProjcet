@@ -8,7 +8,7 @@
 using namespace std;
 
 phase2::phase2(Player** GP,int NumOP):GivenPlayers(GP),NumOfPlayers(NumOP){}
-//In the constructorn we initilze only the arrey of the players (with pointers), and the number of them.
+//In the constructor we initilze only the arrey of the players (with pointers), and the number of them.
 
 void phase2::play(){
 	SetToYellow();
@@ -23,7 +23,7 @@ void phase2::play(){
 		SetToDefault();
 		if( GivenPlayers[i]->HasArmy()==true ){
 			cout << "\n\nWould you like to buy cards from your hand? (y/n): ";
-			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);//If the player want to buy card, the according function is called
+			if(YesOrNo()==true)	equipPhase(*GivenPlayers[i]);//If the player wants to buy card, the according function is called
 		}else cout << " Does not have a army to equip!" << endl;
 
 	}

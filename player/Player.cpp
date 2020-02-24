@@ -3,40 +3,17 @@
 #include "../dependencies/Functionalities.hpp"
 using namespace std;
 
-void merge(Holding *up,Holding *sub){
-	sub->setU();
-	up->setS();
-	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
-	{	up->setFC();  //full chain has been closed
-		//middle holding has both upper and sub Holdings
-		//the FC(boolen) is a cheap and  easy way to check if a cyrstal mine is connected to a full chain
-	}
-}
 
-bool Compatible(Holding *a,Holding *b){
-	if(a->return_type() == b->return_type()) //no possible chain
-		return false;
-	if(a->return_type() > b->return_type()){ //b >> a possible up-sub relationship
-		if(!a->has_subholding() && !b->has_upperholding())
-			return true;
-		else //a and/or b have up/sub holdings no possible connection
-			return false;
-	}
-	if(a->return_type() < b->return_type()){  // a <<b possible connection
-		if(!a->has_upperholding() && !b->has_subholding())
-			return true;
-		return false;
-	}
-}
+void merge(Holding *up,Holding *sub);
+bool Compatible(Holding *a,Holding *b);//Forward declaretion
 
-///////////////////////////////////////////////
 Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("Castle"),honor_points(4),name(n),lost(false){
 	fateDeck=deckb.createFateDeck();
-	dynastyDeck=deckb.createDynastyDeck();
+	dynastyDeck=deckb.createDynastyDeck();//Decks are required, since the deck shuffler is used
 	int i;
 	hand= new greenCard*[7];
 	for(i=0; i<7; i++){
-		hand[i]=NULL;
+		hand[i]=NULL;//At the begining the player does not have cards in his hand
 	}
 
 	money=Honor.getInitialMoney();
@@ -47,6 +24,7 @@ Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("C
 
 }
 
+//Add functions
 void Player::AddHolding(Holding * province){
 	for(int i=0;i<Holdings.size();i++){
 		if(Compatible(Holdings[i],province)){
@@ -59,9 +37,10 @@ void Player::AddHolding(Holding * province){
 	Holdings.push_back(province);
 }
 
-bool Player::AddProvince(string name){ //erase that province from the provinces dictionary and replace
+bool Player::AddProvince(string name){//Adds province to player (if possible) and shuffles deck
 	if(provinces.find(name)==provinces.end()) return false;
 	if(!provinces[name]->canUse()) return false;
+	
 	if(provinces[name]->isPersonality()){
 		Personality *temp=(Personality*)provinces[name];
 		if(!tap_holdings(temp->GetCost())){
@@ -69,16 +48,14 @@ bool Player::AddProvince(string name){ //erase that province from the provinces 
 			return false;
 		}
 		AddPersonality(temp);
-	}
-	else{
-		if(!tap_holdings(provinces[name]->GetCost())) //takes care of money
-		{
+	}else{
+		if(!tap_holdings(provinces[name]->GetCost())){ //takes care of money
 			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
 		AddHolding((Holding*)provinces[name]);
 	}
- 	deckb.deckShuffler(dynastyDeck);
+ 	deckb.deckShuffler(dynastyDeck);//Shufle cards, so a new one is added where the bought one was
 	provinces[name]=dynastyDeck->front();
 	dynastyDeck->pop_front();
 	provinces[name]->tap();
@@ -86,11 +63,11 @@ bool Player::AddProvince(string name){ //erase that province from the provinces 
 }
 
 void Player::AddPersonality(Personality *personality){
-	cout<<"PLAYER '"<<name<<"' BUYS PERSONALITY "<<personality->getname()<<endl;
+	cout<<"Player '"<<name<<"' buys personality: "<<personality->getname()<<endl;
 	army.push_back(personality);
 }
 
-//////////////////////////////////
+//Loose functions
 void Player::looseDefencePersonalities(string provinceName,int dmg){
 	vector <blackCard *> temp=provinces[provinceName]->getDefenders();
 	provinces[provinceName]->loosePersonalties(dmg);
@@ -110,7 +87,7 @@ void Player::looseDefencePersonalities(string provinceName,int dmg){
 void Player::loosePersonalty(string name){
 	for(int i=0;i<army.size();i++){
 		if(army[i]->getname()==name){
-			cout<<"Player "<<GetName()<<"Loses soldier : "<<army[i]->getname()<<endl;
+			cout<<"Player '"<<GetName()<<"' Loses soldier: "<<army[i]->getname()<<endl;
 			army[i]->Kill();
 			return;
 		}
@@ -121,7 +98,7 @@ void Player::looseProvince(string name){
 	if(provinces.find(name)==provinces.end())
 		return;
 	looseHonor();
-	cout <<"PLAYER '"<< name <<"' LOSES PROVINCE "<<provinces[name]->getname() << endl;
+	cout <<"Player '"<< name <<"' Loses province: "<<provinces[name]->getname() << endl;
 	provinces[name]->Kill();
 	delete provinces[name];
 	provinces.erase(name);
@@ -129,13 +106,13 @@ void Player::looseProvince(string name){
 }
 
 void Player::looseHonor(){
-	cout<<"Player looses Honor, new Honor points are :"<<honor_points-1<<endl;
+	cout<<"Player looses Honor, new Honor points are: "<<honor_points-1<<endl;
  	honor_points-=1;
 	if(honor_points<=0)
 		performSeppuku();
 }
 
-///////////////////////////////////
+//Functions to acces the hand of the player
 bool Player::PlaceInHand(greenCard &Card){
 	for(int i=0; i<7; i++){
 		if(hand[i]==NULL){
@@ -177,7 +154,7 @@ greenCard *Player::SeeHandCard(int CardIndex){
 	return NULL;
 }
 
-//////////////////////////////
+//Print various informations about the player
 void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
@@ -233,8 +210,8 @@ void Player::revealProvinces(){
 			x.second->reveal();
 }
 
-/////////////////////
-void Player::StartRound(){
+//Functionalities
+void Player::StartRound(){//Functions that prepares player for a new round
 	money=Honor.getInitialMoney();//Initilizing money for player, for this round (from stronghold)
 	
 	//Untaping all cards
@@ -265,57 +242,6 @@ void Player::StartRound(){
 void Player::performSeppuku(){
 	lost=true;
 	cout<<"Player '"<< name <<"' performed Seppuku"<<endl;
-}
-
-bool Player::GetMoney(unsigned int amount){
-	if(amount<=money){
-		money=money-amount;
-		return true;
-	} else return false;
-}
-
-Personality *Player::GetPersonality(int index){
-	if( index>army.size() ){
-		return NULL;
-	} else return army[index];
-
-}
-
-int Player::GetPersonalityHonor(string name){
-	int i=0;
-	for(int i=0;i<army.size();i++){
-	    if(name.compare(army[i]->getname())==0){
-    		return army[i]->getHonour();
-    	}
-	}
-	return -1;
-}
-
-int Player::getPersonalityDamage(string name){
-	int i=0;
-	while(army[i]!=NULL){
-		if( (army[i]->getname()).compare(name)==0 )
-			return army[i]->getAttack();
-	}
-	return -1;
-}
-
-///////////////////////////////
-bool Player::HasArmy(){
-	if(army.size()<=0) return false;
-  	for(int i=0;i<army.size();i++)
-		if(army[i]->canUse())
-			return true;
-
-		return false;
-}
-
-bool Player::CheckName(const string &name){
-	for(int i=0;i<army.size();i++)
-		if(name==army[i]->getname() )
-			return true;
-
-	return false;
 }
 
 void Player::discardSurplusFateCards(){
@@ -353,6 +279,57 @@ bool Player::tap_holdings(int sum){
 	return true;
 }
 
+//Getters
+bool Player::GetMoney(unsigned int amount){
+	if(amount<=money){
+		money=money-amount;
+		return true;
+	} else return false;
+}
+
+Personality *Player::GetPersonality(int index){
+	if( index>army.size() ){
+		return NULL;
+	} else return army[index];
+
+}
+
+int Player::GetPersonalityHonor(string name){
+	int i=0;
+	for(int i=0;i<army.size();i++){
+	    if(name.compare(army[i]->getname())==0){
+    		return army[i]->getHonour();
+    	}
+	}
+	return -1;
+}
+
+int Player::getPersonalityDamage(string name){
+	int i=0;
+	while(army[i]!=NULL){
+		if( (army[i]->getname()).compare(name)==0 )
+			return army[i]->getAttack();
+	}
+	return -1;
+}
+
+//Check properties of player
+bool Player::HasArmy(){
+	if(army.size()<=0) return false;
+  	for(int i=0;i<army.size();i++)
+		if(army[i]->canUse())
+			return true;
+
+		return false;
+}
+
+bool Player::CheckName(const string &name){
+	for(int i=0;i<army.size();i++)
+		if(name==army[i]->getname() )
+			return true;
+
+	return false;
+}
 
 //Destructor
 Player::~Player(){
@@ -382,5 +359,33 @@ Player::~Player(){
 
 	for (auto& it : provinces){
     	delete it.second;
+	}
+}
+
+
+/*---------------------------------------------------------------------------*/
+void merge(Holding *up,Holding *sub){
+	sub->setU();
+	up->setS();
+	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
+	{	up->setFC();  //full chain has been closed
+		//middle holding has both upper and sub Holdings
+		//the FC(boolen) is a cheap and  easy way to check if a cyrstal mine is connected to a full chain
+	}
+}
+
+bool Compatible(Holding *a,Holding *b){
+	if(a->return_type() == b->return_type()) //no possible chain
+		return false;
+	if(a->return_type() > b->return_type()){ //b >> a possible up-sub relationship
+		if(!a->has_subholding() && !b->has_upperholding())
+			return true;
+		else //a and/or b have up/sub holdings no possible connection
+			return false;
+	}
+	if(a->return_type() < b->return_type()){  // a <<b possible connection
+		if(!a->has_upperholding() && !b->has_subholding())
+			return true;
+		return false;
 	}
 }
