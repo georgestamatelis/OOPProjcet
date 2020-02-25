@@ -24,7 +24,7 @@ Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("C
 
 }
 
-//Add functions
+/*----------Add functions----------*/
 void Player::AddHolding(Holding * province){
 	for(int i=0;i<Holdings.size();i++){
 		if(Compatible(Holdings[i],province)){
@@ -44,12 +44,12 @@ bool Player::AddProvince(string name){//Adds province to player (if possible) an
 	if(provinces[name]->isPersonality()){
 		Personality *temp=(Personality*)provinces[name];
 		if(!tap_holdings(temp->GetCost())){
-			cout<<"Sorry Player doesn't have enough money , Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
-			return false;
+			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			return false;//If the player is not able to buy the province, false value is returned to take of the next actions needed in this case
 		}
 		AddPersonality(temp);
 	}else{
-		if(!tap_holdings(provinces[name]->GetCost())){ //takes care of money
+		if(!tap_holdings(provinces[name]->GetCost())){//takes care of money
 			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
@@ -67,7 +67,7 @@ void Player::AddPersonality(Personality *personality){
 	army.push_back(personality);
 }
 
-//Loose functions
+/*----------Loose functions----------*/
 void Player::looseDefencePersonalities(string provinceName,int dmg){
 	vector <blackCard *> temp=provinces[provinceName]->getDefenders();
 	provinces[provinceName]->loosePersonalties(dmg);
@@ -97,8 +97,7 @@ void Player::loosePersonalty(string name){
 }
 
 void Player::looseProvince(string name){
-	if(provinces.find(name)==provinces.end())
-		return;
+	if(provinces.find(name)==provinces.end()) return;
 	looseHonor();
 	SetToRed();
 	cout <<"Player '"<< this->name <<"' Loses province: "<<provinces[name]->getname() << endl;
@@ -116,7 +115,7 @@ void Player::looseHonor(){
 		performSeppuku();
 }
 
-//Functions to acces the hand of the player
+/*----------Functions to acces the hand of the player----------*/
 bool Player::PlaceInHand(greenCard &Card){
 	for(int i=0; i<7; i++){
 		if(hand[i]==NULL){
@@ -128,37 +127,32 @@ bool Player::PlaceInHand(greenCard &Card){
 }
 
 greenCard* Player::DrawFromHand(int index){
-	greenCard* tmp;
-	int i,y;
-	for(i=0; i<7; i++){
-		if(hand[i]!=NULL){
-				tmp=hand[i];
-				for(y=i; y<6; y++){
-					hand[y]=hand[y+1];
-				}
-				hand[y]=NULL;
-				return tmp;
-		}
+	if(index>6 || hand[index]==NULL) return NULL;
+	int i;
+	greenCard *card=hand[index];//Hold requested card in a variable
+	for(i=index; i<6; i++){
+		hand[i]=hand[i+1];//All the other cards after the requested are shifted (lefts no NULL column between the cards, and removes the requested)
 	}
-	return NULL;
+	hand[i]=NULL;
+	return card;//The requested card can be returned, (removed from the hand from above)
 }
 
 void Player::drawFateCard(){
 	deckb.deckShuffler(fateDeck);
 	greenCard *FateCard=fateDeck->front();
-	if(PlaceInHand(*FateCard)==true){
-		fateDeck->erase(fateDeck->begin());
-	}else {
+	if(PlaceInHand(*FateCard)==true){//If player can draw a card
+		fateDeck->erase(fateDeck->begin());//Draws one from the fate deck
+	}else{
 		cout << "Hand full!!!" << endl;
 	}
 }
 
-greenCard *Player::SeeHandCard(int CardIndex){
+greenCard *Player::SeeHandCard(int CardIndex){//Functions to just "see" card in players hand
 	if(CardIndex<7) return hand[CardIndex];
 	return NULL;
 }
 
-//Print various informations about the player
+/*----------Print various informations about the player functions----------*/
 void Player::printArmy(){
 	int i=0;
 	for(int i=0;i<army.size();i++){
@@ -182,7 +176,7 @@ int Player::printHand(bool numbers){
 	return count;
 }
 
-void Player::PrintHoldings(){
+void Player::PrintHoldings(){//Only the usable ones are printed
 	for(int i=0;i<Holdings.size();i++)
 		if(Holdings[i]->canUse())
 			Holdings[i]->print();
@@ -191,7 +185,9 @@ void Player::PrintHoldings(){
 void Player::printProvinces(){
 	if(provinces.find("a")!=provinces.end()){
 		cout<<"a:"<<endl;
-  		provinces["a"]->print();}
+  		provinces["a"]->print();
+	}
+	
 	if(provinces.find("b")!=provinces.end()){
 		cout<<"b:"<<endl;
 		provinces["b"]->print();
@@ -203,7 +199,7 @@ void Player::printProvinces(){
   	}
 
 	if(provinces.find("d")!=provinces.end()){
-		cout<<"d: "<<endl;
+		cout<<"d:"<<endl;
 		provinces["d"]->print();
 	}
 }
@@ -214,7 +210,7 @@ void Player::revealProvinces(){
 			x.second->reveal();
 }
 
-//Functionalities
+/*----------Functionalities----------*/
 void Player::StartRound(){//Functions that prepares player for a new round
 	money=Honor.getInitialMoney();//Initilizing money for player, for this round (from stronghold)
 	
@@ -250,7 +246,7 @@ void Player::performSeppuku(){
 
 void Player::discardSurplusFateCards(){
 	int card;
-	if(hand[6]!=NULL){//if the player has 7 cards, then for the rules he needs to through one
+	if(hand[6]!=NULL){//if the player has 7 cards, then from the rules he needs to through one
 		SetToYellow();
 		cout << "You have exceded the maximum number of cards you can have in your hand!! Your hand:"<<endl;
 		SetToDefault();
@@ -283,41 +279,22 @@ bool Player::tap_holdings(int sum){
 	return true;
 }
 
-//Getters
+/*----------Getters----------*/
 bool Player::GetMoney(unsigned int amount){
 	if(amount<=money){
 		money=money-amount;
 		return true;
-	} else return false;
+	}else return false;
 }
 
 Personality *Player::GetPersonality(int index){
 	if( index>army.size() ){
 		return NULL;
-	} else return army[index];
+	}else return army[index];
 
 }
 
-int Player::GetPersonalityHonor(string name){
-	int i=0;
-	for(int i=0;i<army.size();i++){
-	    if(name.compare(army[i]->getname())==0){
-    		return army[i]->getHonour();
-    	}
-	}
-	return -1;
-}
-
-int Player::getPersonalityDamage(string name){
-	int i=0;
-	while(army[i]!=NULL){
-		if( (army[i]->getname()).compare(name)==0 )
-			return army[i]->getAttack();
-	}
-	return -1;
-}
-
-//Check properties of player
+/*----------Check properties of player----------*/
 bool Player::HasArmy(){
 	if(army.size()<=0) return false;
   	for(int i=0;i<army.size();i++)
@@ -327,15 +304,7 @@ bool Player::HasArmy(){
 		return false;
 }
 
-bool Player::CheckName(const string &name){
-	for(int i=0;i<army.size();i++)
-		if(name==army[i]->getname() )
-			return true;
-
-	return false;
-}
-
-//Destructor
+/*----------Destructor----------*/
 Player::~Player(){
 	for(int i=0; i<7; i++){
 		if(hand[i]!=NULL) delete hand[i];
@@ -367,7 +336,7 @@ Player::~Player(){
 }
 
 
-/*---------------------------------------------------------------------------*/
+/*-----------------------Functions to help in chain-----------------------*/
 void merge(Holding *up,Holding *sub){
 	sub->setU();
 	up->setS();

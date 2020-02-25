@@ -52,8 +52,6 @@ class Player{
 		void performSeppuku();
 		bool GetMoney(unsigned int amount); //Removes requsted amount from player (if possible returns true)
 		Personality *GetPersonality(int);
-		int GetPersonalityHonor(std::string name);
-		int getPersonalityDamage(std::string name);
 		void discardSurplusFateCards();
 		bool tap_holdings(int sum);
 		
@@ -61,7 +59,6 @@ class Player{
 		inline int isAlive(){ return !lost;}
 		inline bool CheckInHand(int index){if(index>=6) return false; return (hand[index]==NULL)? false : true;}
 		bool CheckHonor(unsigned int amount){(amount<=honor_points)? true : false;}
-		bool CheckName(const std::string &name);
 
 		//Getters
 		unsigned int SeeMoney() {return money;}

@@ -43,5 +43,6 @@ class blackCard : public Card{
 
     std::vector<blackCard *> getDefenders() { return defendants; }
 
+	bool is_Revealed(){return isRevealed;}
     void reveal() { isRevealed = true; }
 };

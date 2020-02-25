@@ -11,6 +11,7 @@ DeckBuilder::DeckBuilder()
 
 DeckBuilder::~DeckBuilder()
 {
+	//No need for the deckbuilder to free any memory everything is handled from the player class
 	/*list<blackCard *>::iterator it;
 	list<greenCard *>::iterator it2;
 	for (it = black->begin(); it != black->end(); it++)
