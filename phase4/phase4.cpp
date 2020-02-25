@@ -44,7 +44,7 @@ void phase4::play(){
 			std::unordered_map<std::string,blackCard*>& prs =players[i]->GetProvinces();
 			int uselesssum=0;
 			for(auto x: prs)
-				if(!x.second->canUse())
+				if(!x.second->canUse() && x.second->is_Revealed())
 				  uselesssum++;
 			if(uselesssum >=4){//If the player cant buy any more provinces
 				cout<<"No more provinces available"<<endl;
