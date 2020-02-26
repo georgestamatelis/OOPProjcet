@@ -13,16 +13,16 @@ phase4::phase4(Player **player,int num_of_players):players(player),num_of_player
 void phase4::play(){
 	bool FirstPurchase;
 	string province;
-	
+
 	SetToYellow();
 	cout<<"┌─────────────────────────┐\n"
 	    <<"│ Phase 4 [Economy phase] │\n"
 	    <<"V                         V\n"<<endl;
 	cout<<"Phase 4 [Economy phase]"<<endl;
 	SetToDefault();
-	
+
 	qsort(players,num_of_players,sizeof(Player*),Honorcompare);//Sorting players by honor
-	
+
 	for(int i=0;i<num_of_players;i++){
 		SetToYellow();
 		cout << "Player '" << players[i]->GetName() << "' turn:" << endl;
@@ -38,8 +38,10 @@ void phase4::play(){
 			cout<<"Which one: ";
 			province=ReadString();
 			while(players[i]->AddProvince(province)==false){//Loop until the user is able to buy a province
-				cout << "Unable to buy this province, please type another: ";
+				cout << "Unable to buy this province, please type another: or type q to quit ";
 				province=ReadString();
+				if(province=="q")
+				  break;
 			}
 			std::unordered_map<std::string,blackCard*>& prs =players[i]->GetProvinces();
 			int uselesssum=0;
