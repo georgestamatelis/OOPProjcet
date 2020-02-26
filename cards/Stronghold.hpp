@@ -8,7 +8,7 @@ private:
   int initialDefense;
 
 public:
-  StrongHold(std::string name, int c = 0, int initialHonor = 5, int initialMoney = 50, int initialDefense = 5)
+  StrongHold(std::string name, int c = 0, int initialHonor = 5, int initialMoney = 5, int initialDefense = 5)
       : blackCard(name, c), initialHonor(initialHonor), initialMoney(initialMoney), initialDefense(initialDefense){}
   int getInitialHonor() { return initialHonor; }
   int getInitialMoney() { return initialMoney; }
