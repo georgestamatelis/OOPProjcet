@@ -1,11 +1,8 @@
 #include <iostream>
 #include "Player.hpp"
 #include "../dependencies/Functionalities.hpp"
+#include "./PlayerDependencies.hpp"
 using namespace std;
-
-
-void merge(Holding *up,Holding *sub);
-bool Compatible(Holding *a,Holding *b);//Forward declaretion
 
 Player::Player(string n):life_points(4),money(500),numberOfProvinces(4),Honor("Castle"),honor_points(4),name(n),lost(false){
 	fateDeck=deckb.createFateDeck();
@@ -44,13 +41,13 @@ bool Player::AddProvince(string name){//Adds province to player (if possible) an
 	if(provinces[name]->isPersonality()){
 		Personality *temp=(Personality*)provinces[name];
 		if(!tap_holdings(temp->GetCost())){
-			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<" and cost="<<provinces[name]->GetCost() <<endl;
 			return false;//If the player is not able to buy the province, false value is returned to take of the next actions needed in this case
 		}
 		AddPersonality(temp);
 	}else{
 		if(!tap_holdings(provinces[name]->GetCost())){//takes care of money
-			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<"  and cost ="<<provinces[name]->GetCost() <<endl;
+			cout<<"Sorry Player doesn't have enough money, Players money="<<money<<" and cost="<<provinces[name]->GetCost() <<endl;
 			return false;
 		}
 		AddHolding((Holding*)provinces[name]);
@@ -332,33 +329,5 @@ Player::~Player(){
 
 	for (auto& it : provinces){
     	delete it.second;
-	}
-}
-
-
-/*-----------------------Functions to help in chain-----------------------*/
-void merge(Holding *up,Holding *sub){
-	sub->setU();
-	up->setS();
-	if(up->return_type()==3 && sub->return_type()==2 && sub->has_subholding())
-	{	up->setFC();  //full chain has been closed
-		//middle holding has both upper and sub Holdings
-		//the FC(boolen) is a cheap and  easy way to check if a cyrstal mine is connected to a full chain
-	}
-}
-
-bool Compatible(Holding *a,Holding *b){
-	if(a->return_type() == b->return_type()) //no possible chain
-		return false;
-	if(a->return_type() > b->return_type()){ //b >> a possible up-sub relationship
-		if(!a->has_subholding() && !b->has_upperholding())
-			return true;
-		else //a and/or b have up/sub holdings no possible connection
-			return false;
-	}
-	if(a->return_type() < b->return_type()){  // a <<b possible connection
-		if(!a->has_upperholding() && !b->has_subholding())
-			return true;
-		return false;
 	}
 }

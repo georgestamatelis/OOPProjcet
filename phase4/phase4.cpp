@@ -38,10 +38,9 @@ void phase4::play(){
 			cout<<"Which one: ";
 			province=ReadString();
 			while(players[i]->AddProvince(province)==false){//Loop until the user is able to buy a province
-				cout << "Unable to buy this province, please type another: or type q to quit ";
+				cout << "Unable to buy this province, please type another (q to quit): ";
 				province=ReadString();
-				if(province=="q")
-				  break;
+				if(province=="q") break;
 			}
 			std::unordered_map<std::string,blackCard*>& prs =players[i]->GetProvinces();
 			int uselesssum=0;
